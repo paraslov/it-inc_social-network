@@ -9,3 +9,7 @@
     font-size: 1.4em;
     padding: 10px;
 }
+
+.item a.activeLink {
+    color: darkmagenta;
+}
