@@ -3,7 +3,7 @@ import React from "react"
 function Dialogs() {
     return (
         <div>
-            Dialogs
+            Dialogs Page
         </div>
     )
 }
