@@ -1,0 +1,10 @@
+.header {
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.newPost textarea {
+    width: 200px;
+    height: 80px;
+    border-radius: 15px;
+}
