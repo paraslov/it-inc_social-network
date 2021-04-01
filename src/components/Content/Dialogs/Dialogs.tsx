@@ -1,30 +1,46 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
+import React from 'react'
+import {NavLink} from 'react-router-dom'
 import s from './Dialogs.module.css'
+
+type DialogPropsType = {
+    id: number
+    name: string
+}
+
+function Dialog(props: DialogPropsType) {
+    return (
+        <NavLink to={`/dialogs/${props.id}`} className={s.dialogItem}
+                 activeClassName={s.active}>{props.name}</NavLink>
+    )
+}
+
+type UserMessagePropsType = {
+    message: string
+}
+
+function UserMessage(props: UserMessagePropsType) {
+    return (
+        <div className={s.messageItem}>{props.message}</div>
+    )
+}
 
 function Dialogs() {
     return (
         <div className={s.contentWrapper}>
             <div className={s.userDialogs}>
-                <NavLink to={'/dialogs/1'} className={s.dialogItem}
-                         activeClassName={s.active}>Kitomo Natsuro</NavLink>
-                <NavLink to={'/dialogs/2'} className={s.dialogItem}
-                         activeClassName={s.active}>Sikoko Segun</NavLink>
-                <NavLink to={'/dialogs/3'} className={s.dialogItem}
-                         activeClassName={s.active}> Kisyu Natsuro</NavLink>
-                <NavLink to={'/dialogs/4'} className={s.dialogItem}
-                         activeClassName={s.active}>Alex</NavLink>
-                <NavLink to={'/dialogs/5'} className={s.dialogItem}
-                         activeClassName={s.active}>Iniomo Ui</NavLink>
-                <NavLink to={'/dialogs/6'} className={s.dialogItem}
-                         activeClassName={s.active}>Hiroshi Kagawa</NavLink>
-                <NavLink to={'/dialogs/7'} className={s.dialogItem}
-                         activeClassName={s.active}>Xin Jao</NavLink>
+                <Dialog id={1} name={'Kitomo Natsuro'}/>
+                <Dialog id={2} name={'Sikoko Segun'}/>
+                <Dialog id={3} name={'Kisyu Natsuro'}/>
+                <Dialog id={4} name={'Alex'}/>
+                <Dialog id={5} name={'Iniomo Ui'}/>
+                <Dialog id={6} name={'Hiroyushi Kagawa'}/>
+                <Dialog id={7} name={'Xin Jao'}/>
             </div>
             <div className={s.userMessages}>
-                <div className={s.messageItem}>How's your samurai lessons?</div>
-                <div className={s.messageItem}>How are you, broh?</div>
-                <div className={s.messageItem}>Hi</div>
+                <UserMessage message={'How\'s your samurai lessons?'} />
+                <UserMessage message={'How are you, broh?'} />
+                <UserMessage message={'Hoi!'} />
+                <UserMessage message={'Hi'} />
             </div>
         </div>
     )
