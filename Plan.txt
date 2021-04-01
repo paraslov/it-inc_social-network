@@ -4,3 +4,4 @@
 4. Routing (BrowserRouter , Route (Lesson 19))
 5. Lesson 20: NavLink, to='', activeClassName={s.active}
 6. Lesson 22: Route, exact path='/..'
+7. Lesson 24: UI <-- BLL. Extract data.
