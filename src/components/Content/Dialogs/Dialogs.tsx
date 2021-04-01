@@ -40,25 +40,21 @@ function Dialogs() {
         {id: 2, message: 'How are you, broh?'},
         {id: 3, message: 'Oi!'},
         {id: 4, message: 'Hi'},
+        {id: 4, message: 'Who is this?'},
     ]
+    const dialogsElements = dialogsUsersData
+        .map(user => <Dialog id={user.id} name={user.name}/>)
+    const messagesElements = messagesData
+        .map(messageEl => <UserMessage message={messageEl.message}/>)
 
 
     return (
         <div className={s.contentWrapper}>
             <div className={s.userDialogs}>
-                <Dialog id={dialogsUsersData[0].id} name={dialogsUsersData[0].name}/>
-                <Dialog id={2} name={'Sikoko Segun'}/>
-                <Dialog id={3} name={'Kisyu Natsuro'}/>
-                <Dialog id={4} name={'Alex'}/>
-                <Dialog id={5} name={'Iniomo Ui'}/>
-                <Dialog id={6} name={'Hiroyushi Kagawa'}/>
-                <Dialog id={7} name={'Xin Jao'}/>
+                {dialogsElements}
             </div>
             <div className={s.userMessages}>
-                <UserMessage message={messagesData[0].message}/>
-                <UserMessage message={'How are you, broh?'}/>
-                <UserMessage message={'Hoi!'}/>
-                <UserMessage message={'Hi'}/>
+                {messagesElements}
             </div>
         </div>
     )

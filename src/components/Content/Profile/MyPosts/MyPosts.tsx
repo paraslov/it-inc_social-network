@@ -3,25 +3,27 @@ import s from './MyPosts.module.css'
 import Post from './Post/Post'
 
 function MyPosts() {
-    const postMessagesData = [
-        {id: 1, message: 'I\'m absolutely fine!'},
-        {id: 2, message: 'How are you doing?'},
-        {id: 3, message: 'It\'s my first post'},
+    const postsMessagesData = [
+        {id: 1, message: 'I\'m absolutely fine!', likesCount: 7},
+        {id: 2, message: 'How are you doing?', likesCount: 10},
+        {id: 3, message: 'It\'s my first post', likesCount: 22},
     ]
+
+    const postsElements = postsMessagesData
+        .map(post => <Post message={post.message} likesCounter={post.likesCount}/>)
+
     return (
         <div>
             <header className={s.header}>My Posts</header>
             <div className={s.newPost}>
                 <div>New Post:</div>
-                <div><textarea /></div>
+                <div><textarea/></div>
                 <div>
                     <button>Add Post</button>
                 </div>
             </div>
             <div>
-                <Post message={postMessagesData[0].message} likesCounter={7}/>
-                <Post message={'How are you doing?'} likesCounter={7}/>
-                <Post message={'It\'s my first post'} likesCounter={13}/>
+                {postsElements}
             </div>
         </div>)
 }
