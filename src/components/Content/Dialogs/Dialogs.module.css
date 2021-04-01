@@ -1,2 +1,29 @@
+.contentWrapper {
+    display: grid;
+    grid-template-columns: 3fr 10fr;
+}
 
+.userDialogs {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    border-right: 1px solid #333;
+}
+
+.dialogItem {
+    color: #333333;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.dialogItem.active {
+    color: goldenrod;
+}
+
+.messageItem {
+    padding: 10px;
+    margin-left: 50px;
+}
 
