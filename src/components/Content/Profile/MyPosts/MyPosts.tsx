@@ -1,16 +1,16 @@
 import React from 'react'
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
+import {PostMessageType} from '../../../../index';
 
-function MyPosts() {
-    const postsMessagesData = [
-        {id: 1, message: 'I\'m absolutely fine!', likesCount: 7},
-        {id: 2, message: 'How are you doing?', likesCount: 10},
-        {id: 3, message: 'It\'s my first post', likesCount: 22},
-    ]
+type MyPostsPropsType = {
+    postsMessagesData: Array<PostMessageType>
+}
 
-    const postsElements = postsMessagesData
-        .map(post => <Post message={post.message} likesCounter={post.likesCount}/>)
+function MyPosts(props: MyPostsPropsType) {
+
+    const postsElements = props.postsMessagesData
+        .map((post: PostMessageType) => <Post message={post.message} likesCounter={post.likesCounter}/>)
 
     return (
         <div>

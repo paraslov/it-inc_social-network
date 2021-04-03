@@ -5,3 +5,5 @@
 5. Lesson 20: NavLink, to='', activeClassName={s.active}
 6. Lesson 22: Route, exact path='/..'
 7. Lesson 24: UI <-- BLL. Extract data.
+8. Lesson 25: map() method used to create lists of components (messages and list of users)
+9. Lessons 26-27: Using Route render instead of component to throw props through. Dialogs component refactored. All data was managed in index.tsx.

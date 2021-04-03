@@ -2,12 +2,17 @@ import React from "react";
 import s from "./Profile.module.css"
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import {PostMessageType} from '../../../index';
 
-function Profile() {
+type ProfilePropsType = {
+    postsMessagesData: Array<PostMessageType>
+}
+
+function Profile(props: ProfilePropsType) {
     return (
         <main className={s.main_content}>
             <ProfileInfo />
-            <MyPosts/>
+            <MyPosts postsMessagesData={props.postsMessagesData}/>
         </main>)
 }
 
