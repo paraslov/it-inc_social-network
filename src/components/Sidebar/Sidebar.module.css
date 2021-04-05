@@ -1,0 +1,23 @@
+.sidebarWrapper {
+    margin-top: 100px;
+    margin-left: 10px;
+}
+
+.dialogItem {
+    display: flex;
+    align-items: center;
+}
+
+.dialogItem img {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+
+.dialogLink {
+    color: #333333;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+}

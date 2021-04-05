@@ -5,11 +5,15 @@ import React from 'react';
 type DialogPropsType = {
     id: number
     name: string
+    avatar: string
 }
 
 export function Dialog(props: DialogPropsType) {
     return (
-        <NavLink to={`/dialogs/${props.id}`} className={s.dialogItem}
-                 activeClassName={s.active}>{props.name}</NavLink>
+        <div className={s.dialogItem}>
+            <img src={props.avatar} alt="samurai user avatar"/>
+            <NavLink to={`/dialogs/${props.id}`} className={s.dialogLink}
+                     activeClassName={s.active}>{props.name}</NavLink>
+        </div>
     )
 }

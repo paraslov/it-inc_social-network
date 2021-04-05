@@ -1,13 +1,12 @@
 .nav {
     grid-area: nav;
-    background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg');
 }
 
 .item a {
     color: #444;
     text-decoration: none;
     font-size: 1.4em;
-    padding: 10px;
+    margin: 10px;
 }
 
 .item a.activeLink {
