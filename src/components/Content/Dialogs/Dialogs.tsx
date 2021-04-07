@@ -7,13 +7,16 @@ import {DialogMessageType, DialogsPageType, DialogUserType} from '../../../redux
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
+    sendMessage: (newMessageText: string) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
     const textareaRef = React.createRef<HTMLTextAreaElement>()
 
     const sendMessage = () => {
-        alert(textareaRef.current?.value)
+        if(textareaRef.current?.value) {
+            props.sendMessage(textareaRef.current.value)
+        }
     }
 
     const dialogsElements = props.dialogsPage.dialogsUsersData

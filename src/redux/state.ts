@@ -29,10 +29,10 @@ export type StateType = {
 export const state: StateType = {
     profilePage: {
         postsMessagesData: [
-            {id: 1, message: 'I\'m absolutely fine!', likesCounter: 17},
-            {id: 2, message: 'How are you doing?', likesCounter: 10},
-            {id: 3, message: 'It\'s my second post', likesCounter: 22},
-            {id: 4, message: 'It\'s my first post', likesCounter: 66},
+            {id: 1, message: 'It\'s my first post', likesCounter: 66},
+            {id: 2, message: 'It\'s my second post', likesCounter: 22},
+            {id: 3, message: 'How are you doing?', likesCounter: 11},
+            {id: 4, message: 'I\'m absolutely fine!', likesCounter: 6},
         ],
     },
     dialogsPage: {
@@ -60,4 +60,21 @@ export const state: StateType = {
             {id: 4, message: 'Who is this?', myMessage: true},
         ],
     },
+}
+
+export const addPost = (newPostText: string) => {
+    const newPost: PostMessageType = {
+        id: state.profilePage.postsMessagesData.length + 1,
+        message: newPostText,
+        likesCounter: 0
+    }
+    state.profilePage.postsMessagesData.push(newPost)
+}
+export const sendMessage = (newMessageText: string) => {
+    const newMessage: DialogMessageType = {
+        id: state.dialogsPage.messagesData.length + 1,
+        message: newMessageText,
+        myMessage: true
+    }
+    state.dialogsPage.messagesData.push(newMessage)
 }

@@ -9,3 +9,4 @@
 9. Lessons 26-27: Using Route render instead of component to throw props through. Dialogs component refactored. All data was managed in index.tsx.
 10. Lessons 28-29: state.ts created to manage data in BLL (future signs of redux).
 11. Lesson 31: React.createRef(); onClick callbacks for buttons.
+12. Lesson 32: Adding callback functions to state.ts and throw them through props to functions that use it. FLUX.

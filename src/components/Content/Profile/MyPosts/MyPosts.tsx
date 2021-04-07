@@ -6,6 +6,7 @@ import {PostMessageType} from '../../../../redux/state';
 
 type MyPostsPropsType = {
     postsMessagesData: Array<PostMessageType>
+    addPost: (newPostText: string) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
@@ -15,7 +16,9 @@ function MyPosts(props: MyPostsPropsType) {
         .map((post: PostMessageType) => <Post message={post.message} likesCounter={post.likesCounter}/>)
 
     const addPost = () => {
-        alert(textareaRef.current?.value)
+        if(textareaRef.current?.value) {
+            props.addPost(textareaRef.current.value)
+        }
     }
 
     return (
