@@ -16,9 +16,11 @@ export type PostMessageType = {
     likesCounter: number
 }
 export type ProfilePageType = {
+    newPostText: string
     postsMessagesData: Array<PostMessageType>
 }
 export type DialogsPageType = {
+    newMessageText: string
     dialogsUsersData: Array<DialogUserType>
     messagesData: Array<DialogMessageType>
 }
@@ -30,6 +32,7 @@ export type StateType = {
 
 export const state: StateType = {
     profilePage: {
+        newPostText: '',
         postsMessagesData: [
             {id: 1, message: 'It\'s my first post', likesCounter: 66},
             {id: 2, message: 'It\'s my second post', likesCounter: 22},
@@ -38,6 +41,7 @@ export const state: StateType = {
         ],
     },
     dialogsPage: {
+        newMessageText: '',
         dialogsUsersData: [
             {id: 1, name: 'Kitomo Natsuro',
             avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmJt-xek2xo2KnR6gWf1A1_a4OTxTXMLVmdJDJ-9wC6xxA4khbW0lKNf4ZflC208TXLzQ&usqp=CAU"},
@@ -64,21 +68,32 @@ export const state: StateType = {
     },
 }
 
-export const addPost = (newPostText: string) => {
+export const addPost = () => {
     const newPost: PostMessageType = {
         id: state.profilePage.postsMessagesData.length + 1,
-        message: newPostText,
+        message: state.profilePage.newPostText,
         likesCounter: 0
     }
     state.profilePage.postsMessagesData.push(newPost)
+    state.profilePage.newPostText = ''
     rerenderEntireTree(state)
 }
-export const sendMessage = (newMessageText: string) => {
+export const sendMessage = () => {
     const newMessage: DialogMessageType = {
         id: state.dialogsPage.messagesData.length + 1,
-        message: newMessageText,
+        message: state.dialogsPage.newMessageText,
         myMessage: true
     }
     state.dialogsPage.messagesData.push(newMessage)
+    state.dialogsPage.newMessageText = ''
+    rerenderEntireTree(state)
+}
+
+export const newPostTextChange = (newPostText: string) => {
+    state.profilePage.newPostText = newPostText
+    rerenderEntireTree(state)
+}
+export const newMessageTextChange = (newMessageText: string) => {
+    state.dialogsPage.newMessageText = newMessageText
     rerenderEntireTree(state)
 }

@@ -14,8 +14,10 @@ import {Sidebar} from './components/Sidebar/Sidebar';
 
 type AppPropsType = {
     state: StateType
-    addPost: (newPostText: string) => void
-    sendMessage: (newMessageText: string) => void
+    addPost: () => void
+    sendMessage: () => void
+    newPostTextChange: (newPostText: string) => void
+    newMessageTextChange: (newMessageText: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -30,10 +32,14 @@ function App(props: AppPropsType) {
             <div className="app-wrapper__main-content">
                 <Route path={'/dialogs'} render={() => <Dialogs
                     dialogsPage={props.state.dialogsPage}
-                    sendMessage={props.sendMessage}/>}/>
+                    newMessageText={props.state.dialogsPage.newMessageText}
+                    sendMessage={props.sendMessage}
+                    newMessageTextChange={props.newMessageTextChange}
+                    />}/>
                 <Route path={'/profile'} render={() => <Profile
                     profilePage={props.state.profilePage}
-                    addPost={props.addPost}/>}/>
+                    addPost={props.addPost}
+                    newPostTextChange={props.newPostTextChange}/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>

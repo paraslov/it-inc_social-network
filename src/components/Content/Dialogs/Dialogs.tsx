@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/Message';
@@ -7,17 +7,21 @@ import {DialogMessageType, DialogsPageType, DialogUserType} from '../../../redux
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
+    newMessageText: string
     sendMessage: (newMessageText: string) => void
+    newMessageTextChange: (newMessageText: string) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
-    const textareaRef = React.createRef<HTMLTextAreaElement>()
 
     const sendMessage = () => {
-        if (textareaRef.current?.value) {
-            props.sendMessage(textareaRef.current.value)
-            textareaRef.current.value = ''
-        }
+        if (props.newMessageText.trim() !== '') {
+            props.sendMessage(props.newMessageText.trim())
+            props.newMessageTextChange('')
+        } // else TODO: error message
+    }
+    const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.newMessageTextChange(e.currentTarget.value)
     }
 
     const dialogsElements = props.dialogsPage.dialogsUsersData
@@ -40,7 +44,8 @@ export function Dialogs(props: DialogsPropsType) {
                 {messagesElements}
             </div>
             <div className={s.inputArea}>
-                <textarea ref={textareaRef}/>
+                <textarea value={props.newMessageText}
+                          onChange={onTextareaChange}/>
                 <div>
                     <button onClick={sendMessage}>Send Message</button>
                 </div>
