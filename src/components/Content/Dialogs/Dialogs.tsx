@@ -14,8 +14,9 @@ export function Dialogs(props: DialogsPropsType) {
     const textareaRef = React.createRef<HTMLTextAreaElement>()
 
     const sendMessage = () => {
-        if(textareaRef.current?.value) {
+        if (textareaRef.current?.value) {
             props.sendMessage(textareaRef.current.value)
+            textareaRef.current.value = ''
         }
     }
 

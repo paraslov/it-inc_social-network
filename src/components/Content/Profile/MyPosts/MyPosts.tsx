@@ -16,8 +16,9 @@ function MyPosts(props: MyPostsPropsType) {
         .map((post: PostMessageType) => <Post message={post.message} likesCounter={post.likesCounter}/>)
 
     const addPost = () => {
-        if(textareaRef.current?.value) {
+        if (textareaRef.current?.value) {
             props.addPost(textareaRef.current.value)
+            textareaRef.current.value = ''
         }
     }
 

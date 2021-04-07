@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from '../render';
+
 export type DialogUserType = {
     id: number
     name: string
@@ -69,6 +71,7 @@ export const addPost = (newPostText: string) => {
         likesCounter: 0
     }
     state.profilePage.postsMessagesData.push(newPost)
+    rerenderEntireTree(state)
 }
 export const sendMessage = (newMessageText: string) => {
     const newMessage: DialogMessageType = {
@@ -77,4 +80,5 @@ export const sendMessage = (newMessageText: string) => {
         myMessage: true
     }
     state.dialogsPage.messagesData.push(newMessage)
+    rerenderEntireTree(state)
 }
