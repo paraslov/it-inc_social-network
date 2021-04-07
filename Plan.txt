@@ -8,3 +8,4 @@
 8. Lesson 25: map() method used to create lists of components (messages and list of users)
 9. Lessons 26-27: Using Route render instead of component to throw props through. Dialogs component refactored. All data was managed in index.tsx.
 10. Lessons 28-29: state.ts created to manage data in BLL (future signs of redux).
+11. Lesson 31: React.createRef(); onClick callbacks for buttons.

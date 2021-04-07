@@ -10,6 +10,11 @@ type DialogsPropsType = {
 }
 
 export function Dialogs(props: DialogsPropsType) {
+    const textareaRef = React.createRef<HTMLTextAreaElement>()
+
+    const sendMessage = () => {
+        alert(textareaRef.current?.value)
+    }
 
     const dialogsElements = props.dialogsPage.dialogsUsersData
         .map((user: DialogUserType) => <Dialog key={user.id}
@@ -29,6 +34,12 @@ export function Dialogs(props: DialogsPropsType) {
             </div>
             <div className={s.userMessages}>
                 {messagesElements}
+            </div>
+            <div className={s.inputArea}>
+                <textarea ref={textareaRef}/>
+                <div>
+                    <button onClick={sendMessage}>Send Message</button>
+                </div>
             </div>
         </div>
     )
