@@ -24,14 +24,14 @@ type AppPropsType = {
 function App(props: AppPropsType) {
     return (
         <div className="app-wrapper"
-             style={{background: `black url(${backgroundImage}) no-repeat`, backgroundSize: '100%',}}>
+             style={{background: `black url(${backgroundImage})`, backgroundSize: '100%',}}>
             <Header/>
 
             <NavBar/>
             <Sidebar dialogsUsersData={props.state.dialogsPage.dialogsUsersData}/>
 
 
-            <div className="app-wrapper__main-content">
+            <div className="main-content">
                 <Route path={'/dialogs'} render={() => <Dialogs
                     dialogsPage={props.state.dialogsPage}
                     newMessageText={props.state.dialogsPage.newMessageText}

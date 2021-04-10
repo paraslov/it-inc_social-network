@@ -4,7 +4,7 @@
     'uD uM'
     'uD iA';
     grid-template-columns: 3fr 10fr;
-    grid-template-rows: 80% 20%;
+    grid-template-rows: 65% 35%;
     grid-gap: 10px;
 }
 
@@ -22,9 +22,6 @@
 
 .inputArea {
     grid-area: iA;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
 }
 
 .dialogItem {
@@ -39,7 +36,7 @@
 }
 
 .dialogLink {
-    color: #333333;
+    color: #888;
     font-size: 1.1em;
     font-weight: bold;
     text-decoration: none;
@@ -73,15 +70,26 @@
     padding: 10px;
 }
 
-.inputArea textarea {
+.inputAreaContent {
     width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputArea textarea {
+    width: 90%;
     height: 70px;
     border-radius: 10px;
 }
 .inputArea button {
-    width: 100px;
+    width: 120px;
     height: 40px;
     border-radius: 10px;
     margin-top: 15px;
+    color: white;
+    font-size: 1.1em;
+    background-color: #777;
 }
 

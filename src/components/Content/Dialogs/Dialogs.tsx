@@ -44,10 +44,12 @@ export function Dialogs(props: DialogsPropsType) {
                 {messagesElements}
             </div>
             <div className={s.inputArea}>
-                <textarea value={props.newMessageText}
-                          onChange={onTextareaChange}/>
-                <div>
-                    <button onClick={sendMessage}>Send Message</button>
+                <div className={s.inputAreaContent}>
+                    <textarea value={props.newMessageText}
+                              onChange={onTextareaChange}/>
+                    <div>
+                        <button onClick={sendMessage}>Send</button>
+                    </div>
                 </div>
             </div>
         </div>

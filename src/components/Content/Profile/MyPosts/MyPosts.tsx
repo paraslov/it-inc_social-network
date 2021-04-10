@@ -28,14 +28,13 @@ function MyPosts(props: MyPostsPropsType) {
         <div>
             <header className={s.header}>My Posts</header>
             <div className={s.newPost}>
-                <div>New Post:</div>
-                <div><textarea value={props.profilePage.newPostText}
-                               onChange={onPostTextChange}/></div>
+                <textarea value={props.profilePage.newPostText}
+                               onChange={onPostTextChange}/>
                 <div>
                     <button onClick={addPost}>Add Post</button>
                 </div>
             </div>
-            <div>
+            <div className={s.postsArea}>
                 {postsElements}
             </div>
         </div>)
