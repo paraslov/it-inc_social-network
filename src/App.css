@@ -3,25 +3,23 @@ textarea {
 }
 
 .app-wrapper {
+    color: white;
     margin: 0 auto;
     height: 100vh;
-    width: 1200px;
+    width: 100vw;
     display: grid;
 
     grid-template-areas:
     "header header"
-    "nav main";
-    grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
+    "nav nav"
+    "sidebar main";
+    grid-template-rows: 60px 1fr 10fr;
+    grid-template-columns: 1fr 6fr;
     grid-gap: 10px;
 }
 
 app-wrapper__main-content {
     grid-area: main;
-}
-
-.sidebar {
-    background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg');
 }
 
 

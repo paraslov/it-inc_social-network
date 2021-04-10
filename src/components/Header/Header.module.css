@@ -1,4 +1,9 @@
 .header {
     grid-area: header;
-    background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg');
+    /*background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg');*/
+}
+
+.header img {
+    margin-top: 40px;
+    margin-left: 40px;
 }

@@ -10,6 +10,7 @@ import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import {StateType} from './redux/state';
 import {Sidebar} from './components/Sidebar/Sidebar';
+import backgroundImage from './assets/img/background/bckgrimg.jpg'
 
 
 type AppPropsType = {
@@ -22,12 +23,13 @@ type AppPropsType = {
 
 function App(props: AppPropsType) {
     return (
-        <div className="app-wrapper">
+        <div className="app-wrapper"
+             style={{background: `black url(${backgroundImage}) no-repeat`, backgroundSize: '100%',}}>
             <Header/>
-            <div className={'sidebar'}>
-                <NavBar/>
-                <Sidebar dialogsUsersData={props.state.dialogsPage.dialogsUsersData}/>
-            </div>
+
+            <NavBar/>
+            <Sidebar dialogsUsersData={props.state.dialogsPage.dialogsUsersData}/>
+
 
             <div className="app-wrapper__main-content">
                 <Route path={'/dialogs'} render={() => <Dialogs
@@ -35,7 +37,7 @@ function App(props: AppPropsType) {
                     newMessageText={props.state.dialogsPage.newMessageText}
                     sendMessage={props.sendMessage}
                     newMessageTextChange={props.newMessageTextChange}
-                    />}/>
+                />}/>
                 <Route path={'/profile'} render={() => <Profile
                     profilePage={props.state.profilePage}
                     addPost={props.addPost}
