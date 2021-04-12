@@ -2,6 +2,7 @@
     grid-area: sidebar;
     margin-top: 100px;
     margin-left: 40px;
+    border-right: 1px solid #333;
 }
 
 .dialogItem {

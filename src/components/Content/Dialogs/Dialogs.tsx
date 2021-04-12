@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from './Dialog/Dialog';
-import {UserMessage} from './Message/Message';
+import {UserMessage} from './Message/UserMessage';
 import {DialogMessageType, DialogsPageType, DialogUserType} from '../../../redux/state';
 
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     newMessageText: string
     sendMessage: (newMessageText: string) => void

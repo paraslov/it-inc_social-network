@@ -1,7 +1,7 @@
 import s from '../Dialogs.module.css';
 import React from 'react';
 
-type UserMessagePropsType = {
+export type UserMessagePropsType = {
     message: string
     myMessage: boolean
 }
