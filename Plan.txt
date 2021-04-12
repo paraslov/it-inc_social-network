@@ -14,3 +14,6 @@
 14. Lesson 34: FLUX: onChange event in textarea changing data in state and then rerender whole app.
     newPostTextChange and newMessageTextChange added and addPost/sendMessage func updated.
 15. Lesson 35: subscribe(observer) callback for rerenderEntireTree using in state.ts.
+16. Lesson 36-37: creating store with OOP principles. _callSubscriber and _subscribe func in store. getState() func in store.
+    Using method .bind(store) to use store "this" callback context, not props "this" callback context.
+    Using "_" (_state) for developer variables and functions.
