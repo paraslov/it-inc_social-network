@@ -1,4 +1,11 @@
-import {rerenderEntireTree} from '../render';
+
+let rerenderEntireTree = (state: StateType) => {
+    console.log('state was changed')
+}
+
+export const subscriber = (observer: (state: StateType) => void) => {
+    rerenderEntireTree = observer
+}
 
 export type DialogUserType = {
     id: number

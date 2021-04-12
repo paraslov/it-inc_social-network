@@ -13,3 +13,4 @@
 13. Lesson 33: rerenderEntireTree() func is added to render.ts and used in state.ts and index.ts FLUX continued to building up.
 14. Lesson 34: FLUX: onChange event in textarea changing data in state and then rerender whole app.
     newPostTextChange and newMessageTextChange added and addPost/sendMessage func updated.
+15. Lesson 35: subscribe(observer) callback for rerenderEntireTree using in state.ts.
