@@ -6,8 +6,7 @@ import {PostMessageType, ProfilePageType} from '../../../../redux/state';
 
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    addPost: () => void
-    newPostTextChange: (newPostText: string) => void
+    dispatch: (action: any) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
@@ -17,11 +16,11 @@ function MyPosts(props: MyPostsPropsType) {
 
     const addPost = () => {
         if (props.profilePage.newPostText.trim() !== '') {
-            props.addPost()
+            props.dispatch({type: 'ADD-POST'})
         } // else TODO: error message
     }
     const onPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.newPostTextChange(e.currentTarget.value)
+        props.dispatch({type: 'NEW-POST-TEXT-CHANGE', newPostText: e.currentTarget.value})
     }
 
     return (
@@ -29,7 +28,7 @@ function MyPosts(props: MyPostsPropsType) {
             <header className={s.header}>My Posts</header>
             <div className={s.newPost}>
                 <textarea value={props.profilePage.newPostText}
-                               onChange={onPostTextChange}/>
+                          onChange={onPostTextChange}/>
                 <div>
                     <button onClick={addPost}>Add Post</button>
                 </div>

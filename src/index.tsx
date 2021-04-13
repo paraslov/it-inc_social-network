@@ -10,10 +10,7 @@ export const rerenderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} addPost={store.addPost.bind(store)}
-                     sendMessage={store.sendMessage.bind(store)}
-                     newMessageTextChange={store.newMessageTextChange.bind(store)}
-                     newPostTextChange={store.newPostTextChange.bind(store)}/>
+                <App state={state} dispatch={store.dispatch.bind(store)}/>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

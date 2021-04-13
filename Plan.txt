@@ -17,3 +17,5 @@
 16. Lesson 36-37: creating store with OOP principles. _callSubscriber and _subscribe func in store. getState() func in store.
     Using method .bind(store) to use store "this" callback context, not props "this" callback context.
     Using "_" (_state) for developer variables and functions.
+17. Lesson 38: dispatch(action) used as one function to call in the project. All functions are situated in
+    dispatch and choosing by action.type = 'NAME-OF-FUNCTION' value. 

@@ -89,34 +89,33 @@ export const store = {
             ],
         },
     } as StateType,
-    addPost() {
-        const newPost: PostMessageType = {
-            id: this._state.profilePage.postsMessagesData.length + 1,
-            message: this._state.profilePage.newPostText,
-            likesCounter: 0
+    dispatch(action: any) {
+        if (action.type === 'ADD-POST') {
+            const newPost: PostMessageType = {
+                id: this._state.profilePage.postsMessagesData.length + 1,
+                message: this._state.profilePage.newPostText,
+                likesCounter: 0
+            }
+            this._state.profilePage.postsMessagesData.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber(this._state)
+        } else if (action.type === 'SEND-MESSAGE') {
+            const newMessage: DialogMessageType = {
+                id: this._state.dialogsPage.messagesData.length + 1,
+                message: this._state.dialogsPage.newMessageText.trim(),
+                myMessage: true
+            }
+            this._state.dialogsPage.messagesData.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubscriber(this._state)
+        } else if (action.type === 'NEW-POST-TEXT-CHANGE') {
+            this._state.profilePage.newPostText = action.newPostText
+            this._callSubscriber(this._state)
+        } else if (action.type === 'NEW-MESSAGE-TEXT-CHANGE') {
+            this._state.dialogsPage.newMessageText = action.newMessageText
+            this._callSubscriber(this._state)
         }
-        this._state.profilePage.postsMessagesData.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state)
     },
-    sendMessage() {
-        const newMessage: DialogMessageType = {
-            id: this._state.dialogsPage.messagesData.length + 1,
-            message: this._state.dialogsPage.newMessageText,
-            myMessage: true
-        }
-        this._state.dialogsPage.messagesData.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._callSubscriber(this._state)
-    },
-    newPostTextChange(newPostText: string) {
-        this._state.profilePage.newPostText = newPostText
-        this._callSubscriber(this._state)
-    },
-    newMessageTextChange(newMessageText: string) {
-        this._state.dialogsPage.newMessageText = newMessageText
-        this._callSubscriber(this._state)
-    }
 }
 
 

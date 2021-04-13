@@ -8,20 +8,19 @@ import {DialogMessageType, DialogsPageType, DialogUserType} from '../../../redux
 export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     newMessageText: string
-    sendMessage: (newMessageText: string) => void
-    newMessageTextChange: (newMessageText: string) => void
+    dispatch: (action: any) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
 
     const sendMessage = () => {
         if (props.newMessageText.trim() !== '') {
-            props.sendMessage(props.newMessageText.trim())
-            props.newMessageTextChange('')
+            props.dispatch({type: 'SEND-MESSAGE'})
+            props.dispatch({type: 'NEW-MESSAGE-TEXT-CHANGE', newMessageText: ''})
         } // else TODO: error message
     }
     const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.newMessageTextChange(e.currentTarget.value)
+        props.dispatch({type: 'NEW-MESSAGE-TEXT-CHANGE', newMessageText: e.currentTarget.value})
     }
 
     const dialogsElements = props.dialogsPage.dialogsUsersData

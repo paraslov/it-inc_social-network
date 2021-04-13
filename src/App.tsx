@@ -15,10 +15,7 @@ import backgroundImage from './assets/img/background/bckgrimg.jpg'
 
 type AppPropsType = {
     state: StateType
-    addPost: () => void
-    sendMessage: () => void
-    newPostTextChange: (newPostText: string) => void
-    newMessageTextChange: (newMessageText: string) => void
+    dispatch: (action: any) => void
 }
 
 function App(props: AppPropsType) {
@@ -34,13 +31,11 @@ function App(props: AppPropsType) {
                     <Route path={'/dialogs'} render={() => <Dialogs
                         dialogsPage={props.state.dialogsPage}
                         newMessageText={props.state.dialogsPage.newMessageText}
-                        sendMessage={props.sendMessage}
-                        newMessageTextChange={props.newMessageTextChange}
+                        dispatch={props.dispatch}
                     />}/>
                     <Route path={'/profile'} render={() => <Profile
                         profilePage={props.state.profilePage}
-                        addPost={props.addPost}
-                        newPostTextChange={props.newPostTextChange}/>}/>
+                        dispatch={props.dispatch}/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>

@@ -59,7 +59,6 @@ DialogsTest.args = {
         ],
     },
     newMessageText: 'https://www.para-slov.ru',
-    newMessageTextChange: onTextChangeCallback,
-    sendMessage: sendMessageCallback
-
+    dispatch(action: any) {
+    }
 }
