@@ -3,6 +3,7 @@ import s from './Dialogs.module.css'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
 import {
+    ActionsTypes,
     DialogMessageType,
     DialogsPageType,
     DialogUserType,
@@ -14,7 +15,7 @@ import {
 export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     newMessageText: string
-    dispatch: (action: any) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {

@@ -1,8 +1,3 @@
-const ADD_POST = 'ADD_POST'
-const SEND_MESSAGE = 'SEND_MESSAGE'
-const NEW_POST_TEXT_CHANGE = 'NEW_POST_TEXT_CHANGE'
-const NEW_MESSAGE_TEXT_CHANGE = 'NEW_MESSAGE_TEXT_CHANGE'
-
 export type DialogUserType = {
     id: number
     name: string
@@ -33,11 +28,19 @@ export type StateType = {
     dialogsPage: DialogsPageType
 }
 
-export const store = {
-    _callSubscriber(state: StateType) {
+export type StoreType = {
+    _callSubscriber: (state: StateType) => void
+    _subscriber: (observer: (state: StateType) => void) => void
+    getState: () => StateType
+    _state: StateType
+    dispatch: (action: ActionsTypes) => void
+}
+
+export const store: StoreType = {
+    _callSubscriber(state) {
         console.log('state changed')
     },
-    _subscriber(observer: (state: StateType) => void) {
+    _subscriber(observer) {
         this._callSubscriber = observer
     },
     getState() {
@@ -93,9 +96,9 @@ export const store = {
                 {id: 4, message: 'Who is this?', myMessage: true},
             ],
         },
-    } as StateType,
-    dispatch(action: any) {
-        if (action.type === ADD_POST) {
+    },
+    dispatch(action: ActionsTypes) {
+        if (action.type === 'ADD_POST') {
             const newPost: PostMessageType = {
                 id: this._state.profilePage.postsMessagesData.length + 1,
                 message: this._state.profilePage.newPostText,
@@ -104,7 +107,7 @@ export const store = {
             this._state.profilePage.postsMessagesData.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber(this._state)
-        } else if (action.type === SEND_MESSAGE) {
+        } else if (action.type === 'SEND_MESSAGE') {
             const newMessage: DialogMessageType = {
                 id: this._state.dialogsPage.messagesData.length + 1,
                 message: this._state.dialogsPage.newMessageText.trim(),
@@ -113,21 +116,42 @@ export const store = {
             this._state.dialogsPage.messagesData.push(newMessage)
             this._state.dialogsPage.newMessageText = ''
             this._callSubscriber(this._state)
-        } else if (action.type === NEW_POST_TEXT_CHANGE) {
+        } else if (action.type === 'NEW_POST_TEXT_CHANGE') {
             this._state.profilePage.newPostText = action.newPostText
             this._callSubscriber(this._state)
-        } else if (action.type === NEW_MESSAGE_TEXT_CHANGE) {
+        } else if (action.type === 'NEW_MESSAGE_TEXT_CHANGE') {
             this._state.dialogsPage.newMessageText = action.newMessageText
             this._callSubscriber(this._state)
         }
     },
 }
 
-type NewPostTextChangeACType = (text: string) => ({type: string, newPostText: string})
+export type ActionsTypes = AddPostActionType | SendMessageActionType |
+    newPostTextChangeActionType | newMessageTextChangeActionType
+type AddPostActionType = {
+    type: 'ADD_POST'
+}
+type AddPostACType = () => AddPostActionType
+type SendMessageActionType = {
+    type: 'SEND_MESSAGE'
+}
+type SendMessageACType = () => SendMessageActionType
+type newPostTextChangeActionType = {
+    type: 'NEW_POST_TEXT_CHANGE',
+    newPostText: string
+}
+type newPostTextChangeACType = (text: string) => newPostTextChangeActionType
+type newMessageTextChangeActionType = {
+    type: 'NEW_MESSAGE_TEXT_CHANGE',
+    newMessageText: string
+}
+type newMessageTextChangeACType = (text: string) => newMessageTextChangeActionType
 
-export const addPostAC = () => ({type: ADD_POST})
-export const sendMessageAC = () => ({type: SEND_MESSAGE})
-export const newPostTextChangeAC: NewPostTextChangeACType = (text) => ({type: NEW_POST_TEXT_CHANGE, newPostText: text})
-export const newMessageTextChangeAC = (text: string) => ({type: NEW_MESSAGE_TEXT_CHANGE, newMessageText: text})
+export const addPostAC:AddPostACType = () => ({type: 'ADD_POST'})
+export const sendMessageAC:SendMessageACType = () => ({type: 'SEND_MESSAGE'})
+export const newPostTextChangeAC:newPostTextChangeACType= (text) =>
+    ({type: 'NEW_POST_TEXT_CHANGE', newPostText: text})
+export const newMessageTextChangeAC:newMessageTextChangeACType = (text) =>
+    ({type: 'NEW_MESSAGE_TEXT_CHANGE', newMessageText: text})
 
 
