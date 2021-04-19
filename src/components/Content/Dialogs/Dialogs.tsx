@@ -7,9 +7,8 @@ import {
     DialogMessageType,
     DialogsPageType,
     DialogUserType,
-    newMessageTextChangeAC,
-    sendMessageAC
 } from '../../../redux/state';
+import {newMessageTextChangeAC, sendMessageAC } from '../../../redux/dialogs_reducer';
 
 
 export type DialogsPropsType = {

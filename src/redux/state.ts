@@ -1,3 +1,6 @@
+import dialogsReducer, { DialogsReducerActionsType } from "./dialogs_reducer"
+import profileReducer, { ProfileReducerActionsType } from "./profile_reducer"
+
 export type DialogUserType = {
     id: number
     name: string
@@ -98,60 +101,12 @@ export const store: StoreType = {
         },
     },
     dispatch(action: ActionsTypes) {
-        if (action.type === 'ADD_POST') {
-            const newPost: PostMessageType = {
-                id: this._state.profilePage.postsMessagesData.length + 1,
-                message: this._state.profilePage.newPostText,
-                likesCounter: 0
-            }
-            this._state.profilePage.postsMessagesData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state)
-        } else if (action.type === 'SEND_MESSAGE') {
-            const newMessage: DialogMessageType = {
-                id: this._state.dialogsPage.messagesData.length + 1,
-                message: this._state.dialogsPage.newMessageText.trim(),
-                myMessage: true
-            }
-            this._state.dialogsPage.messagesData.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubscriber(this._state)
-        } else if (action.type === 'NEW_POST_TEXT_CHANGE') {
-            this._state.profilePage.newPostText = action.newPostText
-            this._callSubscriber(this._state)
-        } else if (action.type === 'NEW_MESSAGE_TEXT_CHANGE') {
-            this._state.dialogsPage.newMessageText = action.newMessageText
-            this._callSubscriber(this._state)
-        }
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._callSubscriber(this._state)
     },
 }
 
-export type ActionsTypes = AddPostActionType | SendMessageActionType |
-    newPostTextChangeActionType | newMessageTextChangeActionType
-type AddPostActionType = {
-    type: 'ADD_POST'
-}
-type AddPostACType = () => AddPostActionType
-type SendMessageActionType = {
-    type: 'SEND_MESSAGE'
-}
-type SendMessageACType = () => SendMessageActionType
-type newPostTextChangeActionType = {
-    type: 'NEW_POST_TEXT_CHANGE',
-    newPostText: string
-}
-type newPostTextChangeACType = (text: string) => newPostTextChangeActionType
-type newMessageTextChangeActionType = {
-    type: 'NEW_MESSAGE_TEXT_CHANGE',
-    newMessageText: string
-}
-type newMessageTextChangeACType = (text: string) => newMessageTextChangeActionType
-
-export const addPostAC:AddPostACType = () => ({type: 'ADD_POST'})
-export const sendMessageAC:SendMessageACType = () => ({type: 'SEND_MESSAGE'})
-export const newPostTextChangeAC:newPostTextChangeACType= (text) =>
-    ({type: 'NEW_POST_TEXT_CHANGE', newPostText: text})
-export const newMessageTextChangeAC:newMessageTextChangeACType = (text) =>
-    ({type: 'NEW_MESSAGE_TEXT_CHANGE', newMessageText: text})
+export type ActionsTypes = DialogsReducerActionsType | ProfileReducerActionsType
 
 
