@@ -100,7 +100,7 @@ export const store: StoreType = {
             ],
         },
     },
-    dispatch(action: ActionsTypes) {
+    dispatch(action: any) {
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._callSubscriber(this._state)

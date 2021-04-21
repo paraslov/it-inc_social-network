@@ -21,3 +21,7 @@
     dispatch and choosing by action.type = 'NAME-OF-FUNCTION' value. Dialogs and Profile pages code was refactored
     to use dispatch(action).
 18. Lesson 39: Action Creators were added to state.ts. Dialogs and Profile pages code was refactored to use AC.
+19. Lesson 41: Reducers were created for Profile and Dialogs pages. All dispatches now go through them.
+    In custom store we are now dispatch reducers and get our state from reducers, then rerendering app.
+20. Lesson 42: Add Redux to our project. Creating redux store in store.ts. Now all work goes through it.
+    Initial state were added to reducers.
