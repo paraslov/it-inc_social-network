@@ -8,13 +8,13 @@ import {Route, Switch} from 'react-router-dom';
 import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
-import {StateType} from './redux/state';
 import {Sidebar} from './components/Sidebar/Sidebar';
 import backgroundImage from './assets/img/background/bckgrimg.jpg'
+import {AppStateType} from './redux/store';
 
 
 type AppPropsType = {
-    state: StateType
+    state: AppStateType
     dispatch: (action: any) => void
 }
 

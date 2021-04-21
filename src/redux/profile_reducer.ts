@@ -1,6 +1,7 @@
 import {PostMessageType} from './state'
+import {InferActionsTypes} from './store';
 
-
+//* ================== Initial State =================================================>
 const initState = {
     newPostText: '',
     postsMessagesData: [
@@ -10,9 +11,10 @@ const initState = {
         {id: 4, message: 'I\'m absolutely fine!', likesCounter: 6},
     ],
 }
-type ProfilePageStateType = typeof initState
 
-const profileReducer = (state: ProfilePageStateType = initState, action: ProfileReducerActionsType) => {
+export type ProfilePageStateType = typeof initState
+
+const profileReducer = (state: ProfilePageStateType = initState, action: ProfileReducerActionsTypes) => {
     switch (action.type) {
         case 'ADD_POST':
             const newPost: PostMessageType = {
@@ -31,10 +33,14 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
     }
 }
 
-export type ProfileReducerActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof newPostTextChangeAC>
+//* ====== Action Creators =================================================================>
+export type ProfileReducerActionsTypes = InferActionsTypes<typeof profileActions>
 
-export const addPostAC = () => ({type: 'ADD_POST'} as const)
-export const newPostTextChangeAC = (text: string) =>
-    ({type: 'NEW_POST_TEXT_CHANGE', newPostText: text} as const)
+export const profileActions = {
+    addPost: () => ({type: 'ADD_POST'} as const),
+    newPostTextChange: (text: string) =>
+        ({type: 'NEW_POST_TEXT_CHANGE', newPostText: text} as const),
+}
+
 
 export default profileReducer

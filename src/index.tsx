@@ -1,13 +1,12 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {StateType} from './redux/state';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import App from './App';
-import {store} from './redux/store';
+import {AppStateType, store} from './redux/store';
 
-export const rerenderEntireTree = (state: StateType) => {
+export const rerenderEntireTree = (state: AppStateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>

@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react'
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
 import {ActionsTypes, PostMessageType, ProfilePageType} from '../../../../redux/state';
-import { addPostAC, newPostTextChangeAC } from '../../../../redux/profile_reducer';
+import { profileActions } from '../../../../redux/profile_reducer';
 
 
 type MyPostsPropsType = {
@@ -17,11 +17,11 @@ function MyPosts(props: MyPostsPropsType) {
 
     const addPost = () => {
         if (props.profilePage.newPostText.trim() !== '') {
-            props.dispatch(addPostAC())
+            props.dispatch(profileActions.addPost())
         } // else TODO: error message
     }
     const onPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(newPostTextChangeAC(e.currentTarget.value))
+        props.dispatch(profileActions.newPostTextChange(e.currentTarget.value))
     }
 
     return (

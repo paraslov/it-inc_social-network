@@ -1,6 +1,7 @@
 import {DialogMessageType} from "./state"
+import {InferActionsTypes} from './store';
 
-
+//* ================== Initial State =================================================>
 const initState = {
     newMessageText: '',
     dialogsUsersData: [
@@ -42,9 +43,9 @@ const initState = {
     ],
 }
 
-type DialogsPageStateType = typeof initState
+export type DialogsPageStateType = typeof initState
 
-const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsReducerActionsType) => {
+const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsReducerActionsTypes) => {
     switch (action.type) {
         case 'SEND_MESSAGE':
             const newMessage: DialogMessageType = {
@@ -63,11 +64,15 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
     }
 }
 
-export type DialogsReducerActionsType = ReturnType<typeof sendMessageAC> | ReturnType<typeof newMessageTextChangeAC>
+//* ====== Action Creators =================================================================>
+export type DialogsReducerActionsTypes = InferActionsTypes<typeof dialogsActions>
 
-export const sendMessageAC = () => ({type: 'SEND_MESSAGE'} as const)
-export const newMessageTextChangeAC = (text: string) =>
-    ({type: 'NEW_MESSAGE_TEXT_CHANGE', newMessageText: text} as const)
+export const dialogsActions = {
+    sendMessage: () => ({type: 'SEND_MESSAGE'} as const),
+    newMessageTextChange: (text: string) =>
+        ({type: 'NEW_MESSAGE_TEXT_CHANGE', newMessageText: text} as const),
+}
+
 
 
 export default dialogsReducer
