@@ -6,32 +6,32 @@ import { profileActions } from '../../../../redux/profile_reducer';
 
 
 type MyPostsPropsType = {
-    profilePage: ProfilePageType
-    dispatch: (action: ActionsTypes) => void
+    postsMessagesData: Array<PostMessageType>
+    newPostText: string
+    addPost: () => void
+    newPostTextChange: (text: string) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
 
-    const postsElements = props.profilePage.postsMessagesData
+    const postsElements = props.postsMessagesData
         .map((post: PostMessageType) => <Post message={post.message} likesCounter={post.likesCounter}/>)
 
-    const addPost = () => {
-        if (props.profilePage.newPostText.trim() !== '') {
-            props.dispatch(profileActions.addPost())
-        } // else TODO: error message
+    const onAddPost = () => {
+        props.addPost()
     }
     const onPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(profileActions.newPostTextChange(e.currentTarget.value))
+        props.newPostTextChange(e.currentTarget.value)
     }
 
     return (
         <div>
             <header className={s.header}>My Posts</header>
             <div className={s.newPost}>
-                <textarea value={props.profilePage.newPostText}
+                <textarea value={props.newPostText}
                           onChange={onPostTextChange}/>
                 <div>
-                    <button onClick={addPost}>Add Post</button>
+                    <button onClick={onAddPost}>Add Post</button>
                 </div>
             </div>
             <div className={s.postsArea}>

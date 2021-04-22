@@ -18,7 +18,6 @@ const Template: Story<DialogsPropsType> = (args) => <Dialogs {...args}/>
 
 export const DialogsTest = Template.bind({})
 DialogsTest.args = {
-    dialogsPage: {
         newMessageText: '',
         dialogsUsersData: [
             {
@@ -57,8 +56,6 @@ DialogsTest.args = {
             {id: 4, message: 'Hi', myMessage: false},
             {id: 4, message: 'Who is this?', myMessage: true},
         ],
-    },
-    newMessageText: 'https://www.para-slov.ru',
-    dispatch(action: any) {
-    }
+    textareaChange: onTextChangeCallback,
+    sendMessage: sendMessageCallback
 }

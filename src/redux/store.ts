@@ -17,3 +17,6 @@ export type AppStateType = ReturnType<typeof rootReducer>
 export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 
 export const store = createStore(rootReducer)
+
+
+export type StoreType = typeof store

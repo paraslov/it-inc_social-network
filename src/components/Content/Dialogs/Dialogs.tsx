@@ -2,38 +2,32 @@ import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
-import {
-    ActionsTypes,
-    DialogMessageType,
-    DialogsPageType,
-    DialogUserType,
-} from '../../../redux/state';
-import {dialogsActions} from '../../../redux/dialogs_reducer';
+import {DialogMessageType, DialogUserType,} from '../../../redux/state';
 
 
 export type DialogsPropsType = {
-    dialogsPage: DialogsPageType
+    dialogsUsersData: Array<DialogUserType>
+    messagesData: Array<DialogMessageType>
     newMessageText: string
-    dispatch: (action: ActionsTypes) => void
+    sendMessage: () => void
+    textareaChange: (text: string) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
 
-    const sendMessage = () => {
-        if (props.newMessageText.trim() !== '') {
-            props.dispatch(dialogsActions.sendMessage())
-        } // else TODO: error message
+    const onSendMessage = () => {
+        props.sendMessage()
     }
     const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(dialogsActions.newMessageTextChange(e.currentTarget.value))
+        props.textareaChange(e.currentTarget.value)
     }
 
-    const dialogsElements = props.dialogsPage.dialogsUsersData
+    const dialogsElements = props.dialogsUsersData
         .map((user: DialogUserType) => <Dialog key={user.id}
                                                id={user.id}
                                                name={user.name}
                                                avatar={user.avatar}/>)
-    const messagesElements = props.dialogsPage.messagesData
+    const messagesElements = props.messagesData
         .map((messageEl: DialogMessageType) => <UserMessage key={messageEl.id}
                                                             message={messageEl.message}
                                                             myMessage={messageEl.myMessage}/>)
@@ -50,9 +44,10 @@ export function Dialogs(props: DialogsPropsType) {
             <div className={s.inputArea}>
                 <div className={s.inputAreaContent}>
                     <textarea value={props.newMessageText}
+                              placeholder={'type your message'}
                               onChange={onTextareaChange}/>
                     <div>
-                        <button onClick={sendMessage}>Send</button>
+                        <button onClick={onSendMessage}>Send</button>
                     </div>
                 </div>
             </div>

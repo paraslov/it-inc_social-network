@@ -25,3 +25,5 @@
     In custom store we are now dispatch reducers and get our state from reducers, then rerendering app.
 20. Lesson 42: Add Redux to our project. Creating redux store in store.ts. Now all work goes through it.
     Initial state were added to reducers.
+21. Lesson 43: Usage of container components to provide all necessary data to presentational components.
+    Added: MyPostContainer, DialogsContainer, SidebarContainer.
