@@ -27,3 +27,6 @@
     Initial state were added to reducers.
 21. Lesson 43: Usage of container components to provide all necessary data to presentational components.
     Added: MyPostContainer, DialogsContainer, SidebarContainer.
+22. Lesson 44: StoreContext added by React.createContext<StoreType>({} as StoreType). 
+    StoreContext.Provider used to give store to App.tsx context.
+    StoreContext.Consumer used to give store from context to App children components.

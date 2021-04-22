@@ -1,17 +1,20 @@
 import React from 'react';
-import {StoreType} from '../../redux/store';
+import {StoreContext} from '../../StoreContext';
 import {Sidebar} from './Sidebar';
 
-type SidebarPropsType = {
-    store: StoreType
-}
-
-export function SidebarContainer(props: SidebarPropsType) {
+export function SidebarContainer() {
     const startIndex = Math.floor(Math.random() * 4 + 1)
     console.log(startIndex)
 
-    return (
-        <Sidebar dialogsUsersData={props.store.getState().dialogsPage.dialogsUsersData}
-                 startIndex={startIndex}/>
-    )
+    return <StoreContext.Consumer>
+        {
+            (store) => {
+                return <Sidebar dialogsUsersData={store.getState().dialogsPage.dialogsUsersData}
+                                startIndex={startIndex}/>
+            }
+        }
+
+    </StoreContext.Consumer>
+
+
 }
