@@ -18,17 +18,20 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
     ProfilePageStateType=> {
     switch (action.type) {
         case 'ADD_POST':
-            const newPost: PostMessageType = {
-                id: state.postsMessagesData.length + 1,
-                message: state.newPostText,
-                likesCounter: 0
+            return {
+                ...state,
+                postsMessagesData: [
+                    {
+                        id: state.postsMessagesData.length + 1,
+                        message: state.newPostText,
+                        likesCounter: 0
+                    },
+                    ...state.postsMessagesData
+                ],
+                newPostText: ''
             }
-            state.postsMessagesData.push(newPost)
-            state.newPostText = ''
-            return state
         case 'NEW_POST_TEXT_CHANGE':
-            state.newPostText = action.newPostText
-            return state
+            return {...state, newPostText: action.newPostText}
         default:
             return state
     }

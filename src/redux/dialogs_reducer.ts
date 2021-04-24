@@ -54,12 +54,13 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
                 message: state.newMessageText.trim(),
                 myMessage: true
             }
-            state.messagesData.push(newMessage)
-            state.newMessageText = ''
-            return state
+            return {
+                ...state,
+                messagesData: [...state.messagesData, newMessage],
+                newMessageText: ''
+            }
         case 'NEW_MESSAGE_TEXT_CHANGE':
-            state.newMessageText = action.newMessageText
-            return state
+            return {...state, newMessageText: action.newMessageText}
         default:
             return state
     }

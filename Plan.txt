@@ -32,4 +32,5 @@
     StoreContext.Consumer used to give store from context to App children components.
 23. Lesson 45: react-redux plugin was installed. Provider from r-r was used and HOC connect
     was used in all container components.
-24. Lesson 46: 
+24. Lesson 47: deep copy used in reducers to make connect rerender the app.
+    index.tsx refactored and now render App just one first time. rerenderEntireTree func deleted.
