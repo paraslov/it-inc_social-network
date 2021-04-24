@@ -14,7 +14,8 @@ const initState = {
 
 export type ProfilePageStateType = typeof initState
 
-const profileReducer = (state: ProfilePageStateType = initState, action: ProfileReducerActionsTypes) => {
+const profileReducer = (state: ProfilePageStateType = initState, action: ProfileReducerActionsTypes):
+    ProfilePageStateType=> {
     switch (action.type) {
         case 'ADD_POST':
             const newPost: PostMessageType = {

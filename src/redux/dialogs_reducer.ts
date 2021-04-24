@@ -45,7 +45,8 @@ const initState = {
 
 export type DialogsPageStateType = typeof initState
 
-const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsReducerActionsTypes) => {
+const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsReducerActionsTypes):
+    DialogsPageStateType => {
     switch (action.type) {
         case 'SEND_MESSAGE':
             const newMessage: DialogMessageType = {

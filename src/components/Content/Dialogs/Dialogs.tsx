@@ -9,14 +9,14 @@ export type DialogsPropsType = {
     dialogsUsersData: Array<DialogUserType>
     messagesData: Array<DialogMessageType>
     newMessageText: string
-    sendMessage: () => void
+    sendMessage: (newMessageText: string) => void
     textareaChange: (text: string) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
 
     const onSendMessage = () => {
-        props.sendMessage()
+        props.sendMessage(props.newMessageText)
     }
     const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.textareaChange(e.currentTarget.value)
