@@ -23,7 +23,7 @@ export const usersReducer = (state: UserStateType = initialState, action: UsersA
         case 'SET_USERS':
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
             }
         case 'FOLLOW':
             return {
