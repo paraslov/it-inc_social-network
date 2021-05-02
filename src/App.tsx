@@ -4,12 +4,12 @@ import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
 import Profile from './components/Content/Profile/Profile';
 import {Route, Switch} from 'react-router-dom';
-import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import backgroundImage from './assets/img/background/bckgrimg.jpg'
 import {DialogsContainer} from './components/Content/Dialogs/DialogsContainer';
 import {SidebarContainer} from './components/Sidebar/SidebarContainer';
+import {UsersContainer} from './components/Content/Users/UsersContainer';
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
                 <Switch>
                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/profile'} render={() => <Profile/>}/>
-                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
                 </Switch>

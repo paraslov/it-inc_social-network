@@ -1,0 +1,42 @@
+.wrapper {
+    margin: 15px 0 0 15px;
+}
+
+.samurai {
+    width: 100%;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.userPhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.btn button {
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    margin-top: 3px;
+    margin-left: 10px;
+    color: white;
+    background-color: #777;
+}
+
+.userInfo {
+    width: 50%;
+    margin-left: 5%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #e7fdd8;
+    border-radius: 15px;
+    font-size: 1.2em;
+}
+
+.userInfoPart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

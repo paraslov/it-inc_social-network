@@ -14,7 +14,7 @@ const initState = {
 
 export type ProfilePageStateType = typeof initState
 
-const profileReducer = (state: ProfilePageStateType = initState, action: ProfileReducerActionsTypes):
+const profileReducer = (state: ProfilePageStateType = initState, action: ProfileActionsTypes):
     ProfilePageStateType=> {
     switch (action.type) {
         case 'ADD_POST':
@@ -38,7 +38,7 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
 }
 
 //* ====== Action Creators =================================================================>
-export type ProfileReducerActionsTypes = InferActionsTypes<typeof profileActions>
+export type ProfileActionsTypes = InferActionsTypes<typeof profileActions>
 
 export const profileActions = {
     addPost: () => ({type: 'ADD_POST'} as const),

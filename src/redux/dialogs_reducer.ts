@@ -45,7 +45,7 @@ const initState = {
 
 export type DialogsPageStateType = typeof initState
 
-const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsReducerActionsTypes):
+const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsActionsTypes):
     DialogsPageStateType => {
     switch (action.type) {
         case 'SEND_MESSAGE':
@@ -67,7 +67,7 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
 }
 
 //* ====== Action Creators =================================================================>
-export type DialogsReducerActionsTypes = InferActionsTypes<typeof dialogsActions>
+export type DialogsActionsTypes = InferActionsTypes<typeof dialogsActions>
 
 export const dialogsActions = {
     sendMessage: () => ({type: 'SEND_MESSAGE'} as const),

@@ -1,5 +1,5 @@
-import dialogsReducer, { DialogsReducerActionsTypes } from "./dialogs_reducer"
-import profileReducer, { ProfileReducerActionsTypes } from "./profile_reducer"
+import dialogsReducer, { DialogsActionsTypes } from "./dialogs_reducer"
+import profileReducer, { ProfileActionsTypes } from "./profile_reducer"
 
 export type DialogUserType = {
     id: number
@@ -107,6 +107,6 @@ export const store: StoreType = {
     },
 }
 
-export type ActionsTypes = DialogsReducerActionsTypes | ProfileReducerActionsTypes
+export type ActionsTypes = DialogsActionsTypes | ProfileActionsTypes
 
 
