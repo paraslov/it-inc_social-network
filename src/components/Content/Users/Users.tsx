@@ -13,19 +13,22 @@ type GetUserRequestType = {
 
 export function Users(props: UsersPropsType) {
 
-    if (props.users.length === 0) {
-        axios.get<GetUserRequestType>('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                props.setUsers(response.data.items)
-            })
+    let getUsers = () => {
+        if (props.users.length === 0) {
+            axios.get<GetUserRequestType>('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    props.setUsers(response.data.items)
+                })
+        }
     }
 
-    const samurais = props.users.map((u) => <User user={u}
+    const samurais = props.users.map((u) => <User key={u.id} user={u}
                                                   follow={props.follow}
                                                   unfollow={props.unfollow}/>)
 
     return (
         <div className={s.wrapper}>
+            <button onClick={getUsers}>Get Users</button>
             <div>
                 {samurais}
             </div>
