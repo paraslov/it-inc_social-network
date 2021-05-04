@@ -4,6 +4,7 @@ import {User} from './User/User';
 import s from './Users.module.css'
 import axios from 'axios';
 import {UserType} from '../../../redux/users_reducer';
+import {AppStateType} from '../../../redux/store';
 
 type GetUserRequestType = {
     items: UserType[]
@@ -11,11 +12,9 @@ type GetUserRequestType = {
     error: string
 }
 
-export class Users extends React.Component<UsersPropsType> {
+export class Users extends React.Component<UsersPropsType, AppStateType> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
-
+    componentDidMount() {
         axios.get<GetUserRequestType>('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
                 this.props.setUsers(response.data.items)
