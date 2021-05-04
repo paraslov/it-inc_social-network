@@ -1,12 +1,12 @@
 import React from 'react'
 import {UserType} from '../../../../redux/users_reducer';
 import s from '../Users.module.css'
+import defaultAva from '../../../../assets/img/ava/ava.png'
 
 type UserPropsType = {
     user: UserType
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: UserType[]) => void
 }
 
 export const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
@@ -14,7 +14,7 @@ export const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
         <div className={s.samurai}>
             <div>
                 <div>
-                    <img className={s.userPhoto} src={user.photoUrl} alt="user pic"/>
+                    <img className={s.userPhoto} src={user.photos.small !== null ? user.photos.small : defaultAva} alt="user pic"/>
                 </div>
                 <div className={s.btn}>
                     {user.followed
@@ -24,12 +24,12 @@ export const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
             </div>
             <div className={s.userInfo}>
                 <div className={s.userInfoPart}>
-                    <div>{user.fullName}</div>
+                    <div>{user.name}</div>
                     <div>{user.status}</div>
                 </div>
                 <div className={s.userInfoPart}>
-                    <div>{user.location.city}</div>
-                    <div>{user.location.country}</div>
+                    <div>{"Samurai"}</div>
+                    <div>{"Way"}</div>
                 </div>
             </div>
         </div>

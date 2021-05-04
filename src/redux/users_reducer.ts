@@ -3,22 +3,21 @@ import {InferActionsTypes} from './store';
 //* ================== User reducer types ===============================================================>
 export type UserType = {
     id: number,
-    fullName: string
+    name: string
     status: string
-    photoUrl: string
+    photos: {small: string, large: string}
     followed: boolean
-    location: { country: string, city: string }
 }
 
 //* ================== Initial State ====================================================================>
 
-const initlState = {
+const initState = {
     users: [] as Array<UserType>,
 }
 
-export type UserStateType = typeof initlState
+export type UserStateType = typeof initState
 
-export const usersReducer = (state: UserStateType = initlState, action: UsersActionsType): UserStateType => {
+export const usersReducer = (state: UserStateType = initState, action: UsersActionsType): UserStateType => {
     switch (action.type) {
         case 'kty112/users_reducer/SET_USERS':
             return {
