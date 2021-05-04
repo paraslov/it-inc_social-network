@@ -1,7 +1,18 @@
-import {DialogMessageType} from "./state"
 import {InferActionsTypes} from './store';
 
-//* ================== Initial State =================================================>
+//* ================== Dialogs reducer types ===============================================================>
+export type DialogUserType = {
+    id: number
+    name: string
+    avatar: string
+}
+export type DialogMessageType = {
+    id: number
+    message: string
+    myMessage: boolean
+}
+
+//* ================== Initial State =======================================================================>
 const initState = {
     newMessageText: '',
     dialogsUsersData: [
@@ -33,14 +44,14 @@ const initState = {
             id: 7, name: 'Xin Jao',
             avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxFLuxdlIPooR8nGzHrzE1XehYLDAOo8orqg&usqp=CAU'
         },
-    ],
+    ] as DialogUserType[],
     messagesData: [
         {id: 1, message: 'How\'s your samurai lessons?', myMessage: false},
         {id: 2, message: 'How are you, broh?', myMessage: false},
         {id: 3, message: 'Oi!', myMessage: true},
         {id: 4, message: 'Hi', myMessage: false},
         {id: 4, message: 'Who is this?', myMessage: true},
-    ],
+    ] as DialogMessageType[],
 }
 
 export type DialogsPageStateType = typeof initState
@@ -48,7 +59,7 @@ export type DialogsPageStateType = typeof initState
 const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsActionsTypes):
     DialogsPageStateType => {
     switch (action.type) {
-        case 'SEND_MESSAGE':
+        case 'kty112/dialogs_reducer/SEND_MESSAGE':
             const newMessage: DialogMessageType = {
                 id: state.messagesData.length + 1,
                 message: state.newMessageText.trim(),
@@ -59,7 +70,7 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
                 messagesData: [...state.messagesData, newMessage],
                 newMessageText: ''
             }
-        case 'NEW_MESSAGE_TEXT_CHANGE':
+        case 'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE':
             return {...state, newMessageText: action.newMessageText}
         default:
             return state
@@ -70,9 +81,9 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
 export type DialogsActionsTypes = InferActionsTypes<typeof dialogsActions>
 
 export const dialogsActions = {
-    sendMessage: () => ({type: 'SEND_MESSAGE'} as const),
+    sendMessage: () => ({type: 'kty112/dialogs_reducer/SEND_MESSAGE'} as const),
     newMessageTextChange: (text: string) =>
-        ({type: 'NEW_MESSAGE_TEXT_CHANGE', newMessageText: text} as const),
+        ({type: 'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE', newMessageText: text} as const),
 }
 
 

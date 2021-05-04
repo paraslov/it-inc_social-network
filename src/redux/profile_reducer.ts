@@ -1,7 +1,13 @@
-import {PostMessageType} from './state'
 import {InferActionsTypes} from './store';
 
-//* ================== Initial State =================================================>
+//* ================== Profile reducer types ===============================================================>
+export type PostMessageType = {
+    id: number
+    message: string
+    likesCounter: number
+}
+
+//* ================== Initial State =======================================================================>
 const initState = {
     newPostText: '',
     postsMessagesData: [
@@ -9,7 +15,7 @@ const initState = {
         {id: 2, message: 'It\'s my second post', likesCounter: 22},
         {id: 3, message: 'How are you doing?', likesCounter: 11},
         {id: 4, message: 'I\'m absolutely fine!', likesCounter: 6},
-    ],
+    ] as PostMessageType[],
 }
 
 export type ProfilePageStateType = typeof initState
@@ -17,7 +23,7 @@ export type ProfilePageStateType = typeof initState
 const profileReducer = (state: ProfilePageStateType = initState, action: ProfileActionsTypes):
     ProfilePageStateType=> {
     switch (action.type) {
-        case 'ADD_POST':
+        case 'kty112/profile_reducer/ADD_POST':
             return {
                 ...state,
                 postsMessagesData: [
@@ -30,7 +36,7 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
                 ],
                 newPostText: ''
             }
-        case 'NEW_POST_TEXT_CHANGE':
+        case 'kty112/profile_reducer/NEW_POST_TEXT_CHANGE':
             return {...state, newPostText: action.newPostText}
         default:
             return state
@@ -41,9 +47,9 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
 export type ProfileActionsTypes = InferActionsTypes<typeof profileActions>
 
 export const profileActions = {
-    addPost: () => ({type: 'ADD_POST'} as const),
+    addPost: () => ({type: 'kty112/profile_reducer/ADD_POST'} as const),
     newPostTextChange: (text: string) =>
-        ({type: 'NEW_POST_TEXT_CHANGE', newPostText: text} as const),
+        ({type: 'kty112/profile_reducer/NEW_POST_TEXT_CHANGE', newPostText: text} as const),
 }
 
 

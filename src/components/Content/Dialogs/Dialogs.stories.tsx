@@ -1,8 +1,9 @@
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Dialogs, DialogsPropsType} from './Dialogs'
+import {Dialogs} from './Dialogs'
 import {MemoryRouter} from 'react-router-dom';
 import {action} from '@storybook/addon-actions';
+import {DialogsPropsType} from './DialogsContainer';
 
 
 export default {

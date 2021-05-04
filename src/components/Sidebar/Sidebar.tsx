@@ -1,12 +1,9 @@
 import React from 'react';
 import s from './Sidebar.module.css'
-import {DialogUserType} from '../../redux/state';
 import {Dialog} from '../Content/Dialogs/Dialog/Dialog';
+import {DialogUserType} from '../../redux/dialogs_reducer';
+import {SidebarPropsType} from './SidebarContainer';
 
-type SidebarPropsType = {
-    dialogsUsersData: Array<DialogUserType>
-    startIndex: number
-}
 
 export function Sidebar(props: SidebarPropsType) {
 

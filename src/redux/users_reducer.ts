@@ -1,6 +1,6 @@
 import {InferActionsTypes} from './store';
 
-//* ================== Needed types ===============================================================>
+//* ================== User reducer types ===============================================================>
 export type UserType = {
     id: number,
     fullName: string
@@ -10,27 +10,27 @@ export type UserType = {
     location: { country: string, city: string }
 }
 
-//* ================== Initial State ===============================================================>
+//* ================== Initial State ====================================================================>
 
-const initialState = {
+const initlState = {
     users: [] as Array<UserType>,
 }
 
-export type UserStateType = typeof initialState
+export type UserStateType = typeof initlState
 
-export const usersReducer = (state: UserStateType = initialState, action: UsersActionsType): UserStateType => {
+export const usersReducer = (state: UserStateType = initlState, action: UsersActionsType): UserStateType => {
     switch (action.type) {
-        case 'SET_USERS':
+        case 'kty112/users_reducer/SET_USERS':
             return {
                 ...state,
                 users: [...action.users]
             }
-        case 'FOLLOW':
+        case 'kty112/users_reducer/FOLLOW':
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
-        case 'UNFOLLOW':
+        case 'kty112/users_reducer/UNFOLLOW':
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
@@ -44,7 +44,7 @@ export const usersReducer = (state: UserStateType = initialState, action: UsersA
 type UsersActionsType = InferActionsTypes<typeof usersActions>
 
 export const usersActions = {
-    follow: (userId: number) => ({type: 'FOLLOW', userId} as const),
-    unfollow: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
-    setUsers: (users: UserType[]) => ({type: 'SET_USERS', users} as const),
+    follow: (userId: number) => ({type: 'kty112/users_reducer/FOLLOW', userId} as const),
+    unfollow: (userId: number) => ({type: 'kty112/users_reducer/UNFOLLOW', userId} as const),
+    setUsers: (users: UserType[]) => ({type: 'kty112/users_reducer/SET_USERS', users} as const),
 }

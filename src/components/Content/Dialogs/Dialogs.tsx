@@ -2,16 +2,9 @@ import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
-import {DialogMessageType, DialogUserType,} from '../../../redux/state';
+import {DialogMessageType, DialogUserType} from '../../../redux/dialogs_reducer';
+import {DialogsPropsType} from './DialogsContainer';
 
-
-export type DialogsPropsType = {
-    dialogsUsersData: Array<DialogUserType>
-    messagesData: Array<DialogMessageType>
-    newMessageText: string
-    sendMessage: (newMessageText: string) => void
-    textareaChange: (text: string) => void
-}
 
 export function Dialogs(props: DialogsPropsType) {
 

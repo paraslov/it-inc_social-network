@@ -1,15 +1,9 @@
 import React, {ChangeEvent} from 'react'
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
-import {PostMessageType} from '../../../../redux/state';
+import {PostMessageType} from '../../../../redux/profile_reducer';
+import {MyPostsPropsType} from './MyPostsContainer';
 
-
-type MyPostsPropsType = {
-    postsMessagesData: Array<PostMessageType>
-    newPostText: string
-    addPost: (newPostText: string) => void
-    newPostTextChange: (text: string) => void
-}
 
 function MyPosts(props: MyPostsPropsType) {
 

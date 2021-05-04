@@ -1,28 +1,28 @@
 import React from 'react'
-import {profileActions} from '../../../../redux/profile_reducer';
+import {PostMessageType, profileActions} from '../../../../redux/profile_reducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../../redux/store';
-import {PostMessageType} from '../../../../redux/state';
+import {Dispatch} from 'redux';
 
 type MapStateType = {
     postsMessagesData: Array<PostMessageType>
     newPostText: string
 }
+type MapDispatchType = {
+    addPost: (newPostText: string) => void
+    newPostTextChange: (text: string) => void
+}
+export type MyPostsPropsType = MapStateType & MapDispatchType
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStateType => {
     return {
         postsMessagesData: state.profilePage.postsMessagesData,
         newPostText: state.profilePage.newPostText
     }
 }
 
-type MapDispatchType = {
-    addPost: (newPostText: string) => void
-    newPostTextChange: (text: string) => void
-}
-
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     return {
         addPost: (newPostText: string) => {
             if (newPostText.trim() !== '') {

@@ -2,18 +2,18 @@ import React from 'react';
 import {Sidebar} from './Sidebar';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/store';
-import {DialogUserType} from '../../redux/state';
+import {DialogUserType} from '../../redux/dialogs_reducer';
 
-
-const startIndex = Math.floor(Math.random() * 4 + 1)
-console.log(startIndex)
 
 type MapStateType = {
     dialogsUsersData: Array<DialogUserType>
     startIndex: number
 }
+export type SidebarPropsType = MapStateType
 
-function mapStateToProps(state: AppStateType) {
+const startIndex = Math.floor(Math.random() * 4 + 1)
+
+function mapStateToProps(state: AppStateType): MapStateType {
     return {
         dialogsUsersData: state.dialogsPage.dialogsUsersData,
         startIndex: startIndex

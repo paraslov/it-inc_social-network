@@ -1,9 +1,9 @@
 import React from 'react'
-import {dialogsActions} from '../../../redux/dialogs_reducer';
+import {DialogMessageType, dialogsActions, DialogUserType} from '../../../redux/dialogs_reducer';
 import {Dialogs} from './Dialogs';
 import {AppStateType} from '../../../redux/store';
 import {connect} from 'react-redux';
-import {DialogMessageType, DialogUserType} from '../../../redux/state';
+import {Dispatch} from 'redux';
 
 
 type MapStateType = {
@@ -11,8 +11,13 @@ type MapStateType = {
     messagesData: Array<DialogMessageType>
     newMessageText: string
 }
+type MapDispatchType = {
+    sendMessage: (newMessageText: string) => void
+    textareaChange: (text: string) => void
+}
+export type DialogsPropsType = MapStateType & MapDispatchType
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStateType => {
     return {
         dialogsUsersData: state.dialogsPage.dialogsUsersData,
         messagesData: state.dialogsPage.messagesData,
@@ -20,12 +25,7 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-type MapDispatchType = {
-    sendMessage: (newMessageText: string) => void
-    textareaChange: (text: string) => void
-}
-
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     return {
         sendMessage: (newMessageText: string) => {
             if (newMessageText.trim() !== '') {
