@@ -11,27 +11,26 @@ type GetUserRequestType = {
     error: string
 }
 
-export function Users(props: UsersPropsType) {
+export class Users extends React.Component<UsersPropsType> {
 
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get<GetUserRequestType>('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    props.setUsers(response.data.items)
-                })
-        }
+    constructor(props: UsersPropsType) {
+        super(props);
+
+        axios.get<GetUserRequestType>('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
-    const samurais = props.users.map((u) => <User key={u.id} user={u}
-                                                  follow={props.follow}
-                                                  unfollow={props.unfollow}/>)
-
-    return (
-        <div className={s.wrapper}>
-            <button onClick={getUsers}>Get Users</button>
-            <div>
-                {samurais}
+    render() {
+        return (
+            <div className={s.wrapper}>
+                <div>
+                    {this.props.users.map((u) => <User key={u.id} user={u}
+                                                       follow={this.props.follow}
+                                                       unfollow={this.props.unfollow}/>)}
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
