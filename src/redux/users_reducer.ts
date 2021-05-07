@@ -1,11 +1,12 @@
 import {InferActionsTypes} from './store';
+import {PhotosType} from './profile_reducer';
 
 //* ================== Users reducer types ===============================================================>
 export type UserType = {
     id: number,
     name: string
     status: string
-    photos: {small: string, large: string}
+    photos: PhotosType
     followed: boolean
 }
 

@@ -11,14 +11,15 @@ type PreloaderPropsType = {
      */
     top?: string
     /**
-     * css width of preloader
+     * size of preloader in pixels
      */
-    width?: string
+    size?: string
 }
 
 export function Preloader(props: PreloaderPropsType) {
     const preloaderStyle: {} = {
-        width: props.width ? props.width : '100px',
+        width: props.size ? props.size : '100px',
+        height: props.size ? props.size : '100px',
         position: 'absolute',
         left: props.left ? props.left : '40px',
         top: props.top ? props.top : '40px'

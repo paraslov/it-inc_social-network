@@ -2,6 +2,7 @@ import React from 'react'
 import {UserType} from '../../../../redux/users_reducer';
 import s from '../Users.module.css'
 import defaultAva from '../../../../assets/img/ava/ava.png'
+import { NavLink } from 'react-router-dom';
 
 //* Users functional component =======================================================================================>>
 type UsersPropsType = {
@@ -49,9 +50,9 @@ const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
         <div className={s.samurai}>
             <div>
                 <div>
-                    <img className={s.userPhoto}
-                         src={user.photos.small !== null ? user.photos.small : defaultAva} alt="user pic"
-                    />
+                    <NavLink to={'/profile/13100'}><img className={s.userPhoto}
+                            src={user.photos.small !== null ? user.photos.small : defaultAva} alt="user pic"
+                    /></NavLink>
                 </div>
                 <div className={s.btn}>
                     {user.followed

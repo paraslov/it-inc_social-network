@@ -40,7 +40,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
     render() {
         return (
             <div>
-                {this.props.isFetching ? <Preloader left={'40%'} top={'40%'} width={'200px'}/> : null}
+                {this.props.isFetching ? <Preloader left={'40%'} top={'40%'} size={'200px'}/> : null}
                 <Users
                     users={this.props.users}
                     currentPage={this.props.currentPage}
