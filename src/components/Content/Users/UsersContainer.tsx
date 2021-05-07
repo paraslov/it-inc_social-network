@@ -6,7 +6,7 @@ import axios from 'axios';
 import {Users} from './Users/Users';
 import {Preloader} from '../../Common/Preloader/Preloader';
 
-//* UsersContainer component to provide queries =================================================================================================>>
+//* UsersContainer component to provide queries ======================================================================>>
 type GetUserRequestType = {
     items: UserType[]
     totalCount: number
@@ -17,7 +17,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get<GetUserRequestType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get<GetUserRequestType>(`https://social-network.samuraijs.com/api/1.0/users?page=
+            ${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -28,7 +29,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
     onPageNumberClick = (pageNumber: number) => {
         this.props.setIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get<GetUserRequestType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get<GetUserRequestType>(`https://social-network.samuraijs.com/api/1.0/users?page=
+            ${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -38,16 +40,16 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
     render() {
         return (
             <div>
-            {this.props.isFetching ? <Preloader left={'40%'} top={'40%'} width={'200px'}/> : null}
-            <Users
-                users={this.props.users}
-                currentPage={this.props.currentPage}
-                pageSize={this.props.pageSize}
-                totalUsersCount={this.props.totalUsersCount}
-                onPageNumberClick={this.onPageNumberClick}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-            />
+                {this.props.isFetching ? <Preloader left={'40%'} top={'40%'} width={'200px'}/> : null}
+                <Users
+                    users={this.props.users}
+                    currentPage={this.props.currentPage}
+                    pageSize={this.props.pageSize}
+                    totalUsersCount={this.props.totalUsersCount}
+                    onPageNumberClick={this.onPageNumberClick}
+                    follow={this.props.follow}
+                    unfollow={this.props.unfollow}
+                />
             </div>
         )
     }

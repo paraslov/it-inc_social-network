@@ -3,7 +3,7 @@ import {UserType} from '../../../../redux/users_reducer';
 import s from '../Users.module.css'
 import defaultAva from '../../../../assets/img/ava/ava.png'
 
-//* Users functional component =================================================================================================>>
+//* Users functional component =======================================================================================>>
 type UsersPropsType = {
     users: UserType[]
     totalUsersCount: number
@@ -15,29 +15,29 @@ type UsersPropsType = {
 }
 
 export function Users(props: UsersPropsType) {
-    const pagesCount = Math.ceil(props.totalUsersCount/props.pageSize)
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: number[] = []
-    for(let i=1; i<=pagesCount; i++) {
+    for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
     return (
         <div className={s.wrapper}>
             <div>
                 {pages.map(p => <span
-                    className={props.currentPage === p ? s.page+' '+s.currentPage : s.page}
+                    className={props.currentPage === p ? s.page + ' ' + s.currentPage : s.page}
                     onClick={() => props.onPageNumberClick(p)}
                 >{p}</span>)}
             </div>
             <div>
                 {props.users.map((u) => <User key={u.id} user={u}
-                                               follow={props.follow}
-                                               unfollow={props.unfollow}/>)}
+                                              follow={props.follow}
+                                              unfollow={props.unfollow}/>)}
             </div>
         </div>
     )
 }
 
-//* Users functional component =====================================================================================================>>
+//* Users functional component =======================================================================================>>
 type UserPropsType = {
     user: UserType
     follow: (userId: number) => void
@@ -49,7 +49,9 @@ const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
         <div className={s.samurai}>
             <div>
                 <div>
-                    <img className={s.userPhoto} src={user.photos.small !== null ? user.photos.small : defaultAva} alt="user pic"/>
+                    <img className={s.userPhoto}
+                         src={user.photos.small !== null ? user.photos.small : defaultAva} alt="user pic"
+                    />
                 </div>
                 <div className={s.btn}>
                     {user.followed
@@ -63,8 +65,8 @@ const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
                     <div>{user.status}</div>
                 </div>
                 <div className={s.userInfoPart}>
-                    <div>{"Samurai"}</div>
-                    <div>{"Way"}</div>
+                    <div>{'Samurai'}</div>
+                    <div>{'Way'}</div>
                 </div>
             </div>
         </div>
