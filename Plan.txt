@@ -35,8 +35,10 @@
 24. Lesson 47: deep copy used in reducers to make connect rerender the app.
     index.tsx refactored and now render App just one first time. rerenderEntireTree func deleted.
 25. Lesson 49: Users page reducer and UI added. Set users action added (with bug of double users array render).
-26. Lesson 51: REST API practice. User API: use axios lib to setUsers in Users.tsx
+26. Lesson 51: REST API practice. Users API: use axios lib to setUsers in Users.tsx
 27. Lesson 53: Users.tsx func-l comp-t was transformed into class component. Get Users btn was deleted.
     Now axios get request sending at constructor call.
 28. Lesson 54: Class components life cycle. componentDidMount() now used to setUsers.
 29. Lesson 55: Pagination. Get parameters/query string. Work with pageSize, currentPage, totalUsersCount.
+30. Lesson 56: Creating UsersContainer.tsx with API queries and HOC connect. And functional component Users.tsx as
+    presentational component.

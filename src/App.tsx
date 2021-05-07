@@ -9,7 +9,7 @@ import Settings from './components/Content/Settings/Settings';
 import backgroundImage from './assets/img/background/bckgrimg.jpg'
 import {DialogsContainer} from './components/Content/Dialogs/DialogsContainer';
 import {SidebarContainer} from './components/Sidebar/SidebarContainer';
-import {UsersContainer} from './components/Content/Users/UsersContainer';
+import UsersContainer from './components/Content/Users/UsersContainer';
 
 
 function App() {

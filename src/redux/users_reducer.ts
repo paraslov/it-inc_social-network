@@ -1,6 +1,6 @@
 import {InferActionsTypes} from './store';
 
-//* ================== User reducer types ===============================================================>
+//* ================== Users reducer types ===============================================================>
 export type UserType = {
     id: number,
     name: string

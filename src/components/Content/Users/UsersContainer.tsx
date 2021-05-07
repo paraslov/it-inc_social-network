@@ -1,10 +1,52 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import {Users} from './Users';
 import {AppStateType} from '../../../redux/store';
 import {usersActions, UserType} from '../../../redux/users_reducer';
 import {Dispatch} from 'redux';
+import axios from 'axios';
+import {Users} from './Users/Users';
 
+//* UsersContainer component to provide queries =================================================================================================>>
+type GetUserRequestType = {
+    items: UserType[]
+    totalCount: number
+    error: string
+}
+
+class UsersContainer extends React.Component<UsersContainerPropsType, AppStateType> {
+
+    componentDidMount() {
+        axios.get<GetUserRequestType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(200)
+            })
+    }
+
+    onPageNumberClick = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get<GetUserRequestType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+    render() {
+        return (
+            <Users
+                users={this.props.users}
+                currentPage={this.props.currentPage}
+                pageSize={this.props.pageSize}
+                totalUsersCount={this.props.totalUsersCount}
+                onPageNumberClick={this.onPageNumberClick}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+            />
+        )
+    }
+}
+
+//* UsersContainer component with HOC connect to get access to context ===============================================>>
 type MapStateType = {
     users: UserType[]
     pageSize: number
@@ -38,7 +80,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
 }
 
 
-export type UsersPropsType = MapStateType & MapDispatchType
+export type UsersContainerPropsType = MapStateType & MapDispatchType
 
-export const UsersContainer = connect<MapStateType, MapDispatchType, {}, AppStateType>
-(mapStateToProps, mapDispatchToProps)(Users)
+//* default export to App.tsx (UsersContainer with HOC connect) ======================================================>>
+export default connect<MapStateType, MapDispatchType, {}, AppStateType>
+(mapStateToProps, mapDispatchToProps)(UsersContainer)
