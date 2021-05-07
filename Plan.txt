@@ -1,7 +1,7 @@
 1. NodeJS
 2. Components
 3. Props
-4. Routing (BrowserRouter , Route (Lesson 19))
+4. Lesson 19: Routing (BrowserRouter , Route)
 5. Lesson 20: NavLink, to='', activeClassName={s.active}
 6. Lesson 22: Route, exact path='/..'
 7. Lesson 24: UI <-- BLL. Extract data.
@@ -34,7 +34,7 @@
     was used in all container components.
 24. Lesson 47: deep copy used in reducers to make connect rerender the app.
     index.tsx refactored and now render App just one first time. rerenderEntireTree func deleted.
-25. Lesson 49: Users page reducer and UI added. Set users action added (with bug of double users array render).
+25. Lesson 49: Users page reducer and UI added. Set users action added.
 26. Lesson 51: REST API practice. Users API: use axios lib to setUsers in Users.tsx
 27. Lesson 53: Users.tsx func-l comp-t was transformed into class component. Get Users btn was deleted.
     Now axios get request sending at constructor call.
@@ -45,3 +45,4 @@
 31. Lesson 57: Preloader component created. Preloader showing when fetching data.
 32. Lesson 58: UsersContainer connect HOC now use object instead of mapDispatchToProps.
 33. Lesson 59: setUserProfile functional implemented in ProfileContainer. ProfileInfo now get data from server.
+34. Lesson 60: withRouter HOC used in ProfileContainer to use URI params to setUserProfile.

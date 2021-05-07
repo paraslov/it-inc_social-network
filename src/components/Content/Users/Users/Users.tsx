@@ -50,7 +50,7 @@ const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
         <div className={s.samurai}>
             <div>
                 <div>
-                    <NavLink to={'/profile/13100'}><img className={s.userPhoto}
+                    <NavLink to={'/profile/'+user.id}><img className={s.userPhoto}
                             src={user.photos.small !== null ? user.photos.small : defaultAva} alt="user pic"
                     /></NavLink>
                 </div>
