@@ -42,3 +42,4 @@
 29. Lesson 55: Pagination. Get parameters/query string. Work with pageSize, currentPage, totalUsersCount.
 30. Lesson 56: Creating UsersContainer.tsx with API queries and HOC connect. And functional component Users.tsx as
     presentational component.
+31. Lesson 57: Preloader component created. Preloader showing when fetching data.

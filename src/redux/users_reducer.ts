@@ -15,7 +15,8 @@ const initState = {
     users: [] as Array<UserType>,
     pageSize: 7,
     currentPage: 1,
-    totalUsersCount: 0
+    totalUsersCount: 0,
+    isFetching: false
 }
 
 export type UserStateType = typeof initState
@@ -41,6 +42,8 @@ export const usersReducer = (state: UserStateType = initState, action: UsersActi
             return {...state, currentPage: action.pageNumber}
         case 'kty112/users_reducer/SET_TOTAL_USERS_COUNT':
             return {...state, totalUsersCount: action.totalUsersCount}
+        case 'kty112/users_reducer/SET_IS_FETCHING':
+            return {...state, isFetching: action.isFetching}
         default:
             return state
     }
@@ -54,5 +57,6 @@ export const usersActions = {
     unfollow: (userId: number) => ({type: 'kty112/users_reducer/UNFOLLOW', userId} as const),
     setUsers: (users: UserType[]) => ({type: 'kty112/users_reducer/SET_USERS', users} as const),
     setCurrentPage: (pageNumber: number) => ({type: 'kty112/users_reducer/SET_CURRENT_PAGE_NUMBER', pageNumber} as const),
-    setTotalUsersCount: (totalUsersCount: number) => ({type: 'kty112/users_reducer/SET_TOTAL_USERS_COUNT', totalUsersCount} as const)
+    setTotalUsersCount: (totalUsersCount: number) => ({type: 'kty112/users_reducer/SET_TOTAL_USERS_COUNT', totalUsersCount} as const),
+    setIsFetching: (isFetching: boolean) => ({type: 'kty112/users_reducer/SET_IS_FETCHING', isFetching} as const),
 }
