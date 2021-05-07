@@ -43,3 +43,4 @@
 30. Lesson 56: Creating UsersContainer.tsx with API queries and HOC connect. And functional component Users.tsx as
     presentational component.
 31. Lesson 57: Preloader component created. Preloader showing when fetching data.
+32. Lesson 58: UsersContainer connect HOC now use object instead of mapDispatchToProps.

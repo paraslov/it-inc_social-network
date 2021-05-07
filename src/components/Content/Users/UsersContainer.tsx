@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/store';
 import {usersActions, UserType} from '../../../redux/users_reducer';
-import {Dispatch} from 'redux';
 import axios from 'axios';
 import {Users} from './Users/Users';
 import {Preloader} from '../../Common/Preloader/Preloader';
@@ -80,20 +79,16 @@ type MapDispatchType = {
     setTotalUsersCount: (totalUsersCount: number) => void,
     setIsFetching: (isFetching: boolean) => void
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
-    return {
-        follow: userId => dispatch(usersActions.follow(userId)),
-        unfollow: userId => dispatch(usersActions.unfollow(userId)),
-        setUsers: users => dispatch(usersActions.setUsers(users)),
-        setCurrentPage: pageNumber => dispatch(usersActions.setCurrentPage(pageNumber)),
-        setTotalUsersCount: totalUsersCount => dispatch(usersActions.setTotalUsersCount(totalUsersCount)),
-        setIsFetching: isFetching => dispatch(usersActions.setIsFetching(isFetching))
-    }
-}
-
 
 export type UsersContainerPropsType = MapStateType & MapDispatchType
 
 //* default export to App.tsx (UsersContainer with HOC connect) ======================================================>>
 export default connect<MapStateType, MapDispatchType, {}, AppStateType>
-(mapStateToProps, mapDispatchToProps)(UsersContainer)
+(mapStateToProps, {
+    follow: usersActions.follow,
+    unfollow: usersActions.unfollow,
+    setUsers: usersActions.setUsers,
+    setCurrentPage: usersActions.setCurrentPage,
+    setTotalUsersCount: usersActions.setTotalUsersCount,
+    setIsFetching: usersActions.setIsFetching
+})(UsersContainer)
