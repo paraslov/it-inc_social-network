@@ -13,6 +13,9 @@ export type UserType = {
 
 const initState = {
     users: [] as Array<UserType>,
+    pageSize: 7,
+    currentPage: 1,
+    totalUsersCount: 0
 }
 
 export type UserStateType = typeof initState
@@ -34,6 +37,10 @@ export const usersReducer = (state: UserStateType = initState, action: UsersActi
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
+        case 'kty112/users_reducer/SET_CURRENT_PAGE_NUMBER':
+            return {...state, currentPage: action.pageNumber}
+        case 'kty112/users_reducer/SET_TOTAL_USERS_COUNT':
+            return {...state, totalUsersCount: action.totalUsersCount}
         default:
             return state
     }
@@ -46,4 +53,6 @@ export const usersActions = {
     follow: (userId: number) => ({type: 'kty112/users_reducer/FOLLOW', userId} as const),
     unfollow: (userId: number) => ({type: 'kty112/users_reducer/UNFOLLOW', userId} as const),
     setUsers: (users: UserType[]) => ({type: 'kty112/users_reducer/SET_USERS', users} as const),
+    setCurrentPage: (pageNumber: number) => ({type: 'kty112/users_reducer/SET_CURRENT_PAGE_NUMBER', pageNumber} as const),
+    setTotalUsersCount: (totalUsersCount: number) => ({type: 'kty112/users_reducer/SET_TOTAL_USERS_COUNT', totalUsersCount} as const)
 }

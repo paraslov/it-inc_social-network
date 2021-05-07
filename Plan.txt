@@ -39,3 +39,4 @@
 27. Lesson 53: Users.tsx func-l comp-t was transformed into class component. Get Users btn was deleted.
     Now axios get request sending at constructor call.
 28. Lesson 54: Class components life cycle. componentDidMount() now used to setUsers.
+29. Lesson 55: Pagination. Get parameters/query string. Work with pageSize, currentPage, totalUsersCount.
