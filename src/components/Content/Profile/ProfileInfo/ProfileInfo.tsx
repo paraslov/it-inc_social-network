@@ -2,6 +2,7 @@ import React from 'react'
 import s from './ProfileInfo.module.css'
 import {ProfileType} from '../../../../redux/profile_reducer';
 import {Preloader} from '../../../Common/Preloader/Preloader';
+import samuraiPic from '../../../../assets/img/ava/ava.png'
 
 function ProfileInfo(props: {profile: ProfileType | null}) {
     if(!props.profile) {
@@ -10,7 +11,7 @@ function ProfileInfo(props: {profile: ProfileType | null}) {
     return (
 <div>
     <div className={s.infoContent}>
-        <img src={props.profile.photos.small} alt="user ava"/>
+        <img src={props.profile.photos.small || samuraiPic} alt="user ava"/>
         <div>{props.profile.aboutMe}</div>
     </div>
 </div>
