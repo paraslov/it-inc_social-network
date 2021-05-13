@@ -15,6 +15,11 @@
     margin: 10px;
 }
 
+.item a:hover {
+    color: red;
+    transition: .5s;
+}
+
 .item a.activeLink {
     color: red;
     transition: .5s;

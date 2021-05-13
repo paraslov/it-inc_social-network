@@ -22,6 +22,7 @@ function MyPosts(props: MyPostsPropsType) {
             <header className={s.header}>My Posts</header>
             <div className={s.newPost}>
                 <textarea value={props.newPostText}
+                          placeholder={'type your thoughts'}
                           onChange={onPostTextChange}/>
                 <div>
                     <button onClick={onAddPost}>Add Post</button>
