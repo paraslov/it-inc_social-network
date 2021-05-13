@@ -46,3 +46,4 @@
 32. Lesson 58: UsersContainer connect HOC now use object instead of mapDispatchToProps.
 33. Lesson 59: setUserProfile functional implemented in ProfileContainer. ProfileInfo now get data from server.
 34. Lesson 60: withRouter HOC used in ProfileContainer to use URI params to setUserProfile.
+35. Lesson 61: auth reducer created. setUserData functionality implemented in Header component.

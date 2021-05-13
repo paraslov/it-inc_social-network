@@ -1,22 +1,25 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
+import backgroundImage from './assets/img/background/bckgrimg2.jpg'
+import samuraiImg from './assets/img/decor/samurai.png'
 import NavBar from './components/NavBar/NavBar';
 import {Route, Switch} from 'react-router-dom';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
-import backgroundImage from './assets/img/background/bckgrimg.jpg'
 import {DialogsContainer} from './components/Content/Dialogs/DialogsContainer';
 import {SidebarContainer} from './components/Sidebar/SidebarContainer';
 import UsersContainer from './components/Content/Users/UsersContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
+import LoginContainer from './components/Login/LoginContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 
 function App() {
     return (
-        <div className="app-wrapper"
+        <div className='app-wrapper'
              style={{background: `black url(${backgroundImage})`, backgroundSize: '100%',}}>
-            <Header/>
+            <img className={'samuraiImg'} src={samuraiImg} alt="decor element"/>
+            <HeaderContainer />
             <NavBar/>
             <SidebarContainer/>
 
@@ -27,6 +30,7 @@ function App() {
                     <Route path={'/users'} render={() => <UsersContainer/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
+                    <Route path={'/login'} render={() => <LoginContainer />}/>
                 </Switch>
             </div>
         </div>

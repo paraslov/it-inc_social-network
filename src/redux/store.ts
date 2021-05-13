@@ -2,12 +2,14 @@ import {combineReducers, createStore} from 'redux';
 import profileReducer from './profile_reducer';
 import dialogsReducer from './dialogs_reducer';
 import {usersReducer} from './users_reducer';
+import {authReducer} from './auth_reducer';
 
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
+    auth: authReducer
 })
 
 //* creating state type =======================================================================>

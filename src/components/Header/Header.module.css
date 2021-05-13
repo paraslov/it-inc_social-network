@@ -1,9 +1,29 @@
 .header {
     grid-area: header;
-    /*background-image: url('https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg');*/
 }
 
 .header img {
     margin-top: 40px;
     margin-left: 40px;
+}
+.login {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.6em;
+}
+.login a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.6em;
+    margin: 10px;
+}
+
+.login a:hover {
+    color: red;
+    transition: .5s;
 }

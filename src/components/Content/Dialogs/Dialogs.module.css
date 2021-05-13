@@ -38,7 +38,7 @@
 
 .dialogLink {
     color: #888;
-    font-size: 1.1em;
+    font-size: 1.3em;
     font-weight: bold;
     text-decoration: none;
     padding: 10px;
@@ -46,9 +46,11 @@
 
 .dialogLink.active {
     color: goldenrod;
+    transition: 0.3s;
 }
 
 .messageItem {
+    font-size: 1.2em;
     margin-left: 15px;
     margin-right: 30px;
     display: flex;
@@ -84,13 +86,15 @@
     height: 70px;
     border-radius: 10px;
 }
+
 .inputArea button {
     width: 120px;
     height: 40px;
     border-radius: 10px;
     margin-top: 15px;
     color: white;
-    font-size: 1.1em;
+    font-family: 'Agency', serif;
+    font-size: 1.2em;
     background-color: #777;
 }
 

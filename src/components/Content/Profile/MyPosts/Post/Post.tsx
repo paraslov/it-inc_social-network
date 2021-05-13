@@ -1,5 +1,5 @@
-import React from "react"
-import s from "./Post.module.css"
+import React from 'react'
+import s from './Post.module.css'
 
 type PostPropsType = {
     message: string
@@ -10,7 +10,8 @@ function Post(props: PostPropsType) {
     return (
         <div className={s.item}>
             <div>
-                <img src={'https://image.freepik.com/free-vector/samurai-warrior_157713-74.jpg'}/>
+                <img src={'https://image.freepik.com/free-vector/samurai-warrior_157713-74.jpg'}
+                     alt={'post pic'}/>
                 {props.message}
             </div>
             <div>

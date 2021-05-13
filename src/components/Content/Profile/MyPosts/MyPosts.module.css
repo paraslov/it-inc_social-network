@@ -1,5 +1,4 @@
 
-
 .header {
     font-size: 1.6em;
     font-weight: bold;
@@ -26,7 +25,8 @@
     border-radius: 10px;
     margin-top: 15px;
     color: white;
-    font-size: 1.1em;
+    font-family: 'Agency', serif;
+    font-size: 1.2em;
     background-color: #777;
 }
 
