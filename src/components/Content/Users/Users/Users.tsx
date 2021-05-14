@@ -3,7 +3,7 @@ import {UserType} from '../../../../redux/users_reducer';
 import s from '../Users.module.css'
 import defaultAva from '../../../../assets/img/ava/ava.png'
 import {NavLink} from 'react-router-dom';
-import axios from 'axios';
+import {usersAPI} from '../../../../api/api';
 
 //* Users functional component =======================================================================================>>
 type UsersPropsType = {
@@ -61,25 +61,17 @@ const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
                 <div className={s.btn}>
                     {user.followed
                         ? <button onClick={() => {
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                                withCredentials: true,
-                                headers: {
-                                    'API-KEY': '00162dc2-204e-4559-bcf6-6384570c4ef5'
-                                }
-                            }).then(response => {
-                                if (response.data.resultCode === 0) {
+                            usersAPI.unfollow(user.id)
+                                .then(data => {
+                                if (data.resultCode === 0) {
                                     restProps.unfollow(user.id)
                                 }
                             })
                         }}>unfollow</button>
                         : <button onClick={() => {
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                                withCredentials: true,
-                                headers: {
-                                    'API-KEY': '00162dc2-204e-4559-bcf6-6384570c4ef5'
-                                }
-                            }).then(response => {
-                                if (response.data.resultCode === 0) {
+                            usersAPI.follow(user.id)
+                                .then(data => {
+                                if (data.resultCode === 0) {
                                     restProps.follow(user.id)
                                 }
                             })
