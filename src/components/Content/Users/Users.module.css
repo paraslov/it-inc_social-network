@@ -24,6 +24,10 @@
     background-color: #777;
 }
 
+.btn button:disabled {
+    background-color: #333;
+}
+
 .userInfo {
     width: 50%;
     margin-left: 5%;
@@ -40,11 +44,13 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
 .page {
     font-size: 1.1em;
     cursor: pointer;
     margin-right: 4px;
 }
+
 .page.currentPage {
     font-weight: bold;
     font-size: 1.2em;

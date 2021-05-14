@@ -17,7 +17,8 @@ const initState = {
     pageSize: 7,
     currentPage: 1,
     totalUsersCount: 0,
-    isFetching: false
+    isFetching: false,
+    followUnfollowInProgress: [] as number[]
 }
 
 export type UserStateType = typeof initState
@@ -45,6 +46,13 @@ export const usersReducer = (state: UserStateType = initState, action: UsersActi
             return {...state, totalUsersCount: action.totalUsersCount}
         case 'kty112/users_reducer/SET_IS_FETCHING':
             return {...state, isFetching: action.isFetching}
+        case 'kty112/users_reducer/SET_FOLLOW_UNFOLLOW_IN_PROGRESS':
+            return {
+                ...state,
+                followUnfollowInProgress: action.inProgress ?
+                    [...state.followUnfollowInProgress, action.userId] :
+                    state.followUnfollowInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
@@ -57,7 +65,15 @@ export const usersActions = {
     follow: (userId: number) => ({type: 'kty112/users_reducer/FOLLOW', userId} as const),
     unfollow: (userId: number) => ({type: 'kty112/users_reducer/UNFOLLOW', userId} as const),
     setUsers: (users: UserType[]) => ({type: 'kty112/users_reducer/SET_USERS', users} as const),
-    setCurrentPage: (pageNumber: number) => ({type: 'kty112/users_reducer/SET_CURRENT_PAGE_NUMBER', pageNumber} as const),
-    setTotalUsersCount: (totalUsersCount: number) => ({type: 'kty112/users_reducer/SET_TOTAL_USERS_COUNT', totalUsersCount} as const),
+    setCurrentPage: (pageNumber: number) => ({
+        type: 'kty112/users_reducer/SET_CURRENT_PAGE_NUMBER',
+        pageNumber
+    } as const),
+    setTotalUsersCount: (totalUsersCount: number) => ({
+        type: 'kty112/users_reducer/SET_TOTAL_USERS_COUNT',
+        totalUsersCount
+    } as const),
     setIsFetching: (isFetching: boolean) => ({type: 'kty112/users_reducer/SET_IS_FETCHING', isFetching} as const),
+    setFollowUnfollowInProgress: (inProgress: boolean, userId: number) =>
+        ({type: 'kty112/users_reducer/SET_FOLLOW_UNFOLLOW_IN_PROGRESS', userId, inProgress} as const),
 }

@@ -11,9 +11,11 @@ type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
+    followUnfollowInProgress: number[]
     onPageNumberClick: (pageNumber: number) => void
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    setFollowUnfollowInProgress: (inProgress: boolean, userId: number) => void
 }
 
 export function Users(props: UsersPropsType) {
@@ -31,7 +33,10 @@ export function Users(props: UsersPropsType) {
                 >{p}</span>)}
             </div>
             <div>
-                {props.users.map((u) => <User key={u.id} user={u}
+                {props.users.map((u) => <User key={u.id}
+                                              user={u}
+                                              followUnfollowInProgress={props.followUnfollowInProgress}
+                                              setFollowUnfollowInProgress={props.setFollowUnfollowInProgress}
                                               follow={props.follow}
                                               unfollow={props.unfollow}/>)}
             </div>
@@ -42,8 +47,10 @@ export function Users(props: UsersPropsType) {
 //* Users functional component =======================================================================================>>
 type UserPropsType = {
     user: UserType
+    followUnfollowInProgress: number[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    setFollowUnfollowInProgress: (inProgress: boolean, userId: number) => void
 }
 
 const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
@@ -60,22 +67,28 @@ const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
                 </div>
                 <div className={s.btn}>
                     {user.followed
-                        ? <button onClick={() => {
-                            usersAPI.unfollow(user.id)
-                                .then(data => {
-                                if (data.resultCode === 0) {
-                                    restProps.unfollow(user.id)
-                                }
-                            })
-                        }}>unfollow</button>
-                        : <button onClick={() => {
-                            usersAPI.follow(user.id)
-                                .then(data => {
-                                if (data.resultCode === 0) {
-                                    restProps.follow(user.id)
-                                }
-                            })
-                        }}>follow</button>}
+                        ? <button disabled={restProps.followUnfollowInProgress.some(id => id === user.id)}
+                                  onClick={() => {
+                                      restProps.setFollowUnfollowInProgress(true, user.id)
+                                      usersAPI.unfollow(user.id)
+                                          .then(data => {
+                                              if (data.resultCode === 0) {
+                                                  restProps.unfollow(user.id)
+                                              }
+                                              restProps.setFollowUnfollowInProgress(false, user.id)
+                                          })
+                                  }}>unfollow</button>
+                        : <button disabled={restProps.followUnfollowInProgress.some(id => id === user.id)}
+                                  onClick={() => {
+                                      restProps.setFollowUnfollowInProgress(true, user.id)
+                                      usersAPI.follow(user.id)
+                                          .then(data => {
+                                              if (data.resultCode === 0) {
+                                                  restProps.follow(user.id)
+                                              }
+                                              restProps.setFollowUnfollowInProgress(false, user.id)
+                                          })
+                                  }}>follow</button>}
                 </div>
             </div>
             <div className={s.userInfo}>

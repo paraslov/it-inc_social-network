@@ -38,9 +38,11 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
                     totalUsersCount={this.props.totalUsersCount}
+                    followUnfollowInProgress={this.props.followUnfollowInProgress}
                     onPageNumberClick={this.onPageNumberClick}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
+                    setFollowUnfollowInProgress={this.props.setFollowUnfollowInProgress}
                 />
             </div>
         )
@@ -54,6 +56,7 @@ type MapStateType = {
     currentPage: number
     totalUsersCount: number
     isFetching: boolean
+    followUnfollowInProgress: number[]
 }
 const mapStateToProps = (state: AppStateType): MapStateType => {
     return {
@@ -62,6 +65,7 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
         currentPage: state.usersPage.currentPage,
         totalUsersCount: state.usersPage.totalUsersCount,
         isFetching: state.usersPage.isFetching,
+        followUnfollowInProgress: state.usersPage.followUnfollowInProgress
     }
 }
 
@@ -70,8 +74,9 @@ type MapDispatchType = {
     unfollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
     setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void,
+    setTotalUsersCount: (totalUsersCount: number) => void
     setIsFetching: (isFetching: boolean) => void
+    setFollowUnfollowInProgress: (inProgress: boolean, userId: number) => void
 }
 
 export type UsersContainerPropsType = MapStateType & MapDispatchType
@@ -84,5 +89,6 @@ export default connect<MapStateType, MapDispatchType, {}, AppStateType>
     setUsers: usersActions.setUsers,
     setCurrentPage: usersActions.setCurrentPage,
     setTotalUsersCount: usersActions.setTotalUsersCount,
-    setIsFetching: usersActions.setIsFetching
+    setIsFetching: usersActions.setIsFetching,
+    setFollowUnfollowInProgress: usersActions.setFollowUnfollowInProgress
 })(UsersContainer)

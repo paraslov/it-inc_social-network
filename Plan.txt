@@ -49,3 +49,4 @@
 35. Lesson 61: auth reducer created. setUserData functionality implemented in Header component.
 36. Lesson 62: follow/unfollow func-ty goes through axios queries.
 37. Lesson 63: usersAPI implemented in api.ts for Users component.
+38. Lesson 64: follow/unfollow button disabling while query in progress functionality implemented.
