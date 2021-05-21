@@ -1,8 +1,9 @@
-import {combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer from './profile_reducer';
 import dialogsReducer from './dialogs_reducer';
 import {usersReducer} from './users_reducer';
 import {authReducer} from './auth_reducer';
+import ThunkMiddleware from 'redux-thunk';
 
 
 const rootReducer = combineReducers({
@@ -20,7 +21,7 @@ export type AppStateType = ReturnType<typeof rootReducer>
 // export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
 export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
 
 
 export type StoreType = typeof store

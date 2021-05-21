@@ -1,32 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/store';
-import {usersActions, UserType} from '../../../redux/users_reducer';
+import {follow, getUsers, setCurrentPageUsers, unfollow, UserType} from '../../../redux/users_reducer';
 import {Users} from './Users/Users';
 import {Preloader} from '../../Common/Preloader/Preloader';
-import {usersAPI} from '../../../api/api';
 
 
 class UsersContainer extends React.Component<UsersContainerPropsType, AppStateType> {
 
     componentDidMount() {
-        this.props.setIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(200)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageNumberClick = (pageNumber: number) => {
-        this.props.setIsFetching(true)
-        this.props.setCurrentPage(pageNumber)
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.setCurrentPageUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -42,7 +29,6 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
                     onPageNumberClick={this.onPageNumberClick}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
-                    setFollowUnfollowInProgress={this.props.setFollowUnfollowInProgress}
                 />
             </div>
         )
@@ -70,13 +56,10 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
 }
 
 type MapDispatchType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (users: UserType[]) => void
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    setIsFetching: (isFetching: boolean) => void
-    setFollowUnfollowInProgress: (inProgress: boolean, userId: number) => void
+    getUsers: (page: number, pageSize: number) => Function
+    setCurrentPageUsers: (page: number, pageSize: number) => Function
+    follow: (userId: number) => Function
+    unfollow: (userId: number) => Function
 }
 
 export type UsersContainerPropsType = MapStateType & MapDispatchType
@@ -84,11 +67,8 @@ export type UsersContainerPropsType = MapStateType & MapDispatchType
 //* default export to App.tsx (UsersContainer with HOC connect) ======================================================>>
 export default connect<MapStateType, MapDispatchType, {}, AppStateType>
 (mapStateToProps, {
-    follow: usersActions.follow,
-    unfollow: usersActions.unfollow,
-    setUsers: usersActions.setUsers,
-    setCurrentPage: usersActions.setCurrentPage,
-    setTotalUsersCount: usersActions.setTotalUsersCount,
-    setIsFetching: usersActions.setIsFetching,
-    setFollowUnfollowInProgress: usersActions.setFollowUnfollowInProgress
+    getUsers,
+    setCurrentPageUsers,
+    follow,
+    unfollow,
 })(UsersContainer)

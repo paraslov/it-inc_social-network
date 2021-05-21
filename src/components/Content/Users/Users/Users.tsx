@@ -3,7 +3,6 @@ import {UserType} from '../../../../redux/users_reducer';
 import s from '../Users.module.css'
 import defaultAva from '../../../../assets/img/ava/ava.png'
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from '../../../../api/api';
 
 //* Users functional component =======================================================================================>>
 type UsersPropsType = {
@@ -13,9 +12,8 @@ type UsersPropsType = {
     currentPage: number
     followUnfollowInProgress: number[]
     onPageNumberClick: (pageNumber: number) => void
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setFollowUnfollowInProgress: (inProgress: boolean, userId: number) => void
+    follow: (userId: number) => Function
+    unfollow: (userId: number) => Function
 }
 
 export function Users(props: UsersPropsType) {
@@ -36,7 +34,6 @@ export function Users(props: UsersPropsType) {
                 {props.users.map((u) => <User key={u.id}
                                               user={u}
                                               followUnfollowInProgress={props.followUnfollowInProgress}
-                                              setFollowUnfollowInProgress={props.setFollowUnfollowInProgress}
                                               follow={props.follow}
                                               unfollow={props.unfollow}/>)}
             </div>
@@ -48,9 +45,8 @@ export function Users(props: UsersPropsType) {
 type UserPropsType = {
     user: UserType
     followUnfollowInProgress: number[]
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setFollowUnfollowInProgress: (inProgress: boolean, userId: number) => void
+    follow: (userId: number) => Function
+    unfollow: (userId: number) => Function
 }
 
 const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
@@ -68,27 +64,9 @@ const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
                 <div className={s.btn}>
                     {user.followed
                         ? <button disabled={restProps.followUnfollowInProgress.some(id => id === user.id)}
-                                  onClick={() => {
-                                      restProps.setFollowUnfollowInProgress(true, user.id)
-                                      usersAPI.unfollow(user.id)
-                                          .then(data => {
-                                              if (data.resultCode === 0) {
-                                                  restProps.unfollow(user.id)
-                                              }
-                                              restProps.setFollowUnfollowInProgress(false, user.id)
-                                          })
-                                  }}>unfollow</button>
+                                  onClick={() => restProps.unfollow(user.id)}>unfollow</button>
                         : <button disabled={restProps.followUnfollowInProgress.some(id => id === user.id)}
-                                  onClick={() => {
-                                      restProps.setFollowUnfollowInProgress(true, user.id)
-                                      usersAPI.follow(user.id)
-                                          .then(data => {
-                                              if (data.resultCode === 0) {
-                                                  restProps.follow(user.id)
-                                              }
-                                              restProps.setFollowUnfollowInProgress(false, user.id)
-                                          })
-                                  }}>follow</button>}
+                                  onClick={() => restProps.follow(user.id)}>follow</button>}
                 </div>
             </div>
             <div className={s.userInfo}>

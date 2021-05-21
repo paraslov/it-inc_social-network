@@ -1,5 +1,7 @@
 import {InferActionsTypes} from './store';
 import {PhotosType} from './profile_reducer';
+import {Dispatch} from 'redux';
+import {usersAPI} from '../api/api';
 
 //* ================== Users reducer types ===============================================================>
 export type UserType = {
@@ -58,12 +60,12 @@ export const usersReducer = (state: UserStateType = initState, action: UsersActi
     }
 }
 
-//* ====== Action Creators =======================================================================>
+//* ====== Action Creators =============================================================================================>
 type UsersActionsType = InferActionsTypes<typeof usersActions>
 
 export const usersActions = {
-    follow: (userId: number) => ({type: 'kty112/users_reducer/FOLLOW', userId} as const),
-    unfollow: (userId: number) => ({type: 'kty112/users_reducer/UNFOLLOW', userId} as const),
+    followSuccess: (userId: number) => ({type: 'kty112/users_reducer/FOLLOW', userId} as const),
+    unfollowSuccess: (userId: number) => ({type: 'kty112/users_reducer/UNFOLLOW', userId} as const),
     setUsers: (users: UserType[]) => ({type: 'kty112/users_reducer/SET_USERS', users} as const),
     setCurrentPage: (pageNumber: number) => ({
         type: 'kty112/users_reducer/SET_CURRENT_PAGE_NUMBER',
@@ -76,4 +78,48 @@ export const usersActions = {
     setIsFetching: (isFetching: boolean) => ({type: 'kty112/users_reducer/SET_IS_FETCHING', isFetching} as const),
     setFollowUnfollowInProgress: (inProgress: boolean, userId: number) =>
         ({type: 'kty112/users_reducer/SET_FOLLOW_UNFOLLOW_IN_PROGRESS', userId, inProgress} as const),
+}
+
+//* ====== Thunk Creators ============================================================================================>
+
+export const getUsers = (page: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(usersActions.setIsFetching(true))
+    usersAPI.getUsers(page, pageSize)
+        .then(data => {
+            dispatch(usersActions.setIsFetching(false))
+            dispatch(usersActions.setUsers(data.items))
+            dispatch(usersActions.setTotalUsersCount(200))
+        })
+}
+
+export const setCurrentPageUsers = (page: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(usersActions.setIsFetching(true))
+    dispatch(usersActions.setCurrentPage(page))
+    usersAPI.getUsers(page, pageSize)
+        .then(data => {
+            dispatch(usersActions.setIsFetching(false))
+            dispatch(usersActions.setUsers(data.items))
+        })
+}
+
+export const follow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
+    usersAPI.follow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(usersActions.followSuccess(userId))
+            }
+            dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
+        })
+}
+
+export const unfollow = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
+    usersAPI.unfollow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(usersActions.unfollowSuccess(userId))
+            }
+            dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
+        })
 }
