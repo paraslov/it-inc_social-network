@@ -1,4 +1,6 @@
 import {InferActionsTypes} from './store';
+import {Dispatch} from 'redux';
+import {profileAPI} from '../api/api';
 
 //* ================== Profile reducer types ===============================================================>
 export type PostMessageType = {
@@ -69,15 +71,23 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
     }
 }
 
-//* ====== Action Creators =================================================================>
+//* ====== Action Creators ============================================================================================>
 export type ProfileActionsTypes = InferActionsTypes<typeof profileActions>
 
 export const profileActions = {
     addPost: () => ({type: 'kty112/profile_reducer/ADD_POST'} as const),
     newPostTextChange: (text: string) =>
         ({type: 'kty112/profile_reducer/NEW_POST_TEXT_CHANGE', newPostText: text} as const),
-    setUserProfile: (profile: ProfileType) => ({type: 'kty112/profile_reducer/SET_USER_PROFILE', profile} as const)
+    setUserProfileState: (profile: ProfileType) => ({type: 'kty112/profile_reducer/SET_USER_PROFILE', profile} as const)
 }
 
+//* ====== Thunk Creators ==============================================================================================>
+
+export const setUserProfileOnPage = (userId: number) => (dispatch: Dispatch) => {
+    profileAPI.getUserProfile(userId)
+        .then(data => {
+            dispatch(profileActions.setUserProfileState(data))
+        })
+}
 
 export default profileReducer

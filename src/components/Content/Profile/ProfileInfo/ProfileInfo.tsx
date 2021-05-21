@@ -13,6 +13,7 @@ function ProfileInfo(props: { profile: ProfileType | null }) {
             <div className={s.infoContent}>
                 <img src={props.profile.photos.small || samuraiPic} alt="user ava"/>
                 <div className={s.aboutMe}>{props.profile.aboutMe}</div>
+                <div className={s.aboutMe}>{props.profile.lookingForAJobDescription}</div>
             </div>
         </div>
     )
