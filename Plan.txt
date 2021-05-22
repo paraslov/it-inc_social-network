@@ -52,3 +52,4 @@
 38. Lesson 64: follow/unfollow button disabling while query in progress functionality implemented.
 39. Lesson 66: thunk middleware added to the project. Thunk creators implemented in Users components branch.
     (yarn add redux-thunk)
+40. Lesson 68: Redirect to Login component from Dialogs and Profile components if not authorized.
