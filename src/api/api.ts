@@ -1,13 +1,7 @@
 import axios from 'axios';
-import {UserType} from '../redux/users_reducer';
 
-type GetUserRequestType = {
-    items: UserType[]
-    totalCount: number
-    error: string
-}
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {
@@ -15,29 +9,20 @@ const instance = axios.create({
     }
 })
 
-//* Users Page API ====================================================================================================>>
-export const usersAPI = {
-    getUsers(pageNumber: number, pageSize: number) {
-        return instance.get<GetUserRequestType>(`users?page=${pageNumber}&count=${pageSize}`).then(res => res.data)
-    },
-    follow(userId: number) {
-        return instance.post(`follow/${userId}`).then(res => res.data)
-    },
-    unfollow(userId: number) {
-        return instance.delete(`follow/${userId}`).then(res => res.data)
-    }
+//* Generic for different response data and result codes (api) =======================================================>>
+export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
+    data: D
+    resultCode: RC
+    messages: Array<string>
 }
 
-//* Profile Page API ==================================================================================================>>
-export const profileAPI = {
-    getUserProfile(userId: number) {
-        return instance(`profile/${userId}`).then(res => res.data)
-    }
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1
 }
 
-//* Auth API ==========================================================================================================>>
-export const authAPI = {
-    getUserData() {
-        return instance(`auth/me`).then(res => res.data)
-    }
+export enum ResultCodeForCaptcha {
+    CaptchaIsRequired = 10
 }
+
+

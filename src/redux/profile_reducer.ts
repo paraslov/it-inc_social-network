@@ -1,5 +1,5 @@
 import {BaseThunkType, InferActionsTypes} from './store';
-import {profileAPI} from '../api/api';
+import {profileAPI} from '../api/profileAPI';
 
 //* ================== Profile reducer types ===============================================================>
 export type PostMessageType = {

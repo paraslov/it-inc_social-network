@@ -1,5 +1,5 @@
 import {BaseThunkType, InferActionsTypes} from './store';
-import {authAPI} from '../api/api';
+import {authAPI} from '../api/authAPI';
 
 //* ================== Initial State =======================================================================>
 const initState = {
