@@ -1,9 +1,9 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {Action, applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer from './profile_reducer';
 import dialogsReducer from './dialogs_reducer';
 import {usersReducer} from './users_reducer';
 import {authReducer} from './auth_reducer';
-import ThunkMiddleware from 'redux-thunk';
+import ThunkMiddleware, {ThunkAction} from 'redux-thunk';
 
 
 const rootReducer = combineReducers({
@@ -13,13 +13,17 @@ const rootReducer = combineReducers({
     auth: authReducer
 })
 
-//* creating state type =======================================================================>
+//* creating state type ===============================================================================================>
 export type AppStateType = ReturnType<typeof rootReducer>
 
-//* creating type to infer types from Actions =================================================>
+//* creating type to infer types from Actions =========================================================================>
 // type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
 // export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
 export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
+
+//* creating common thunk typesation type: ===========================================================================>>
+export type BaseThunkType<A extends Action = Action, R = void> = ThunkAction<R, AppStateType, unknown, A>
+
 
 export const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
 

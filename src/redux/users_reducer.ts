@@ -1,6 +1,5 @@
-import {InferActionsTypes} from './store';
+import {BaseThunkType, InferActionsTypes} from './store';
 import {PhotosType} from './profile_reducer';
-import {Dispatch} from 'redux';
 import {usersAPI} from '../api/api';
 
 //* ================== Users reducer types ===============================================================>
@@ -81,45 +80,50 @@ export const usersActions = {
 }
 
 //* ====== Thunk Creators ============================================================================================>
+type ThunkType = BaseThunkType<UsersActionsType>
 
-export const getUsers = (page: number, pageSize: number) => (dispatch: Dispatch) => {
-    dispatch(usersActions.setIsFetching(true))
-    usersAPI.getUsers(page, pageSize)
-        .then(data => {
-            dispatch(usersActions.setIsFetching(false))
-            dispatch(usersActions.setUsers(data.items))
-            dispatch(usersActions.setTotalUsersCount(200))
-        })
-}
+export const getUsers = (page: number, pageSize: number): ThunkType =>
+    (dispatch) => {
+        dispatch(usersActions.setIsFetching(true))
+        usersAPI.getUsers(page, pageSize)
+            .then(data => {
+                dispatch(usersActions.setIsFetching(false))
+                dispatch(usersActions.setUsers(data.items))
+                dispatch(usersActions.setTotalUsersCount(200))
+            })
+    }
 
-export const setCurrentPageUsers = (page: number, pageSize: number) => (dispatch: Dispatch) => {
-    dispatch(usersActions.setIsFetching(true))
-    dispatch(usersActions.setCurrentPage(page))
-    usersAPI.getUsers(page, pageSize)
-        .then(data => {
-            dispatch(usersActions.setIsFetching(false))
-            dispatch(usersActions.setUsers(data.items))
-        })
-}
+export const setCurrentPageUsers = (page: number, pageSize: number): ThunkType =>
+    (dispatch) => {
+        dispatch(usersActions.setIsFetching(true))
+        dispatch(usersActions.setCurrentPage(page))
+        usersAPI.getUsers(page, pageSize)
+            .then(data => {
+                dispatch(usersActions.setIsFetching(false))
+                dispatch(usersActions.setUsers(data.items))
+            })
+    }
 
-export const follow = (userId: number) => (dispatch: Dispatch) => {
-    dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
-    usersAPI.follow(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(usersActions.followSuccess(userId))
-            }
-            dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
-        })
-}
+export const follow = (userId: number): ThunkType =>
+    (dispatch) => {
+        dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
+        usersAPI.follow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(usersActions.followSuccess(userId))
+                }
+                dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
+            })
+    }
 
-export const unfollow = (userId: number) => (dispatch: Dispatch) => {
-    dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
-    usersAPI.unfollow(userId)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(usersActions.unfollowSuccess(userId))
-            }
-            dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
-        })
-}
+export const unfollow = (userId: number): ThunkType =>
+    (dispatch) => {
+        dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
+        usersAPI.unfollow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(usersActions.unfollowSuccess(userId))
+                }
+                dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
+            })
+    }

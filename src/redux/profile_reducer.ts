@@ -1,5 +1,4 @@
-import {InferActionsTypes} from './store';
-import {Dispatch} from 'redux';
+import {BaseThunkType, InferActionsTypes} from './store';
 import {profileAPI} from '../api/api';
 
 //* ================== Profile reducer types ===============================================================>
@@ -47,7 +46,7 @@ const initState = {
 export type ProfilePageStateType = typeof initState
 
 const profileReducer = (state: ProfilePageStateType = initState, action: ProfileActionsTypes):
-    ProfilePageStateType=> {
+    ProfilePageStateType => {
     switch (action.type) {
         case 'kty112/profile_reducer/ADD_POST':
             return {
@@ -82,12 +81,14 @@ export const profileActions = {
 }
 
 //* ====== Thunk Creators ==============================================================================================>
+type ThunkType = BaseThunkType<ProfileActionsTypes>
 
-export const setUserProfileOnPage = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getUserProfile(userId)
-        .then(data => {
-            dispatch(profileActions.setUserProfileState(data))
-        })
-}
+export const setUserProfileOnPage = (userId: number): ThunkType =>
+    (dispatch) => {
+        profileAPI.getUserProfile(userId)
+            .then(data => {
+                dispatch(profileActions.setUserProfileState(data))
+            })
+    }
 
 export default profileReducer

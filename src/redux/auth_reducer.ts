@@ -1,6 +1,5 @@
-import {InferActionsTypes} from './store';
+import {BaseThunkType, InferActionsTypes} from './store';
 import {authAPI} from '../api/api';
-import {Dispatch} from 'redux';
 
 //* ================== Initial State =======================================================================>
 const initState = {
@@ -33,12 +32,15 @@ export const authActions = {
 }
 
 //* ====== Thunk Creators ==============================================================================================>
-export const setUserLoginData = () => (dispatch: Dispatch) => {
-    authAPI.getUserData()
-        .then(data => {
-            const {id, login, email} = data.data
-            if (data.resultCode === 0) {
-                dispatch(authActions.setUserData(id, login, email))
-            }
-        })
-}
+type ThunkType = BaseThunkType<AuthReducerActionsType>
+
+export const setUserLoginData = (): ThunkType =>
+    (dispatch) => {
+        authAPI.getUserData()
+            .then(data => {
+                const {id, login, email} = data.data
+                if (data.resultCode === 0) {
+                    dispatch(authActions.setUserData(id, login, email))
+                }
+            })
+    }
