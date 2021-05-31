@@ -1,5 +1,6 @@
 import {BaseThunkType, InferActionsTypes} from './store';
 import {profileAPI} from '../api/profileAPI';
+import {ResultCodesEnum} from '../api/api';
 
 //* ================== Profile reducer types ===============================================================>
 export type PostMessageType = {
@@ -40,7 +41,8 @@ const initState = {
         {id: 3, message: 'How are you doing?', likesCounter: 11},
         {id: 4, message: 'I\'m absolutely fine!', likesCounter: 6},
     ] as PostMessageType[],
-    profile: null as null | ProfileType
+    profile: null as null | ProfileType,
+    status: ''
 }
 
 export type ProfilePageStateType = typeof initState
@@ -65,6 +67,8 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
             return {...state, newPostText: action.newPostText}
         case 'kty112/profile_reducer/SET_USER_PROFILE':
             return {...state, profile: action.profile}
+        case 'kty112/profile_reducer/SET_USER_STATUS':
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -77,18 +81,39 @@ export const profileActions = {
     addPost: () => ({type: 'kty112/profile_reducer/ADD_POST'} as const),
     newPostTextChange: (text: string) =>
         ({type: 'kty112/profile_reducer/NEW_POST_TEXT_CHANGE', newPostText: text} as const),
-    setUserProfileState: (profile: ProfileType) => ({type: 'kty112/profile_reducer/SET_USER_PROFILE', profile} as const)
+    setUserProfileState: (profile: ProfileType) => ({
+        type: 'kty112/profile_reducer/SET_USER_PROFILE',
+        profile
+    } as const),
+    setUserStatus: (status: string) => ({type: 'kty112/profile_reducer/SET_USER_STATUS', status} as const)
 }
 
 //* ====== Thunk Creators ==============================================================================================>
 type ThunkType = BaseThunkType<ProfileActionsTypes>
 
-export const setUserProfileOnPage = (userId: number): ThunkType =>
-    (dispatch) => {
-        profileAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(profileActions.setUserProfileState(data))
-            })
-    }
+export const setUserProfileOnPage = (userId: number): ThunkType => dispatch => {
+    profileAPI.getUserProfile(userId)
+        .then(data => {
+            dispatch(profileActions.setUserProfileState(data))
+        })
+}
+
+export const getUserStatus = (userId: number): ThunkType => dispatch => {
+    profileAPI.getUserStatus(userId)
+        .then(data => {
+            if (data) {
+                dispatch(profileActions.setUserStatus(data))
+            }
+        })
+}
+
+export const updateUserStatus = (status: string): ThunkType => dispatch => {
+    profileAPI.updateUserStatus(status)
+        .then(data => {
+            if(data.resultCode === ResultCodesEnum.Success) {
+                dispatch(profileActions.setUserStatus(status))
+            }
+        })
+}
 
 export default profileReducer
