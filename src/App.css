@@ -3,7 +3,7 @@
     src: local('Agency'), url(./assets/fonts/mainFont.ttf) format('truetype');
 }
 
-textarea {
+textarea, input {
     resize: none;
     font-family: 'Agency', serif;
     font-size: 1.1em;
