@@ -6,7 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import {Route, Switch} from 'react-router-dom';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
-import {DialogsContainer} from './components/Content/Dialogs/DialogsContainer';
+import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import {SidebarContainer} from './components/Sidebar/SidebarContainer';
 import UsersContainer from './components/Content/Users/UsersContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';

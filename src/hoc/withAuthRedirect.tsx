@@ -22,5 +22,5 @@ export function withAuthRedirect<T>(Component: ComponentType<T>) {
         return <Component {...restProps as T}/>
     }
 
-    return connect(mstp)(RedirectComponent)
+    return connect<MstpType, {}, T, AppStateType>(mstp)(RedirectComponent)
 }
