@@ -4,7 +4,6 @@ import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
 import {DialogMessageType, DialogUserType} from '../../../redux/dialogs_reducer';
 import {DialogsPropsType} from './DialogsContainer';
-import {Redirect} from 'react-router-dom';
 
 
 export function Dialogs(props: DialogsPropsType) {
@@ -26,7 +25,6 @@ export function Dialogs(props: DialogsPropsType) {
                                                             message={messageEl.message}
                                                             myMessage={messageEl.myMessage}/>)
 
-    if (!props.isAuth) return <Redirect to={'/login'}/>
     return (
         <div className={s.contentWrapper}>
             <div className={s.userDialogs}>

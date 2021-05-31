@@ -53,3 +53,4 @@
 39. Lesson 66: thunk middleware added to the project. Thunk creators implemented in Users components branch.
     (yarn add redux-thunk)
 40. Lesson 68: Redirect to Login component from Dialogs and Profile components if not authorized.
+41. Lesson 69: withAuthRedirect hoc was created to manage isAuth redirect in Profile and Dialogs components.

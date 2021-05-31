@@ -4,7 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import App from './App';
-import {AppStateType, store} from './redux/store';
+import {store} from './redux/store';
 import {Provider} from 'react-redux';
 
 
