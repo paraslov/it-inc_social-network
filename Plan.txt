@@ -57,3 +57,4 @@
 42. Lesson 70: compose()() implemented in Profile and Dialogs components.
 43. Lesson 71: setState used in ProfileStatus.tsx. Local state usage.
 44. Lesson 73: get\update user status functionality implemented (DAL, BLL, UI).
+45. Lesson 74: use componentDidMount in ProfileStatus to sync local state status with global.
