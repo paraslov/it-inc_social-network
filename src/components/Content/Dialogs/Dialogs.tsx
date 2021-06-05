@@ -5,6 +5,8 @@ import {UserMessage} from './Message/UserMessage';
 import {DialogMessageType, DialogUserType} from '../../../redux/dialogs_reducer';
 import {DialogsPropsType} from './DialogsContainer';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {Textarea} from '../../Common/FormControls/FormControls';
+import {required, textAreaMaxLengthValidate} from '../../../utils/validators/validators';
 
 
 export function Dialogs(props: DialogsPropsType) {
@@ -47,7 +49,10 @@ const SendMessageForm = reduxForm<FormDataType>({form: 'dialogsSendMessage'})
 ((props: InjectedFormProps<FormDataType>) => {
     return (
         <form className={s.inputAreaContent} onSubmit={props.handleSubmit}>
-            <Field component={'textarea'} name={'newMessageText'} placeholder={'new message'}/>
+            <Field component={Textarea}
+                   validate={[required, textAreaMaxLengthValidate]}
+                   name={'newMessageText'}
+                   placeholder={'new message'}/>
             <div>
                 <button>Send</button>
             </div>

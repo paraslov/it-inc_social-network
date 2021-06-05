@@ -4,6 +4,8 @@ import Post from './Post/Post'
 import {PostMessageType} from '../../../../redux/profile_reducer';
 import {MyPostsPropsType} from './MyPostsContainer';
 import {Field, reduxForm} from 'redux-form';
+import {Textarea} from '../../../Common/FormControls/FormControls';
+import {required, textAreaMaxLengthValidate} from '../../../../utils/validators/validators';
 
 
 function MyPosts(props: MyPostsPropsType) {
@@ -34,7 +36,10 @@ const AddPostForm = reduxForm<FormData>({form: 'myPostsAddPost'})
 ((props) => {
     return (
         <form className={s.newPost} onSubmit={props.handleSubmit}>
-            <Field component={'textarea'} name={'newPostText'} placeholder={'type your thoughts'}/>
+            <Field component={Textarea}
+                   name={'newPostText'}
+                   placeholder={'type your thoughts'}
+                   validate={[required, textAreaMaxLengthValidate]}/>
             <div>
                 <button>Add Post</button>
             </div>
