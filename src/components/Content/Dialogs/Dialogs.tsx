@@ -1,20 +1,18 @@
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
 import {DialogMessageType, DialogUserType} from '../../../redux/dialogs_reducer';
 import {DialogsPropsType} from './DialogsContainer';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 
 
 export function Dialogs(props: DialogsPropsType) {
-
-    const onSendMessage = () => {
-        props.sendMessage(props.newMessageText)
-    }
-    const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.textareaChange(e.currentTarget.value)
+    const onSendMessage = (formData: FormDataType) => {
+        props.sendMessage(formData.newMessageText)
     }
 
+//* Dialogs and messages mapping ====================================================================================>>
     const dialogsElements = props.dialogsUsersData
         .map((user: DialogUserType) => <Dialog key={user.id}
                                                id={user.id}
@@ -35,14 +33,25 @@ export function Dialogs(props: DialogsPropsType) {
             </div>
             <div className={s.inputArea}>
                 <div className={s.inputAreaContent}>
-                    <textarea value={props.newMessageText}
-                              placeholder={'type your message'}
-                              onChange={onTextareaChange}/>
-                    <div>
-                        <button onClick={onSendMessage}>Send</button>
-                    </div>
+                    <SendMessageForm onSubmit={onSendMessage}/>
                 </div>
             </div>
         </div>
     )
 }
+
+//* SendMessageForm component ========================================================================================>>
+type FormDataType = {
+    newMessageText: string
+}
+const SendMessageForm = reduxForm<FormDataType>({form: 'sendMessage'})
+((props: InjectedFormProps<FormDataType>) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component={'textarea'} name={'newMessageText'} placeholder={'new message'}/>
+            <div>
+                <button>Send</button>
+            </div>
+        </form>
+    )
+})
