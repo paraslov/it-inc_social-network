@@ -10,6 +10,7 @@ import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 export function Dialogs(props: DialogsPropsType) {
     const onSendMessage = (formData: FormDataType) => {
         props.sendMessage(formData.newMessageText)
+        formData.newMessageText = ''
     }
 
 //* Dialogs and messages mapping ====================================================================================>>
@@ -32,9 +33,7 @@ export function Dialogs(props: DialogsPropsType) {
                 {messagesElements}
             </div>
             <div className={s.inputArea}>
-                <div className={s.inputAreaContent}>
-                    <SendMessageForm onSubmit={onSendMessage}/>
-                </div>
+                <SendMessageForm onSubmit={onSendMessage}/>
             </div>
         </div>
     )
@@ -44,10 +43,10 @@ export function Dialogs(props: DialogsPropsType) {
 type FormDataType = {
     newMessageText: string
 }
-const SendMessageForm = reduxForm<FormDataType>({form: 'sendMessage'})
+const SendMessageForm = reduxForm<FormDataType>({form: 'dialogsSendMessage'})
 ((props: InjectedFormProps<FormDataType>) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form className={s.inputAreaContent} onSubmit={props.handleSubmit}>
             <Field component={'textarea'} name={'newMessageText'} placeholder={'new message'}/>
             <div>
                 <button>Send</button>

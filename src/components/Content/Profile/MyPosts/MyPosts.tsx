@@ -1,8 +1,9 @@
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import s from './MyPosts.module.css'
 import Post from './Post/Post'
 import {PostMessageType} from '../../../../redux/profile_reducer';
 import {MyPostsPropsType} from './MyPostsContainer';
+import {Field, reduxForm} from 'redux-form';
 
 
 function MyPosts(props: MyPostsPropsType) {
@@ -10,28 +11,35 @@ function MyPosts(props: MyPostsPropsType) {
     const postsElements = props.postsMessagesData
         .map((post: PostMessageType) => <Post message={post.message} likesCounter={post.likesCounter}/>)
 
-    const onAddPost = () => {
-        props.addPost(props.newPostText)
-    }
-    const onPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.newPostTextChange(e.currentTarget.value)
+    const onAddPost = (formData: FormData) => {
+        props.addPost(formData.newPostText)
+        formData.newPostText = ''
     }
 
     return (
         <div>
             <header className={s.header}>My Posts</header>
-            <div className={s.newPost}>
-                <textarea value={props.newPostText}
-                          placeholder={'type your thoughts'}
-                          onChange={onPostTextChange}/>
-                <div>
-                    <button onClick={onAddPost}>Add Post</button>
-                </div>
-            </div>
+            <AddPostForm onSubmit={onAddPost}/>
             <div className={s.postsArea}>
                 {postsElements}
             </div>
         </div>)
 }
+
+//* AddPostForm component ========================================================================================>>
+type FormData = {
+    newPostText: string
+}
+const AddPostForm = reduxForm<FormData>({form: 'myPostsAddPost'})
+((props) => {
+    return (
+        <form className={s.newPost} onSubmit={props.handleSubmit}>
+            <Field component={'textarea'} name={'newPostText'} placeholder={'type your thoughts'}/>
+            <div>
+                <button>Add Post</button>
+            </div>
+        </form>
+    )
+})
 
 export default MyPosts

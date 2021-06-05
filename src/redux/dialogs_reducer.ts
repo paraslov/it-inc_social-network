@@ -87,20 +87,14 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
     // return (switcher[action.type] || switcher['default'])(action)
     switch (action.type) {
         case 'kty112/dialogs_reducer/SEND_MESSAGE':
-            if (state.newMessageText.trim() !== '') {
+            if (action.newMessageText && action.newMessageText.trim() !== '') {
                 const newMessage: DialogMessageType = {
                     id: state.messagesData.length + 1,
-                    message: state.newMessageText.trim(),
+                    message: action.newMessageText.trim(),
                     myMessage: true
                 }
-                return {
-                    ...state,
-                    messagesData: [...state.messagesData, newMessage],
-                    newMessageText: ''
-                }
+                return {...state, messagesData: [...state.messagesData, newMessage]}
             } else return state
-        case 'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE':
-            return {...state, newMessageText: action.newMessageText}
         default:
             return state
     }
@@ -110,9 +104,7 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
 export type DialogsActionsTypes = InferActionsTypes<typeof dialogsActions>
 
 export const dialogsActions = {
-    sendMessage: () => ({type: 'kty112/dialogs_reducer/SEND_MESSAGE'} as const),
-    newMessageTextChange: (text: string) =>
-        ({type: 'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE', newMessageText: text} as const),
+    sendMessage: (newMessageText: string) => ({type: 'kty112/dialogs_reducer/SEND_MESSAGE', newMessageText} as const),
 }
 
 

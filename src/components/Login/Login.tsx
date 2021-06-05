@@ -20,7 +20,7 @@ type FormDataType = {
     password: string
     rememberMe: boolean
 }
-const LoginForm = reduxForm<FormDataType>({form: 'login'})
+const LoginForm = reduxForm<FormDataType>({form: 'loginForm'})
 ((props) => {
     return (
         <form onSubmit={props.handleSubmit}>

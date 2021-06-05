@@ -13,13 +13,11 @@ export default {
 } as Meta
 
 const sendMessageCallback = action('Trying to send message in state.')
-const onTextChangeCallback = action('Trying to change text in message area.')
 
 const Template: Story<DialogsPropsType> = (args) => <Dialogs {...args}/>
 
 export const DialogsTest = Template.bind({})
 DialogsTest.args = {
-        newMessageText: '',
         dialogsUsersData: [
             {
                 id: 1, name: 'Kitomo Natsuro',
@@ -57,6 +55,5 @@ DialogsTest.args = {
             {id: 4, message: 'Hi', myMessage: false},
             {id: 4, message: 'Who is this?', myMessage: true},
         ],
-    textareaChange: onTextChangeCallback,
     sendMessage: sendMessageCallback
 }

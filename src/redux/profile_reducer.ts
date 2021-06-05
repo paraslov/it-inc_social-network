@@ -34,7 +34,6 @@ export type ProfileType = {
 
 //* ================== Initial State =======================================================================>
 const initState = {
-    newPostText: '',
     postsMessagesData: [
         {id: 1, message: 'It\'s my first post', likesCounter: 66},
         {id: 2, message: 'It\'s my second post', likesCounter: 22},
@@ -51,20 +50,19 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
     ProfilePageStateType => {
     switch (action.type) {
         case 'kty112/profile_reducer/ADD_POST':
-            return {
-                ...state,
-                postsMessagesData: [
-                    {
-                        id: state.postsMessagesData.length + 1,
-                        message: state.newPostText,
-                        likesCounter: 0
-                    },
-                    ...state.postsMessagesData
-                ],
-                newPostText: ''
-            }
-        case 'kty112/profile_reducer/NEW_POST_TEXT_CHANGE':
-            return {...state, newPostText: action.newPostText}
+            if(action.newPostText && action.newPostText.trim() !== ''){
+                return {
+                    ...state,
+                    postsMessagesData: [
+                        {
+                            id: state.postsMessagesData.length + 1,
+                            message: action.newPostText.trim(),
+                            likesCounter: 0
+                        },
+                        ...state.postsMessagesData
+                    ],
+                }
+            } else return state
         case 'kty112/profile_reducer/SET_USER_PROFILE':
             return {...state, profile: action.profile}
         case 'kty112/profile_reducer/SET_USER_STATUS':
@@ -78,9 +76,7 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
 export type ProfileActionsTypes = InferActionsTypes<typeof profileActions>
 
 export const profileActions = {
-    addPost: () => ({type: 'kty112/profile_reducer/ADD_POST'} as const),
-    newPostTextChange: (text: string) =>
-        ({type: 'kty112/profile_reducer/NEW_POST_TEXT_CHANGE', newPostText: text} as const),
+    addPost: (newPostText: string) => ({type: 'kty112/profile_reducer/ADD_POST', newPostText} as const),
     setUserProfileState: (profile: ProfileType) => ({
         type: 'kty112/profile_reducer/SET_USER_PROFILE',
         profile
