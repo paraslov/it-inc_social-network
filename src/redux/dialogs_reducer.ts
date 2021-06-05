@@ -14,7 +14,6 @@ export type DialogMessageType = {
 
 //* ================== Initial State =======================================================================>
 const initState = {
-    newMessageText: '',
     dialogsUsersData: [
         {
             id: 1, name: 'Kitomo Natsuro',
@@ -53,48 +52,18 @@ const initState = {
         {id: 4, message: 'Who is this?', myMessage: true},
     ] as DialogMessageType[],
 }
-
 export type DialogsPageStateType = typeof initState
-
 
 const dialogsReducer = (state: DialogsPageStateType = initState, action: DialogsActionsTypes):
     DialogsPageStateType => {
-    //* dynamic dispatch try xD ================================================================================>>
-    //* used types for DD try (if uncomment should get it outside reducer):
-    // type DDKeysTypes = 'kty112/dialogs_reducer/SEND_MESSAGE' | 'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE' | 'default'
-    // type switcherType = {
-    //     [key in DDKeysTypes]: (action: DialogsActionsTypes) => DialogsPageStateType
-    // }
-    //* DD code:
-    // const switcher: switcherType = {
-    //     'kty112/dialogs_reducer/SEND_MESSAGE':  () => {
-    //         const newMessage: DialogMessageType = {
-    //             id: state.messagesData.length + 1,
-    //             message: state.newMessageText.trim(),
-    //             myMessage: true
-    //         }
-    //         return {
-    //             ...state,
-    //             messagesData: [...state.messagesData, newMessage],
-    //             newMessageText: ''
-    //         }
-    //     },
-    //     'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE': function (action:any) {
-    //         return {...state, newMessageText: action.newMessageText}
-    //     },
-    //     'default': function () {return state}
-    // };
-    // return (switcher[action.type] || switcher['default'])(action)
     switch (action.type) {
         case 'kty112/dialogs_reducer/SEND_MESSAGE':
-            if (action.newMessageText && action.newMessageText.trim() !== '') {
-                const newMessage: DialogMessageType = {
-                    id: state.messagesData.length + 1,
-                    message: action.newMessageText.trim(),
-                    myMessage: true
-                }
-                return {...state, messagesData: [...state.messagesData, newMessage]}
-            } else return state
+            const newMessage: DialogMessageType = {
+                id: state.messagesData.length + 1,
+                message: action.newMessageText.trim(),
+                myMessage: true
+            }
+            return {...state, messagesData: [...state.messagesData, newMessage]}
         default:
             return state
     }
@@ -109,3 +78,31 @@ export const dialogsActions = {
 
 
 export default dialogsReducer
+
+
+//* dynamic dispatch try xD ================================================================================>>
+//* used types for DD try (if uncomment should get it outside reducer):
+// type DDKeysTypes = 'kty112/dialogs_reducer/SEND_MESSAGE' | 'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE' | 'default'
+// type switcherType = {
+//     [key in DDKeysTypes]: (action: DialogsActionsTypes) => DialogsPageStateType
+// }
+//* DD code:
+// const switcher: switcherType = {
+//     'kty112/dialogs_reducer/SEND_MESSAGE':  () => {
+//         const newMessage: DialogMessageType = {
+//             id: state.messagesData.length + 1,
+//             message: state.newMessageText.trim(),
+//             myMessage: true
+//         }
+//         return {
+//             ...state,
+//             messagesData: [...state.messagesData, newMessage],
+//             newMessageText: ''
+//         }
+//     },
+//     'kty112/dialogs_reducer/NEW_MESSAGE_TEXT_CHANGE': function (action:any) {
+//         return {...state, newMessageText: action.newMessageText}
+//     },
+//     'default': function () {return state}
+// };
+// return (switcher[action.type] || switcher['default'])(action)

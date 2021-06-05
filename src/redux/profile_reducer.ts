@@ -50,19 +50,13 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
     ProfilePageStateType => {
     switch (action.type) {
         case 'kty112/profile_reducer/ADD_POST':
-            if(action.newPostText && action.newPostText.trim() !== ''){
-                return {
-                    ...state,
-                    postsMessagesData: [
-                        {
-                            id: state.postsMessagesData.length + 1,
-                            message: action.newPostText.trim(),
-                            likesCounter: 0
-                        },
-                        ...state.postsMessagesData
-                    ],
-                }
-            } else return state
+            return {
+                ...state,
+                postsMessagesData: [
+                    {id: state.postsMessagesData.length + 1, message: action.newPostText.trim(), likesCounter: 0},
+                    ...state.postsMessagesData
+                ],
+            }
         case 'kty112/profile_reducer/SET_USER_PROFILE':
             return {...state, profile: action.profile}
         case 'kty112/profile_reducer/SET_USER_STATUS':
@@ -106,7 +100,7 @@ export const getUserStatus = (userId: number): ThunkType => dispatch => {
 export const updateUserStatus = (status: string): ThunkType => dispatch => {
     profileAPI.updateUserStatus(status)
         .then(data => {
-            if(data.resultCode === ResultCodesEnum.Success) {
+            if (data.resultCode === ResultCodesEnum.Success) {
                 dispatch(profileActions.setUserStatus(status))
             }
         })
