@@ -1,5 +1,6 @@
 import {BaseThunkType, InferActionsTypes} from './store';
 import {authAPI} from '../api/authAPI';
+import {ResultCodesEnum} from '../api/api';
 
 //* ================== Initial State =======================================================================>
 const initState = {
@@ -15,8 +16,7 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
         case 'kty112/auth_reducer/SET_USER_DATA':
             return {
                 ...state,
-                ...action.payload,
-                isAuth: true
+                ...action.payload
             }
         default:
             return state
@@ -27,20 +27,35 @@ export const authReducer = (state: AuthStateType = initState, action: AuthReduce
 type AuthReducerActionsType = InferActionsTypes<typeof authActions>
 
 export const authActions = {
-    setUserData: (userId: number, loginName: string, email: string) =>
-        ({type: 'kty112/auth_reducer/SET_USER_DATA', payload: {userId, loginName, email}} as const)
+    setUserData: (userId: number | null, loginName: string | null, email: string | null, isAuth: boolean) =>
+        ({type: 'kty112/auth_reducer/SET_USER_DATA', payload: {userId, loginName, email, isAuth}} as const)
 }
 
 //* ====== Thunk Creators ==============================================================================================>
 type ThunkType = BaseThunkType<AuthReducerActionsType>
 
-export const setUserLoginData = (): ThunkType =>
-    (dispatch) => {
+export const setUserLoginData = (): ThunkType => dispatch => {
         authAPI.getUserData()
             .then(data => {
                 const {id, login, email} = data.data
-                if (data.resultCode === 0) {
-                    dispatch(authActions.setUserData(id, login, email))
+                if (data.resultCode === ResultCodesEnum.Success) {
+                    dispatch(authActions.setUserData(id, login, email, true))
                 }
             })
     }
+export const loginUser = (email: string, password: string, rememberMe: boolean): ThunkType => dispatch => {
+    authAPI.loginUser(email, password, rememberMe)
+        .then(data => {
+            if(data.resultCode === ResultCodesEnum.Success) {
+                dispatch(setUserLoginData())
+            }
+        })
+}
+export const logoutUser = (): ThunkType => dispatch => {
+    authAPI.logoutUser()
+        .then(data => {
+            if(data.resultCode === ResultCodesEnum.Success) {
+                dispatch(authActions.setUserData(null, null, null, false))
+            }
+        })
+}

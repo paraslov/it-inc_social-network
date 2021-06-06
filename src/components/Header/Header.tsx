@@ -2,13 +2,8 @@ import React from 'react';
 import s from './Header.module.css'
 import logo from '../../assets/img/logo/logo.png'
 import {NavLink} from 'react-router-dom';
+import { HeaderPropsType } from './HeaderContainer';
 
-
-type HeaderPropsType = {
-    isAuth: boolean
-    loginName: string | null
-    email: string | null
-}
 
 function Header(props: HeaderPropsType) {
     return <header className={s.header}>
@@ -18,7 +13,10 @@ function Header(props: HeaderPropsType) {
             alt={'logotype'}/>
         <div className={s.login}>
             {props.isAuth ?
-                <div>{props.loginName} / {props.email}</div>
+                <div className={s.loginInfo}>
+                    <div>{props.loginName} / {props.email}</div>
+                    <div className={s.logoutBtn} onClick={() => props.logoutUser()}>Logout</div>
+                </div>
                 :
                 <NavLink to={'/login'}>Login</NavLink>
             }

@@ -27,3 +27,18 @@
     color: red;
     transition: .5s;
 }
+
+.loginInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logoutBtn {
+    cursor: pointer;
+}
+
+.logoutBtn:hover {
+    color: red;
+    transition: .5s;
+}
