@@ -4,6 +4,7 @@ import {Input} from '../Common/FormControls/FormControls';
 import {inputMaxLengthValidate, required} from '../../utils/validators/validators';
 import {LoginPropsType} from './LoginContainer';
 import {Redirect} from 'react-router-dom';
+import formControlStyles from '../Common/FormControls/FormControls.module.css'
 
 
 export const Login = (props: LoginPropsType) => {
@@ -43,6 +44,9 @@ const LoginForm = reduxForm<LoginFormDataType>({form: 'loginForm'})
             <div>
                 <Field component={Input} type={'checkbox'} name={'rememberMe'}/>
             </div>
+            {props.error && <div className={formControlStyles.serverError}>
+                {props.error}
+            </div>}
             <div>
                 <button>Sign in</button>
             </div>

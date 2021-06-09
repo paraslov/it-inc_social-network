@@ -1,6 +1,7 @@
 import {BaseThunkType, InferActionsTypes} from './store';
 import {authAPI} from '../api/authAPI';
 import {ResultCodesEnum} from '../api/api';
+import {FormAction, stopSubmit} from 'redux-form';
 
 //* ================== Initial State =======================================================================>
 const initState = {
@@ -32,7 +33,7 @@ export const authActions = {
 }
 
 //* ====== Thunk Creators ==============================================================================================>
-type ThunkType = BaseThunkType<AuthReducerActionsType>
+type ThunkType = BaseThunkType<AuthReducerActionsType | FormAction>
 
 export const setUserLoginData = (): ThunkType => dispatch => {
         authAPI.getUserData()
@@ -48,6 +49,8 @@ export const loginUser = (email: string, password: string, rememberMe: boolean):
         .then(data => {
             if(data.resultCode === ResultCodesEnum.Success) {
                 dispatch(setUserLoginData())
+            } else {
+                dispatch(stopSubmit('loginForm', {_error: data.messages ? data.messages[0] : 'Some error'}))
             }
         })
 }

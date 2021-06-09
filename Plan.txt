@@ -60,3 +60,4 @@
 45. Lesson 74: use componentDidMount in ProfileStatus to sync local state status with global.
 46. Lesson 75: redux-form implemented in project. (yarn add redux-form @types/redux-form)
 47. Lesson 77: form validation implemented. FormControls created for validate components.
+48. Lesson 79: stopSubmit action implemented in auth reducer to show authorization errors from server.

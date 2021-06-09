@@ -13,12 +13,12 @@ type ProfileContainerPropsType = MapStateType & MapDispatchType & RouteComponent
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType, AppStateType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId = Number(this.props.match.params.userId)
         if (!userId) {
-            userId = '13089'
+            userId = this.props.authorizedUserId ? this.props.authorizedUserId : 13089
         }
-        this.props.setUserProfileOnPage(Number(userId))
-        this.props.getUserStatus(Number(userId))
+        this.props.setUserProfileOnPage(userId)
+        this.props.getUserStatus(userId)
     }
 
     render() {
@@ -37,12 +37,14 @@ type MapDispatchType = {
 type MapStateType = {
     profile: ProfileType | null
     status: string
+    authorizedUserId: number | null
 }
 
 const mapStateToProps = (state: AppStateType): MapStateType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
     }
 }
 
