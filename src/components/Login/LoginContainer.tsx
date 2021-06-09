@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {loginUser} from '../../redux/auth_reducer';
 
 
-class LoginContainer extends React.Component<LoginPropsType, AppStateType> {
+class LoginContainer extends React.Component<LoginPropsType> {
     render () {
         return <Login {...this.props}/>
     }

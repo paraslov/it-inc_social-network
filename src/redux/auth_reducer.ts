@@ -35,8 +35,8 @@ export const authActions = {
 //* ====== Thunk Creators ==============================================================================================>
 type ThunkType = BaseThunkType<AuthReducerActionsType | FormAction>
 
-export const setUserLoginData = (): ThunkType => dispatch => {
-        authAPI.getUserData()
+export const setUserLoginData = (): BaseThunkType<AuthReducerActionsType, Promise<void>> => dispatch => {
+        return authAPI.getUserData()
             .then(data => {
                 const {id, login, email} = data.data
                 if (data.resultCode === ResultCodesEnum.Success) {

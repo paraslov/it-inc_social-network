@@ -11,11 +11,15 @@ type PathParamsType = {
 }
 type ProfileContainerPropsType = MapStateType & MapDispatchType & RouteComponentProps<PathParamsType>
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType, AppStateType> {
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId = Number(this.props.match.params.userId)
         if (!userId) {
-            userId = this.props.authorizedUserId ? this.props.authorizedUserId : 13089
+            if(this.props.authorizedUserId) {
+                userId = this.props.authorizedUserId
+            } else {
+                this.props.history.push('/login')
+            }
         }
         this.props.setUserProfileOnPage(userId)
         this.props.getUserStatus(userId)

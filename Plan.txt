@@ -61,3 +61,5 @@
 46. Lesson 75: redux-form implemented in project. (yarn add redux-form @types/redux-form)
 47. Lesson 77: form validation implemented. FormControls created for validate components.
 48. Lesson 79: stopSubmit action implemented in auth reducer to show authorization errors from server.
+49. Lesson 80: initializeApp were implemented in project, to prevent redirect effects before initialization data comes
+    from server.
