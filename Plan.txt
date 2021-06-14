@@ -63,3 +63,5 @@
 48. Lesson 79: stopSubmit action implemented in auth reducer to show authorization errors from server.
 49. Lesson 80: initializeApp were implemented in project, to prevent redirect effects before initialization data comes
     from server.
+50. Lesson 83: selectors implemented in project. Users selectors were created.
+    (yarn add reselect @types/reselect)
