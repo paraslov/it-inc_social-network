@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css'
 import {ProfileType} from '../../../../redux/profile_reducer';
 import {Preloader} from '../../../Common/Preloader/Preloader';
 import samuraiPic from '../../../../assets/img/ava/ava.png'
-import {ProfileStatus} from './ProfileStatus'
+import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 
 
 type PropsType = {
@@ -21,7 +21,7 @@ function ProfileInfo(props: PropsType) {
                 <img src={props.profile.photos.small || samuraiPic} alt="user ava"/>
                 <div className={s.aboutMe}>{props.profile.aboutMe}</div>
                 <div className={s.aboutMe}>{props.profile.lookingForAJobDescription}</div>
-                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
+                <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
             </div>
         </div>
     )
