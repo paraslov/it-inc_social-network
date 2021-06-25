@@ -8,10 +8,10 @@ import {Textarea} from '../../../Common/FormControls/FormControls';
 import {required, textAreaMaxLengthValidate} from '../../../../utils/validators/validators';
 
 
-function MyPosts(props: MyPostsPropsType) {
-
+const MyPosts = React.memo((props: MyPostsPropsType) => {
+    console.log('RENDER MP')
     const postsElements = props.postsMessagesData
-        .map((post: PostMessageType) => <Post message={post.message} likesCounter={post.likesCounter}/>)
+        .map((post: PostMessageType) => <Post key={post.id} message={post.message} likesCounter={post.likesCounter}/>)
 
     const onAddPost = (formData: FormData) => {
         props.addPost(formData.newPostText)
@@ -26,7 +26,7 @@ function MyPosts(props: MyPostsPropsType) {
                 {postsElements}
             </div>
         </div>)
-}
+})
 
 //* AddPostForm component ========================================================================================>>
 type FormData = {
@@ -34,6 +34,7 @@ type FormData = {
 }
 const AddPostForm = reduxForm<FormData>({form: 'myPostsAddPost'})
 ((props) => {
+    console.log('FORM RENDERED')
     return (
         <form className={s.newPost} onSubmit={props.handleSubmit}>
             <Field component={Textarea}
