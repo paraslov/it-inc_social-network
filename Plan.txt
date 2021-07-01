@@ -68,3 +68,4 @@
 51. Lesson 84-85: useState, useEffect hooks implemented in ProfileStatusWithHooks.tsx
 52. Lesson 86-87: virtual DOM, PureComponent, shouldComponentUpdate, React.memo
 53. Lesson 88: pure function
+54. Lesson 89: TDD, unit-tests, jest

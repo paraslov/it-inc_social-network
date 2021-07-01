@@ -1,6 +1,6 @@
-import {BaseThunkType, InferActionsTypes} from './store';
-import {profileAPI} from '../api/profileAPI';
-import {ResultCodesEnum} from '../api/api';
+import {BaseThunkType, InferActionsTypes} from './store'
+import {profileAPI} from '../api/profileAPI'
+import {ResultCodesEnum} from '../api/api'
 
 //* ================== Profile reducer types ===============================================================>
 export type PostMessageType = {
@@ -61,6 +61,8 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
             return {...state, profile: action.profile}
         case 'kty112/profile_reducer/SET_USER_STATUS':
             return {...state, status: action.status}
+        case 'kty112/profile_reducer/DELETE_POST':
+            return {...state, postsMessagesData: state.postsMessagesData.filter(post => post.id !== action.postId)}
         default:
             return state
     }
@@ -75,7 +77,8 @@ export const profileActions = {
         type: 'kty112/profile_reducer/SET_USER_PROFILE',
         profile
     } as const),
-    setUserStatus: (status: string) => ({type: 'kty112/profile_reducer/SET_USER_STATUS', status} as const)
+    setUserStatus: (status: string) => ({type: 'kty112/profile_reducer/SET_USER_STATUS', status} as const),
+    deletePost: (postId: number) => ({type: 'kty112/profile_reducer/DELETE_POST', postId} as const)
 }
 
 //* ====== Thunk Creators ==============================================================================================>
