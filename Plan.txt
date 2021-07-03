@@ -69,3 +69,6 @@
 52. Lesson 86-87: virtual DOM, PureComponent, shouldComponentUpdate, React.memo
 53. Lesson 88: pure function
 54. Lesson 89: TDD, unit-tests, jest
+55. Lesson 90: redux ducks. Refactoring. Paginator.tsx created and myCreateField created to create Field components.
+    Also some helpers were added to the project.
+56.

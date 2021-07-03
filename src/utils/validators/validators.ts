@@ -1,4 +1,4 @@
-type ValidatorType = (value: string | undefined) => string | undefined
+export type ValidatorType = (value: string | undefined) => string | undefined
 
 export const required: ValidatorType = (value) => {
     if (!value) return 'Field is required!'

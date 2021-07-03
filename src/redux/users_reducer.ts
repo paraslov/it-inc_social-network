@@ -1,6 +1,6 @@
-import {BaseThunkType, InferActionsTypes} from './store';
-import {PhotosType} from './profile_reducer';
-import {usersAPI} from '../api/usersAPI';
+import {BaseThunkType, InferActionsTypes} from './store'
+import {PhotosType} from './profile_reducer'
+import {usersAPI} from '../api/usersAPI'
 
 //* ================== Users reducer types ===============================================================>
 export type UserType = {
@@ -34,6 +34,7 @@ export const usersReducer = (state: UserStateType = initState, action: UsersActi
         case 'kty112/users_reducer/FOLLOW':
             return {
                 ...state,
+                //users: updateObjInArray(state.users, 'id', action.userId, {followed: true})
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
         case 'kty112/users_reducer/UNFOLLOW':

@@ -1,14 +1,14 @@
-import React from 'react';
-import {Field, reduxForm} from 'redux-form';
-import {Input} from '../Common/FormControls/FormControls';
-import {inputMaxLengthValidate, required} from '../../utils/validators/validators';
-import {LoginPropsType} from './LoginContainer';
-import {Redirect} from 'react-router-dom';
+import React from 'react'
+import {reduxForm} from 'redux-form'
+import {Input, myCreateField} from '../Common/FormControls/FormControls'
+import {inputMaxLengthValidate, required} from '../../utils/validators/validators'
+import {LoginPropsType} from './LoginContainer'
+import {Redirect} from 'react-router-dom'
 import formControlStyles from '../Common/FormControls/FormControls.module.css'
 
 
 export const Login = (props: LoginPropsType) => {
-    const handleSubmit = (formData: LoginFormDataType) => {
+    const handleSubmit = (formData: TLoginFormData) => {
         props.loginUser(formData.email, formData.password, formData.rememberMe)
     }
     if(props.isAuth) return <Redirect to={'/profile'}/>
@@ -21,29 +21,21 @@ export const Login = (props: LoginPropsType) => {
 }
 
 //* Login form component ============================================================================================>>
-export type LoginFormDataType = {
+export type TLoginFormData = {
     email: string
     password: string
     rememberMe: boolean
 }
-const LoginForm = reduxForm<LoginFormDataType>({form: 'loginForm'})
+type TFormKeysType = keyof TLoginFormData
+
+const LoginForm = reduxForm<TLoginFormData>({form: 'loginForm'})
 ((props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component={Input} name={'email'} placeholder={'e-mail'}
-                       validate={[required, inputMaxLengthValidate]}/>
-            </div>
-            <div>
-                <Field component={Input}
-                       type={'password'}
-                       name={'password'}
-                       placeholder={'password'}
-                       validate={[required, inputMaxLengthValidate]}/>
-            </div>
-            <div>
-                <Field component={Input} type={'checkbox'} name={'rememberMe'}/>
-            </div>
+            {myCreateField<TFormKeysType>('email', 'Email', Input, [required, inputMaxLengthValidate])}
+            {myCreateField<TFormKeysType>('password', 'password', Input,
+                [required, inputMaxLengthValidate], {type: 'password'})}
+            {myCreateField<TFormKeysType>('rememberMe', undefined, Input, [], {type: 'checkbox'})}
             {props.error && <div className={formControlStyles.serverError}>
                 {props.error}
             </div>}
