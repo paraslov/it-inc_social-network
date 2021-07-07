@@ -90,7 +90,7 @@ export const getUsers = (page: number, pageSize: number): ThunkType =>
             .then(data => {
                 dispatch(usersActions.setIsFetching(false))
                 dispatch(usersActions.setUsers(data.items))
-                dispatch(usersActions.setTotalUsersCount(200))
+                dispatch(usersActions.setTotalUsersCount(data.totalCount))
             })
     }
 

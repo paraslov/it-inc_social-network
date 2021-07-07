@@ -19,7 +19,7 @@ type UsersPropsType = {
 export function Users(props: UsersPropsType) {
     return (
         <div className={s.wrapper}>
-            <Paginator totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+            <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                        currentPage={props.currentPage} onPageNumberClick={props.onPageNumberClick} />
             <div>
                 {props.users.map((u) => <User key={u.id}

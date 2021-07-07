@@ -1,3 +1,8 @@
+.paginator {
+    display: flex;
+    margin: 5px 0;
+}
+
 .page {
     font-size: 1.1em;
     cursor: pointer;
@@ -7,5 +12,30 @@
 .page.currentPage {
     font-weight: bold;
     font-size: 1.2em;
+    color: red;
+}
+
+.paginatorNumbers {
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+    height: 21px;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.btn::before {
+    content: "\21D2";
+    font-size: 12px;
+    color: red;
+}
+
+.btn:first-child::before {
+    content: "\21D0";
+    font-size: 12px;
     color: red;
 }
