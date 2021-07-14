@@ -33,7 +33,7 @@ export const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
             {!editMode ?
                 <div>
                         <span onDoubleClick={activateEditMode} className={s.status}>
-                            {props.status || 'enter your status'}
+                            <b>Status: </b>{props.status || 'enter your status'}
                         </span>
                 </div>
                 :

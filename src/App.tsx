@@ -3,7 +3,7 @@ import './App.css'
 import backgroundImage from './assets/img/background/bckgrimg2.jpg'
 import samuraiImg from './assets/img/decor/samurai.png'
 import NavBar from './components/NavBar/NavBar'
-import {Redirect, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import Music from './components/Content/Music/Music'
 import Settings from './components/Content/Settings/Settings'
 import {SidebarContainer} from './components/Sidebar/SidebarContainer'
@@ -11,9 +11,9 @@ import UsersContainer from './components/Content/Users/UsersContainer'
 import ProfileContainer from './components/Content/Profile/ProfileContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import {compose} from 'redux'
-import {connect} from 'react-redux'
+import {connect, Provider} from 'react-redux'
 import {initializeApp} from './redux/app_reducer'
-import {AppStateType} from './redux/store'
+import {AppStateType, store} from './redux/store'
 import {Preloader} from './components/Common/Preloader/Preloader'
 
 // import DialogsContainer from './components/Content/Dialogs/DialogsContainer'
@@ -70,6 +70,16 @@ const mstp = (state: AppStateType): MapStateType => ({
     initialized: state.app.initialized
 })
 
-export default compose(
+const AppWithConnect = compose(
     connect<MapStateType, MapDispatchType, {}, AppStateType>(mstp, {initializeApp})
 )(App)
+
+export const SamuraiApp = () => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppWithConnect />
+            </Provider>
+        </BrowserRouter>
+    )
+}

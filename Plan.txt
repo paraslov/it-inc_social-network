@@ -74,3 +74,4 @@
 56. Lesson 91,92: chrome extensions, components tests.
 57. Lesson 93, 94: Paginator.tsx updated (show pack of pages not all), React.lazy(...) implemented for Dialogs and Login.
 58. Lesson 96: saveAvatar flow. Sending image to server.
+59. Lesson 97: edit profile functionality.
