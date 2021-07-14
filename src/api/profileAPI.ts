@@ -14,10 +14,13 @@ export const profileAPI = {
     saveAvatar(photoFile: File) {
         const formData = new FormData()
         formData.append('image', photoFile)
-        return instance.post('profile/photo', formData, {
+        return instance.put('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(res => res.data)
+    },
+    updateProfile(formData: ProfileType) {
+        return instance.put<APIResponseType>('profile/', formData).then(res => res.data)
     }
 }

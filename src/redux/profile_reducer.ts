@@ -117,5 +117,14 @@ export const saveAvatar = (file: File): ThunkType => dispatch => {
             }
         })
 }
+export const updateProfile = (formData: ProfileType): ThunkType => (dispatch, getState) => {
+    const userId = getState().auth.userId
+    profileAPI.updateProfile(formData)
+        .then(data => {
+            if(data.resultCode === ResultCodesEnum.Success) {
+                if(userId) dispatch(setUserProfileOnPage(userId))
+            }
+        })
+}
 
 export default profileReducer

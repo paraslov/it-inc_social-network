@@ -11,12 +11,14 @@ type PropsType = {
     isOwner: boolean
     updateUserStatus: (status: string) => void
     saveAvatar: (file: File) => void
+    updateProfile: (formData: ProfileType) => void
 }
 
 function Profile(props: PropsType) {
     return (
         <main className={s.main_content}>
             <ProfileInfo profile={props.profile}
+                         updateProfile={props.updateProfile}
                          status={props.status}
                          isOwner={props.isOwner}
                          updateUserStatus = {props.updateUserStatus}

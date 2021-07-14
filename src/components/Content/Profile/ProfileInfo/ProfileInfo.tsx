@@ -14,6 +14,7 @@ type PropsType = {
     isOwner: boolean
     updateUserStatus: (status: string) => void
     saveAvatar: (file: File) => void
+    updateProfile: (formData: ProfileType) => void
 }
 
 function ProfileInfo(props: PropsType) {
@@ -23,28 +24,21 @@ function ProfileInfo(props: PropsType) {
         return <Preloader left={'40%'} top={'40%'} size={'200px'}/>
     }
 
-    const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            props.saveAvatar(e.target.files[0])
-        }
-    }
-
     const onProfileFormSubmit = (formData: ProfileType) => {
-        console.log(formData)
+        props.updateProfile(formData)
+        setEditProfile(false)
     }
 
     return (
         <div>
             <div className={s.infoContent}>
                 <img src={props.profile.photos.small || samuraiPic} alt="user ava"/>
-                {props.isOwner && <div className={s.aboutMe}>
-                    <input type="file" placeholder={'choose ava'} onChange={onChangeAvatar}/>
-                </div>}
-                <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
-                {editProfile ? <ProfileForm profile={props.profile}
-                                            onSubmit={onProfileFormSubmit}
-                                            setEditProfile={setEditProfile}/>
-                    : <ProfileData profile={props.profile} isOwner={props.isOwner}
+                {editProfile ? <EditProfileForm profile={props.profile}
+                                                onSubmit={onProfileFormSubmit}
+                                                saveAvatar={props.saveAvatar}
+                                                setEditProfile={setEditProfile}/>
+                    : <ProfileData profile={props.profile} isOwner={props.isOwner} status={props.status}
+                                   updateUserStatus={props.updateUserStatus}
                                    editProfileCallback={() => setEditProfile(true)}/>}
             </div>
         </div>
@@ -66,7 +60,9 @@ const Contacts: React.FC<TContacts> = ({contactTitle, contactValue}) => {
 
 type TProfileDataProps = {
     profile: ProfileType
+    status: string
     isOwner: boolean
+    updateUserStatus: (status: string) => void
     editProfileCallback: () => void
 }
 
@@ -74,6 +70,7 @@ const ProfileData: React.FC<TProfileDataProps> = (props) => {
     return (
         <div>
             {props.isOwner && <button onClick={props.editProfileCallback}>edit profile</button>}
+            <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
             <div className={s.aboutMe}><b>About me:</b> {props.profile.aboutMe}</div>
             <div className={s.aboutMe}><b>Looking for a job:</b> {props.profile.lookingForAJob ? 'yes' : 'no'}
             </div>
@@ -93,11 +90,22 @@ const ProfileData: React.FC<TProfileDataProps> = (props) => {
 type TProfileFormProps = {
     profile: ProfileType
     setEditProfile: (editProfile: boolean) => void
+    saveAvatar: (file: File) => void
 }
 
-const ProfileForm = reduxForm<ProfileType, TProfileFormProps>({form: 'editProfile'})((props) => {
+const EditProfileForm = reduxForm<ProfileType, TProfileFormProps>({form: 'editProfile'})((props) => {
+
+    const onChangeAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            props.saveAvatar(e.target.files[0])
+        }
+    }
+
     return (
         <form onSubmit={props.handleSubmit}>
+            <div className={s.aboutMe}><b>Change avatar:</b>
+                <input type="file" placeholder={'choose ava'} onChange={onChangeAvatar}/>
+            </div>
             <div className={s.aboutMe}><b>About me:</b>
                 {myCreateField('aboutMe', 'About me', Input, [])}
             </div>
@@ -113,9 +121,9 @@ const ProfileForm = reduxForm<ProfileType, TProfileFormProps>({form: 'editProfil
             <div className={s.aboutMe}><b>My contacts:</b>
                 <div>
                     {Object.keys(props.profile.contacts).map(key => <div className={s.aboutMe}>
-                            <b>{key}</b>:
+                        <b>{key}</b>:
                         {myCreateField('contacts.' + key, key, Input, [])}
-                        </div>)}
+                    </div>)}
                 </div>
             </div>
             <button type={'submit'}>Save</button>
