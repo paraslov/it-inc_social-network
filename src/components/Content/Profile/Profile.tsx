@@ -8,7 +8,9 @@ import {ProfileType} from '../../../redux/profile_reducer';
 type PropsType = {
     profile: ProfileType | null
     status: string
+    isOwner: boolean
     updateUserStatus: (status: string) => void
+    saveAvatar: (file: File) => void
 }
 
 function Profile(props: PropsType) {
@@ -16,7 +18,9 @@ function Profile(props: PropsType) {
         <main className={s.main_content}>
             <ProfileInfo profile={props.profile}
                          status={props.status}
+                         isOwner={props.isOwner}
                          updateUserStatus = {props.updateUserStatus}
+                         saveAvatar = {props.saveAvatar}
             />
             <MyPostsContainer/>
         </main>)

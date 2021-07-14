@@ -63,6 +63,8 @@ const profileReducer = (state: ProfilePageStateType = initState, action: Profile
             return {...state, status: action.status}
         case 'kty112/profile_reducer/DELETE_POST':
             return {...state, postsMessagesData: state.postsMessagesData.filter(post => post.id !== action.postId)}
+        case 'kty112/profile_reducer/SAVE_AVATAR':
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         default:
             return state
     }
@@ -78,7 +80,8 @@ export const profileActions = {
         profile
     } as const),
     setUserStatus: (status: string) => ({type: 'kty112/profile_reducer/SET_USER_STATUS', status} as const),
-    deletePost: (postId: number) => ({type: 'kty112/profile_reducer/DELETE_POST', postId} as const)
+    deletePost: (postId: number) => ({type: 'kty112/profile_reducer/DELETE_POST', postId} as const),
+    saveAvatar: (photos: PhotosType) => ({type: 'kty112/profile_reducer/SAVE_AVATAR', photos} as const),
 }
 
 //* ====== Thunk Creators ==============================================================================================>
@@ -90,7 +93,6 @@ export const setUserProfileOnPage = (userId: number): ThunkType => dispatch => {
             dispatch(profileActions.setUserProfileState(data))
         })
 }
-
 export const getUserStatus = (userId: number): ThunkType => dispatch => {
     profileAPI.getUserStatus(userId)
         .then(data => {
@@ -99,12 +101,19 @@ export const getUserStatus = (userId: number): ThunkType => dispatch => {
             }
         })
 }
-
 export const updateUserStatus = (status: string): ThunkType => dispatch => {
     profileAPI.updateUserStatus(status)
         .then(data => {
             if (data.resultCode === ResultCodesEnum.Success) {
                 dispatch(profileActions.setUserStatus(status))
+            }
+        })
+}
+export const saveAvatar = (file: File): ThunkType => dispatch => {
+    profileAPI.saveAvatar(file)
+        .then(data => {
+            if(data.resultCode === ResultCodesEnum.Success) {
+                dispatch(profileActions.saveAvatar(data.data.photos))
             }
         })
 }

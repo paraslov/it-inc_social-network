@@ -2,7 +2,13 @@ import React from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/store';
-import {getUserStatus, ProfileType, setUserProfileOnPage, updateUserStatus} from '../../../redux/profile_reducer';
+import {
+    getUserStatus,
+    ProfileType,
+    saveAvatar,
+    setUserProfileOnPage,
+    updateUserStatus
+} from '../../../redux/profile_reducer'
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {withAuthRedirect} from '../../../hoc/withAuthRedirect'
@@ -13,7 +19,7 @@ type PathParamsType = {
 type ProfileContainerPropsType = MapStateType & MapDispatchType & RouteComponentProps<PathParamsType>
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
-    componentDidMount() {
+    refreshProfile() {
         let userId = Number(this.props.match.params.userId)
         if (!userId) {
             if(this.props.authorizedUserId) {
@@ -25,11 +31,21 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         this.props.setUserProfileOnPage(userId)
         this.props.getUserStatus(userId)
     }
+    componentDidMount() {
+        this.refreshProfile()
+    }
+    componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if(this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
 
     render() {
         return <Profile profile={this.props.profile}
                         status={this.props.status}
+                        isOwner={!this.props.match.params.userId}
                         updateUserStatus = {this.props.updateUserStatus}
+                        saveAvatar = {this.props.saveAvatar}
         />
     }
 }
@@ -38,6 +54,7 @@ type MapDispatchType = {
     setUserProfileOnPage: (userId: number) => void
     getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
+    saveAvatar: (file: File) => void
 }
 type MapStateType = {
     profile: ProfileType | null
@@ -56,7 +73,7 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
 export default compose<React.ComponentType>(
     withAuthRedirect,
     connect<MapStateType, MapDispatchType, {}, AppStateType>
-    (mapStateToProps, {setUserProfileOnPage, getUserStatus, updateUserStatus}),
+    (mapStateToProps, {setUserProfileOnPage, getUserStatus, updateUserStatus, saveAvatar}),
     withRouter
 )(ProfileContainer)
 
