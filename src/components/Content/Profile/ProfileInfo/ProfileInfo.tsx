@@ -32,14 +32,22 @@ function ProfileInfo(props: PropsType) {
     return (
         <div>
             <div className={s.infoContent}>
-                <img src={props.profile.photos.small || samuraiPic} alt="user ava"/>
+                <div className={s.profileHeader}>
+                    <img src={props.profile.photos.small || samuraiPic} alt="user ava"/>
+                    <div className={s.nameStatusBlock}>
+                        <div className={s.name}>{props.profile.fullName}</div>
+                        <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}
+                                                isOwner={props.isOwner}/>
+                    </div>
+                    {props.isOwner && !editProfile &&
+                    <button className={s.editProfileBtn} onClick={() => setEditProfile(true)}>Edit profile</button>}
+                </div>
                 {editProfile ? <EditProfileForm profile={props.profile}
+                                                initialValues={props.profile}
                                                 onSubmit={onProfileFormSubmit}
                                                 saveAvatar={props.saveAvatar}
                                                 setEditProfile={setEditProfile}/>
-                    : <ProfileData profile={props.profile} isOwner={props.isOwner} status={props.status}
-                                   updateUserStatus={props.updateUserStatus}
-                                   editProfileCallback={() => setEditProfile(true)}/>}
+                    : <ProfileData profile={props.profile}/>}
             </div>
         </div>
     )
@@ -53,29 +61,25 @@ type TContacts = {
 const Contacts: React.FC<TContacts> = ({contactTitle, contactValue}) => {
     return (
         <div>
-            {contactValue && <span className={s.contactItem}><b>{contactTitle}</b>: {contactValue}</span>}
+            {contactValue &&
+            <span className={s.contactItem}><b>{contactTitle}</b>:
+                <a href={contactValue} target={'_blank'} title={'contact ref'}>{contactValue}</a>
+            </span>}
         </div>
     )
 }
 
 type TProfileDataProps = {
     profile: ProfileType
-    status: string
-    isOwner: boolean
-    updateUserStatus: (status: string) => void
-    editProfileCallback: () => void
 }
 
 const ProfileData: React.FC<TProfileDataProps> = (props) => {
     return (
         <div>
-            {props.isOwner && <button onClick={props.editProfileCallback}>edit profile</button>}
-            <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
             <div className={s.aboutMe}><b>About me:</b> {props.profile.aboutMe}</div>
             <div className={s.aboutMe}><b>Looking for a job:</b> {props.profile.lookingForAJob ? 'yes' : 'no'}
             </div>
             <div className={s.aboutMe}><b>Job description:</b> {props.profile.lookingForAJobDescription}</div>
-            <div className={s.aboutMe}><b>My name:</b> {props.profile.fullName}</div>
             <div className={s.aboutMe}><b>My contacts:</b>
                 <div>
                     {Object.keys(props.profile.contacts).map(key =>
@@ -104,7 +108,14 @@ const EditProfileForm = reduxForm<ProfileType, TProfileFormProps>({form: 'editPr
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={s.aboutMe}><b>Change avatar:</b>
-                <input type="file" placeholder={'choose ava'} onChange={onChangeAvatar}/>
+                <label className={s.changeAvatar} htmlFor={'i1'}>
+                    Choose avatar
+                    <input type="file"
+                          id={'i1'}
+                          style={{width: 0}}
+                          placeholder={'choose ava'}
+                          onChange={onChangeAvatar}/>
+                </label>
             </div>
             <div className={s.aboutMe}><b>About me:</b>
                 {myCreateField('aboutMe', 'About me', Input, [])}
@@ -126,8 +137,9 @@ const EditProfileForm = reduxForm<ProfileType, TProfileFormProps>({form: 'editPr
                     </div>)}
                 </div>
             </div>
-            <button type={'submit'}>Save</button>
-            <button type={'button'} onClick={() => props.setEditProfile(false)}>Cancel</button>
+            <button type={'submit'} className={s.editProfileBtn+' '+s.editMode}>Save</button>
+            <button type={'button'} className={s.editProfileBtn+' '+s.editMode}
+                    onClick={() => props.setEditProfile(false)}>Cancel</button>
         </form>
     )
 })

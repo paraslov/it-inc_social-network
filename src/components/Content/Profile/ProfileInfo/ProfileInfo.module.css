@@ -1,18 +1,79 @@
+
+.infoContent {
+    width: 50vw;
+}
+
 .infoContent img {
     width: 150px;
     height: 150px;
     border-radius: 20px;
 }
 
+.profileHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.nameStatusBlock {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.name {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.editProfileBtn {
+    font-family: 'Agency', serif;
+    font-size: 16px;
+    background-color: transparent;
+    color: red;
+    border-radius: 3px;
+}
+
+.editProfileBtn.editMode {
+    font-size: 18px;
+    margin: 15px 60px 0 10px;
+}
+
 .aboutMe {
-    margin-bottom: 3px;
+    margin-bottom: 7px;
     font-size: 1.2em;
 }
 
 .status {
+    cursor: pointer;
     font-size: 1.2em;
+}
+
+.changeAvatar {
+    margin-left: 5px;
+    color: darkred;
+    cursor: pointer;
+    padding: 3px;
+    border: 1px solid darkred;
+    border-radius: 3px;
+}
+
+.changeAvatar:hover {
+    color: red;
+    border-color: red;
 }
 
 .contactItem {
     padding-left: 10px;
+}
+
+.contactItem a {
+    color: #aaa;
+}
+
+.contactItem a:hover {
+    color: darkred;
 }

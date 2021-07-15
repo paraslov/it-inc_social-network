@@ -4,6 +4,7 @@ import s from './ProfileInfo.module.css'
 
 type PropsType = {
     status: string
+    isOwner: boolean
     updateUserStatus: (status: string) => void
 }
 
@@ -18,7 +19,7 @@ export const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     }, [props.status])
 
     const activateEditMode = () => {
-        setEditMode(true)
+        if(props.isOwner) setEditMode(true)
     }
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
@@ -33,7 +34,7 @@ export const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
             {!editMode ?
                 <div>
                         <span onDoubleClick={activateEditMode} className={s.status}>
-                            <b>Status: </b>{props.status || 'enter your status'}
+                            {props.status || 'enter your status'}
                         </span>
                 </div>
                 :
