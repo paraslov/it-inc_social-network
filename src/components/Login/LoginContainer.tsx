@@ -14,14 +14,16 @@ class LoginContainer extends React.Component<LoginPropsType> {
 
 type MapStateType = {
     isAuth: boolean
+    captchaUrl: string | null
 }
 type MapDispatchType = {
-    loginUser: (email: string, password: string, rememberMe: boolean) => void
+    loginUser: (email: string, password: string, rememberMe: boolean, captcha: string | null) => void
 }
 export type LoginPropsType = MapStateType & MapDispatchType
 
-const mstp = (state: AppStateType) => ({
-    isAuth: state.auth.isAuth
+const mstp = (state: AppStateType): MapStateType => ({
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect<MapStateType, MapDispatchType, {}, AppStateType>(mstp, {loginUser})(LoginContainer)

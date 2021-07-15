@@ -9,13 +9,13 @@ import formControlStyles from '../Common/FormControls/FormControls.module.css'
 
 export const Login = (props: LoginPropsType) => {
     const handleSubmit = (formData: TLoginFormData) => {
-        props.loginUser(formData.email, formData.password, formData.rememberMe)
+        props.loginUser(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if(props.isAuth) return <Redirect to={'/profile'}/>
     return (
         <div>
             <h2>Login:</h2>
-            <LoginForm onSubmit={handleSubmit}/>
+            <LoginForm onSubmit={handleSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )
 }
@@ -25,10 +25,14 @@ export type TLoginFormData = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string | null
+}
+type TLoginFormProps = {
+    captchaUrl: string | null
 }
 type TFormKeysType = keyof TLoginFormData
 
-const LoginForm = reduxForm<TLoginFormData>({form: 'loginForm'})
+const LoginForm = reduxForm<TLoginFormData, TLoginFormProps>({form: 'loginForm'})
 ((props) => {
     return (
         <form onSubmit={props.handleSubmit}>
@@ -36,6 +40,8 @@ const LoginForm = reduxForm<TLoginFormData>({form: 'loginForm'})
             {myCreateField<TFormKeysType>('password', 'password', Input,
                 [required, inputMaxLengthValidate], {type: 'password'})}
             {myCreateField<TFormKeysType>('rememberMe', undefined, Input, [], {type: 'checkbox'})}
+            {props.captchaUrl && <img src={props.captchaUrl} alt="captcha"/>}
+            {props.captchaUrl && myCreateField<TFormKeysType>('captcha', 'enter symbols from image', Input, [required])}
             {props.error && <div className={formControlStyles.serverError}>
                 {props.error}
             </div>}
