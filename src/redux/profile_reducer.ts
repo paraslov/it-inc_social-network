@@ -1,6 +1,7 @@
 import {BaseThunkType, InferActionsTypes} from './store'
 import {profileAPI} from '../api/profileAPI'
 import {ResultCodesEnum} from '../api/api'
+import {stopSubmit} from 'redux-form'
 
 //* ================== Profile reducer types ===============================================================>
 export type PostMessageType = {
@@ -123,6 +124,8 @@ export const updateProfile = (formData: ProfileType): ThunkType => (dispatch, ge
         .then(data => {
             if(data.resultCode === ResultCodesEnum.Success) {
                 if(userId) dispatch(setUserProfileOnPage(userId))
+            } else {
+                stopSubmit('editProfile', {_error: 'some error occurred'})
             }
         })
 }
