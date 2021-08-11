@@ -1,0 +1,32 @@
+.welcomeContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.papyrus {
+    width: 450px;
+}
+
+.eyes {
+    width: 180px;
+}
+
+.btn {
+    font-family: 'Agency', serif;
+    background-color: red;
+    color: #e7fdd8;
+    letter-spacing: 2px;
+    font-size: 20px;
+    font-weight: bolder;
+    width: 250px;
+    height: 50px;
+    border-radius: 7px;
+}
+
+.btn:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+}

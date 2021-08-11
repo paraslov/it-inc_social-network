@@ -15,6 +15,7 @@ import {connect, Provider} from 'react-redux'
 import {initializeApp} from './redux/app_reducer'
 import {AppStateType, store} from './redux/store'
 import {Preloader} from './components/Common/Preloader/Preloader'
+import {WelcomePage} from './components/Content/WelcomePage/WelcomePage';
 
 // import DialogsContainer from './components/Content/Dialogs/DialogsContainer'
 // import LoginContainer from './components/Login/LoginContainer';
@@ -36,13 +37,14 @@ class App extends React.Component<AppPropsType> {
                  style={{background: `black url(${backgroundImage})`, backgroundSize: '100%',}}>
                 <img className={'samuraiImg'} src={samuraiImg} alt="decor element"/>
                 <HeaderContainer/>
-                <NavBar/>
-                <SidebarContainer/>
+                {this.props.isAuth && <NavBar/>}
+                {this.props.isAuth && <SidebarContainer/>}
 
                 <div className="main-content">
                     <Suspense fallback={<Preloader left={'40%'} top={'40%'} size={'200px'}/>}>
                         <Switch>
-                            <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
+                            <Route exact path={'/'} render={() => <Redirect to={'/welcome'}/>}/>
+                            <Route path={'/welcome'} render={() => <WelcomePage/>}/>
                             <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                             <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                             <Route path={'/users'} render={() => <UsersContainer/>}/>
@@ -60,6 +62,7 @@ class App extends React.Component<AppPropsType> {
 
 type MapStateType = {
     initialized: boolean
+    isAuth: boolean
 }
 type MapDispatchType = {
     initializeApp: () => void
@@ -67,7 +70,8 @@ type MapDispatchType = {
 type AppPropsType = MapStateType & MapDispatchType
 
 const mstp = (state: AppStateType): MapStateType => ({
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
+    isAuth: state.auth.isAuth
 })
 
 const AppWithConnect = compose(
