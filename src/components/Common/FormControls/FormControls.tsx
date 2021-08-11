@@ -30,11 +30,13 @@ export function myCreateField<FormKeysType extends string> (name: FormKeysType,
                                                             component: string | React.Component | React.FC<WrappedFieldProps>,
                                                             validate: ValidatorType[],
                                                             props = {},
-                                                            text = '') {
+                                                            className = '',
+                                                            text = '',
+                                                            id= '') {
     return (
         <div>
             <Field component={component} name={name} placeholder={placeholder}
-                   validate={validate} {...props}/>{text}
+                           validate={validate} {...props} id={id} className={className}/>{text}
         </div>
     )
 }

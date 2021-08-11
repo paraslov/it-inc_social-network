@@ -50,6 +50,10 @@
     font-size: 1.2em;
 }
 
+.aboutMe input, textarea {
+    border-radius: 3px;
+}
+
 .status {
     cursor: pointer;
     font-size: 1.2em;
