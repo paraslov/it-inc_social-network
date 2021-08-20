@@ -49,7 +49,7 @@ const initState = {
         {id: 2, message: 'How are you, broh?', myMessage: false},
         {id: 3, message: 'Oi!', myMessage: true},
         {id: 4, message: 'Hi', myMessage: false},
-        {id: 4, message: 'Who is this?', myMessage: true},
+        {id: 5, message: 'Who is this?', myMessage: true},
     ] as DialogMessageType[],
 }
 export type DialogsPageStateType = typeof initState
@@ -63,7 +63,7 @@ const dialogsReducer = (state: DialogsPageStateType = initState, action: Dialogs
                 message: action.newMessageText.trim(),
                 myMessage: true
             }
-            return {...state, messagesData: [...state.messagesData, newMessage]}
+            return {...state, messagesData: [newMessage, ...state.messagesData]}
         default:
             return state
     }

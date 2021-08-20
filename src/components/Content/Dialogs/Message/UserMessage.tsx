@@ -9,9 +9,9 @@ export type UserMessagePropsType = {
 export function UserMessage(props: UserMessagePropsType) {
     return (
         <div className={`${s.messageItem} ${!props.myMessage && s.collocutorMessage}`}>
-            {props.myMessage && <div className={s.messageCircle}></div>}
+            {props.myMessage && <div className={s.messageCircle}/>}
             <div className={s.messageText}>{props.message}</div>
-            {!props.myMessage && <div className={s.messageCircle}></div>}
+            {!props.myMessage && <div className={s.messageCircle}/>}
         </div>
 
     )

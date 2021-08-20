@@ -15,7 +15,7 @@ import {connect, Provider} from 'react-redux'
 import {initializeApp} from './redux/app_reducer'
 import {AppStateType, store} from './redux/store'
 import {Preloader} from './components/Common/Preloader/Preloader'
-import {WelcomePage} from './components/Content/WelcomePage/WelcomePage';
+import WelcomePage from './components/Content/WelcomePage/WelcomePage';
 
 // import DialogsContainer from './components/Content/Dialogs/DialogsContainer'
 // import LoginContainer from './components/Login/LoginContainer';
