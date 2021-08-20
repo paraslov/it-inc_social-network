@@ -1,6 +1,5 @@
 import React from 'react'
 import {UserType} from '../../../../redux/users_reducer'
-import s from '../Users.module.css'
 import {User} from './User'
 import {Paginator} from '../../../Common/Paginator/Paginator'
 
@@ -18,7 +17,7 @@ type UsersPropsType = {
 
 export function Users(props: UsersPropsType) {
     return (
-        <div className={s.wrapper}>
+        <div>
             <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                        currentPage={props.currentPage} onPageNumberClick={props.onPageNumberClick} />
             <div>

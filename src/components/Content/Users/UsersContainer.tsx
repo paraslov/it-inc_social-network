@@ -10,6 +10,7 @@ import {
     selectSavedUsers,
     selectTotalUsersCount
 } from '../../../utils/selectors/users_selectors';
+import s from './Users.module.css'
 
 
 class UsersContainer extends React.Component<UsersContainerPropsType, AppStateType> {
@@ -24,7 +25,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
 
     render() {
         return (
-            <div>
+            <div className={s.wrapper}>
                 {this.props.isFetching ? <Preloader left={'40%'} top={'40%'} size={'200px'}/> : null}
                 <Users
                     users={this.props.users}
