@@ -3,7 +3,7 @@ import './App.css'
 import backgroundImage from './assets/img/background/bckgrimg3.jpg'
 import samuraiImg from './assets/img/decor/samurai.png'
 import NavBar from './components/NavBar/NavBar'
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
+import {HashRouter, Redirect, Route, Switch} from 'react-router-dom'
 import Music from './components/Content/Music/Music'
 import Settings from './components/Content/Settings/Settings'
 import {SidebarContainer} from './components/Sidebar/SidebarContainer'
@@ -81,10 +81,10 @@ const AppWithConnect = compose(
 
 export const SamuraiApp = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppWithConnect />
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
