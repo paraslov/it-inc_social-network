@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react'
 import './App.css'
-import backgroundImage from './assets/img/background/bckgrimg2.jpg'
+import backgroundImage from './assets/img/background/bckgrimg3.jpg'
 import samuraiImg from './assets/img/decor/samurai.png'
 import NavBar from './components/NavBar/NavBar'
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
@@ -38,9 +38,10 @@ class App extends React.Component<AppPropsType> {
                 <img className={'samuraiImg'} src={samuraiImg} alt="decor element"/>
                 <HeaderContainer/>
                 {this.props.isAuth && <NavBar/>}
-                {this.props.isAuth && <SidebarContainer/>}
+
 
                 <div className="main-content">
+                    {this.props.isAuth && <SidebarContainer/>}
                     <Suspense fallback={<Preloader left={'40%'} top={'40%'} size={'200px'}/>}>
                         <Switch>
                             <Route exact path={'/'} render={() => <Redirect to={'/welcome'}/>}/>

@@ -25,6 +25,8 @@ textarea, input {
 
 .main-content {
     width: 100%;
+    display: flex;
+
 }
 
 .samuraiImg {

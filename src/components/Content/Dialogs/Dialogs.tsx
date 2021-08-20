@@ -31,11 +31,13 @@ export function Dialogs(props: DialogsPropsType) {
             <div className={s.userDialogs}>
                 {dialogsElements}
             </div>
-            <div className={s.userMessages}>
-                {messagesElements}
-            </div>
-            <div className={s.inputArea}>
-                <SendMessageForm onSubmit={onSendMessage}/>
+            <div className={s.messages}>
+                <div className={s.userMessages}>
+                    {messagesElements}
+                </div>
+                <div className={s.inputArea}>
+                    <SendMessageForm onSubmit={onSendMessage}/>
+                </div>
             </div>
         </div>
     )

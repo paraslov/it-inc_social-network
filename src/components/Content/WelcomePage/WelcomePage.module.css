@@ -15,16 +15,28 @@
     width: 180px;
 }
 
+.shadow {
+    position: absolute;
+    height: 450px;
+    top: 25%;
+    left: 5%;
+}
+
 .btn {
     font-family: 'Agency', serif;
     background-color: red;
     color: #e7fdd8;
+    text-decoration: none;
     letter-spacing: 2px;
     font-size: 20px;
     font-weight: bolder;
     width: 250px;
     height: 50px;
     border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
 }
 
 .btn:hover {
