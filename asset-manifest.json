@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/it-inc_social-network/static/css/main.8b0b3531.chunk.css",
+    "main.js": "/it-inc_social-network/static/js/main.039787fe.chunk.js",
+    "main.js.map": "/it-inc_social-network/static/js/main.039787fe.chunk.js.map",
+    "runtime-main.js": "/it-inc_social-network/static/js/runtime-main.90bd4a23.js",
+    "runtime-main.js.map": "/it-inc_social-network/static/js/runtime-main.90bd4a23.js.map",
+    "static/js/2.05b019a6.chunk.js": "/it-inc_social-network/static/js/2.05b019a6.chunk.js",
+    "static/js/2.05b019a6.chunk.js.map": "/it-inc_social-network/static/js/2.05b019a6.chunk.js.map",
+    "static/css/3.ef1a7b05.chunk.css": "/it-inc_social-network/static/css/3.ef1a7b05.chunk.css",
+    "static/js/3.8cf37d92.chunk.js": "/it-inc_social-network/static/js/3.8cf37d92.chunk.js",
+    "static/js/3.8cf37d92.chunk.js.map": "/it-inc_social-network/static/js/3.8cf37d92.chunk.js.map",
+    "static/js/4.02688ce0.chunk.js": "/it-inc_social-network/static/js/4.02688ce0.chunk.js",
+    "static/js/4.02688ce0.chunk.js.map": "/it-inc_social-network/static/js/4.02688ce0.chunk.js.map",
+    "static/js/5.9c98c597.chunk.js": "/it-inc_social-network/static/js/5.9c98c597.chunk.js",
+    "static/js/5.9c98c597.chunk.js.map": "/it-inc_social-network/static/js/5.9c98c597.chunk.js.map",
+    "index.html": "/it-inc_social-network/index.html",
+    "static/css/3.ef1a7b05.chunk.css.map": "/it-inc_social-network/static/css/3.ef1a7b05.chunk.css.map",
+    "static/css/main.8b0b3531.chunk.css.map": "/it-inc_social-network/static/css/main.8b0b3531.chunk.css.map",
+    "static/js/2.05b019a6.chunk.js.LICENSE.txt": "/it-inc_social-network/static/js/2.05b019a6.chunk.js.LICENSE.txt",
+    "static/media/ava.289b1460.png": "/it-inc_social-network/static/media/ava.289b1460.png",
+    "static/media/bckgrimg3.1842418d.jpg": "/it-inc_social-network/static/media/bckgrimg3.1842418d.jpg",
+    "static/media/logo.5e59495d.png": "/it-inc_social-network/static/media/logo.5e59495d.png",
+    "static/media/App.css": "/it-inc_social-network/static/media/mainFont.15a6d15e.ttf",
+    "static/media/papirus2.108c2256.png": "/it-inc_social-network/static/media/papirus2.108c2256.png",
+    "static/media/preloader1.af17ae06.gif": "/it-inc_social-network/static/media/preloader1.af17ae06.gif",
+    "static/media/samurai.2bf64c61.png": "/it-inc_social-network/static/media/samurai.2bf64c61.png",
+    "static/media/shadowsamurai.283225f5.png": "/it-inc_social-network/static/media/shadowsamurai.283225f5.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.90bd4a23.js",
+    "static/js/2.05b019a6.chunk.js",
+    "static/css/main.8b0b3531.chunk.css",
+    "static/js/main.039787fe.chunk.js"
+  ]
+}
