@@ -4,7 +4,7 @@ import {usersAPI} from '../../api/usersAPI'
 
 //* ================== Users reducer types ===============================================================>
 export type UserType = {
-    id: number,
+    id: number
     name: string
     status: string
     photos: PhotosType
@@ -83,28 +83,20 @@ export const usersActions = {
 //* ====== Thunk Creators ============================================================================================>
 type ThunkType = BaseThunkType<UsersActionsType>
 
-export const getUsers = (page: number, pageSize: number): ThunkType =>
-    (dispatch) => {
-        dispatch(usersActions.setIsFetching(true))
-        usersAPI.getUsers(page, pageSize)
-            .then(data => {
-                dispatch(usersActions.setIsFetching(false))
-                dispatch(usersActions.setUsers(data.items))
-                dispatch(usersActions.setTotalUsersCount(data.totalCount))
-            })
-    }
-
-export const setCurrentPageUsers = (page: number, pageSize: number): ThunkType =>
-    (dispatch) => {
-        dispatch(usersActions.setIsFetching(true))
-        dispatch(usersActions.setCurrentPage(page))
-        usersAPI.getUsers(page, pageSize)
-            .then(data => {
-                dispatch(usersActions.setIsFetching(false))
-                dispatch(usersActions.setUsers(data.items))
-            })
-    }
-
+export const getUsers = (page: number, pageSize: number): ThunkType => async dispatch => {
+    dispatch(usersActions.setIsFetching(true))
+    const data = await usersAPI.getUsers(page, pageSize)
+    dispatch(usersActions.setUsers(data.items))
+    dispatch(usersActions.setTotalUsersCount(data.totalCount))
+    dispatch(usersActions.setIsFetching(false))
+}
+export const setCurrentPageUsers = (page: number, pageSize: number): ThunkType => async dispatch => {
+    dispatch(usersActions.setIsFetching(true))
+    dispatch(usersActions.setCurrentPage(page))
+    const data = await usersAPI.getUsers(page, pageSize)
+    dispatch(usersActions.setUsers(data.items))
+    dispatch(usersActions.setIsFetching(false))
+}
 export const follow = (userId: number): ThunkType => async dispatch => {
     dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
     const data = await usersAPI.follow(userId)
@@ -113,7 +105,6 @@ export const follow = (userId: number): ThunkType => async dispatch => {
     }
     dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
 }
-
 export const unfollow = (userId: number): ThunkType => async dispatch => {
     dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
     const data = await usersAPI.unfollow(userId)
