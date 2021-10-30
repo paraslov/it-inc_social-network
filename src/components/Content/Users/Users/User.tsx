@@ -1,5 +1,5 @@
 //* Users functional component =======================================================================================>>
-import {UserType} from '../../../../redux/users_reducer'
+import {UserType} from '../../../../redux/users_reducer/users_reducer'
 import React from 'react'
 import s from '../Users.module.css'
 import {NavLink} from 'react-router-dom'

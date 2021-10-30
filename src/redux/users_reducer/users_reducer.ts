@@ -1,6 +1,6 @@
-import {BaseThunkType, InferActionsTypes} from './store'
-import {PhotosType} from './profile_reducer'
-import {usersAPI} from '../api/usersAPI'
+import {BaseThunkType, InferActionsTypes} from '../store'
+import {PhotosType} from '../profile_reducer'
+import {usersAPI} from '../../api/usersAPI'
 
 //* ================== Users reducer types ===============================================================>
 export type UserType = {
@@ -105,26 +105,20 @@ export const setCurrentPageUsers = (page: number, pageSize: number): ThunkType =
             })
     }
 
-export const follow = (userId: number): ThunkType =>
-    (dispatch) => {
-        dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
-        usersAPI.follow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(usersActions.followSuccess(userId))
-                }
-                dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
-            })
+export const follow = (userId: number): ThunkType => async dispatch => {
+    dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
+    const data = await usersAPI.follow(userId)
+    if (data.resultCode === 0) {
+        dispatch(usersActions.followSuccess(userId))
     }
+    dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
+}
 
-export const unfollow = (userId: number): ThunkType =>
-    (dispatch) => {
-        dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
-        usersAPI.unfollow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(usersActions.unfollowSuccess(userId))
-                }
-                dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
-            })
+export const unfollow = (userId: number): ThunkType => async dispatch => {
+    dispatch(usersActions.setFollowUnfollowInProgress(true, userId))
+    const data = await usersAPI.unfollow(userId)
+    if (data.resultCode === 0) {
+        dispatch(usersActions.unfollowSuccess(userId))
     }
+    dispatch(usersActions.setFollowUnfollowInProgress(false, userId))
+}

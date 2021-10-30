@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/store';
-import {follow, getUsers, setCurrentPageUsers, unfollow, UserType} from '../../../redux/users_reducer';
+import {follow, getUsers, setCurrentPageUsers, unfollow, UserType} from '../../../redux/users_reducer/users_reducer';
 import {Users} from './Users/Users';
 import {Preloader} from '../../Common/Preloader/Preloader';
 import {
