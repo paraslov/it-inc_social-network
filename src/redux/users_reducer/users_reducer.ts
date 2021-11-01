@@ -1,6 +1,6 @@
 import {BaseThunkType, InferActionsTypes} from '../store'
 import {PhotosType} from '../profile_reducer'
-import {usersAPI} from '../../api/usersAPI'
+import {IGetUsersRequest, usersAPI} from '../../api/usersAPI'
 
 //* ================== Users reducer types ===============================================================>
 export type UserType = {
@@ -18,6 +18,8 @@ const initState = {
     pageSize: 7,
     currentPage: 1,
     totalUsersCount: 0,
+    term: '',
+    showFriends: false,
     isFetching: false,
     followUnfollowInProgress: [] as number[]
 }
@@ -55,6 +57,11 @@ export const usersReducer = (state: UserStateType = initState, action: UsersActi
                     [...state.followUnfollowInProgress, action.userId] :
                     state.followUnfollowInProgress.filter(id => id !== action.userId)
             }
+        case "kty112/users_reducer/SET_GET_REQUEST_PARAMS":
+            return {
+                ...state,
+                ...action.payload,
+            }
         default:
             return state
     }
@@ -78,23 +85,29 @@ export const usersActions = {
     setIsFetching: (isFetching: boolean) => ({type: 'kty112/users_reducer/SET_IS_FETCHING', isFetching} as const),
     setFollowUnfollowInProgress: (inProgress: boolean, userId: number) =>
         ({type: 'kty112/users_reducer/SET_FOLLOW_UNFOLLOW_IN_PROGRESS', userId, inProgress} as const),
+    setGetUsersRequestParams: (payload: IGetUsersRequest) =>
+        ({type: 'kty112/users_reducer/SET_GET_REQUEST_PARAMS', payload} as const)
 }
 
 //* ====== Thunk Creators ============================================================================================>
 type ThunkType = BaseThunkType<UsersActionsType>
 
-export const getUsers = (page: number, pageSize: number): ThunkType => async dispatch => {
+export const getUsers = (pageNumber: number, pageSize: number): ThunkType => async (dispatch, getState) => {
     dispatch(usersActions.setIsFetching(true))
-    const data = await usersAPI.getUsers(page, pageSize)
+    const {term, showFriends} = getState().usersPage
+    const data = await usersAPI.getUsers({pageNumber, pageSize, term, friend: showFriends})
     dispatch(usersActions.setUsers(data.items))
     dispatch(usersActions.setTotalUsersCount(data.totalCount))
     dispatch(usersActions.setIsFetching(false))
 }
-export const setCurrentPageUsers = (page: number, pageSize: number): ThunkType => async dispatch => {
+export const setCurrentPageUsers = (pageNumber: number, pageSize: number): ThunkType => async (dispatch, getState) => {
     dispatch(usersActions.setIsFetching(true))
-    dispatch(usersActions.setCurrentPage(page))
-    const data = await usersAPI.getUsers(page, pageSize)
+    const {term, showFriends} = getState().usersPage
+    console.log(term, showFriends)
+    dispatch(usersActions.setCurrentPage(pageNumber))
+    const data = await usersAPI.getUsers({pageNumber, pageSize, term, friend: showFriends})
     dispatch(usersActions.setUsers(data.items))
+    dispatch(usersActions.setTotalUsersCount(data.totalCount))
     dispatch(usersActions.setIsFetching(false))
 }
 export const follow = (userId: number): ThunkType => async dispatch => {

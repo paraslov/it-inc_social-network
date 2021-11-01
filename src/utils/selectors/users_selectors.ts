@@ -13,3 +13,5 @@ export const selectCurrentPage = (state: AppStateType) => state.usersPage.curren
 export const selectTotalUsersCount = (state: AppStateType) => state.usersPage.totalUsersCount
 export const selectIsFetching = (state: AppStateType) => state.usersPage.isFetching
 export const selectFollowUnfollowInProgress = (state: AppStateType) => state.usersPage.followUnfollowInProgress
+export const selectTerm = (state: AppStateType) => state.usersPage.term
+export const selectShowFriends = (state: AppStateType) => state.usersPage.showFriends

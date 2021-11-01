@@ -27,7 +27,7 @@
     Initial state were added to reducers.
 21. Lesson 43: Usage of container components to provide all necessary data to presentational components.
     Added: MyPostContainer, DialogsContainer, SidebarContainer.
-22. Lesson 44: StoreContext added by React.createContext<StoreType>({} as StoreType). 
+22. Lesson 44: StoreContext added by React.createContext<StoreType>({} as StoreType).
     StoreContext.Provider used to give store to App.tsx context.
     StoreContext.Consumer used to give store from context to App children components.
 23. Lesson 45: react-redux plugin was installed. Provider from r-r was used and HOC connect
@@ -76,3 +76,4 @@
 58. Lesson 96: saveAvatar flow. Sending image to server.
 59. Lesson 97: edit profile functionality.
 60. Lesson 98: captcha implemented in login.
+// 43min13Les
