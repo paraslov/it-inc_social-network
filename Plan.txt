@@ -76,4 +76,5 @@
 58. Lesson 96: saveAvatar flow. Sending image to server.
 59. Lesson 97: edit profile functionality.
 60. Lesson 98: captcha implemented in login.
-// 43min13Les
+61. Lesson 112: thunk test.
+62. Lesson 113: formik lib.

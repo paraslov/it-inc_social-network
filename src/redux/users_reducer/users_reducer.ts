@@ -11,6 +11,8 @@ export type UserType = {
     followed: boolean
 }
 
+export type TSetGetRequest = IGetUsersRequest | {showFriends: null | true}
+
 //* ================== Initial State ====================================================================>
 
 const initState = {
@@ -19,7 +21,7 @@ const initState = {
     currentPage: 1,
     totalUsersCount: 0,
     term: '',
-    showFriends: false,
+    showFriends: null as null | true,
     isFetching: false,
     followUnfollowInProgress: [] as number[]
 }
@@ -85,7 +87,7 @@ export const usersActions = {
     setIsFetching: (isFetching: boolean) => ({type: 'kty112/users_reducer/SET_IS_FETCHING', isFetching} as const),
     setFollowUnfollowInProgress: (inProgress: boolean, userId: number) =>
         ({type: 'kty112/users_reducer/SET_FOLLOW_UNFOLLOW_IN_PROGRESS', userId, inProgress} as const),
-    setGetUsersRequestParams: (payload: IGetUsersRequest) =>
+    setGetUsersRequestParams: (payload: TSetGetRequest) =>
         ({type: 'kty112/users_reducer/SET_GET_REQUEST_PARAMS', payload} as const)
 }
 

@@ -8,7 +8,7 @@ export type GetUserRequestType = {
 }
 export const usersAPI = {
     getUsers(payload: IGetUsersRequest) {
-        const {pageNumber, pageSize, friend = false, term = ''} = payload
+        const {pageNumber, pageSize, friend = null, term = ''} = payload
         const url = `users?page=${pageNumber}&count=${pageSize}&term=${term}&friend=${friend}`
         return instance.get<GetUserRequestType>(url).then(res => res.data)
     },
@@ -24,5 +24,5 @@ export interface IGetUsersRequest {
     pageNumber: number,
     pageSize: number,
     term?: string,
-    friend?: boolean,
+    friend?: null | true,
 }

@@ -4,7 +4,7 @@ import {AppStateType} from '../../../redux/store';
 import {
     follow,
     getUsers,
-    setCurrentPageUsers,
+    setCurrentPageUsers, TSetGetRequest,
     unfollow,
     usersActions,
     UserType
@@ -18,7 +18,6 @@ import {
     selectTotalUsersCount
 } from '../../../utils/selectors/users_selectors';
 import s from './Users.module.css'
-import {IGetUsersRequest} from "../../../api/usersAPI";
 
 
 class UsersContainer extends React.Component<UsersContainerPropsType, AppStateType> {
@@ -47,6 +46,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
                     totalUsersCount={this.props.totalUsersCount}
+                    term={this.props.term}
+                    showFriends={this.props.showFriends}
                     followUnfollowInProgress={this.props.followUnfollowInProgress}
                     setRequestParams={this.props.setRequestParams}
                     onPageNumberClick={this.onPageNumberClick}
@@ -67,7 +68,7 @@ type MapStateType = {
     isFetching: boolean
     followUnfollowInProgress: number[]
     term: string
-    showFriends: boolean
+    showFriends: null | true
 }
 const mapStateToProps = (state: AppStateType): MapStateType => {
     return {
@@ -87,7 +88,7 @@ type MapDispatchType = {
     setCurrentPageUsers: (page: number, pageSize: number) => Function
     follow: (userId: number) => Function
     unfollow: (userId: number) => Function
-    setRequestParams: (payload: IGetUsersRequest) => void
+    setRequestParams: (payload: TSetGetRequest) => void
 }
 
 export type UsersContainerPropsType = MapStateType & MapDispatchType
