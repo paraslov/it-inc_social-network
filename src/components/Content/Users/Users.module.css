@@ -3,6 +3,22 @@
     margin: 15px 0 0 15px;
 }
 
+.controls {
+    width: 55vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.friendsBtn {
+    width: 100px;
+    margin-left: 20px;
+    font-family: 'Agency', serif;
+    font-size: 16px;
+    background-color: transparent;
+    color: red;
+    border-radius: 3px;
+}
+
 .samurai {
     width: 100%;
     display: flex;

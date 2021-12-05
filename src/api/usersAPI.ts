@@ -7,8 +7,10 @@ export type GetUserRequestType = {
     error: string
 }
 export const usersAPI = {
-    getUsers(pageNumber: number, pageSize: number) {
-        return instance.get<GetUserRequestType>(`users?page=${pageNumber}&count=${pageSize}`).then(res => res.data)
+    getUsers(payload: IGetUsersRequest) {
+        const {pageNumber, pageSize, friend = null, term = ''} = payload
+        const url = `users?page=${pageNumber}&count=${pageSize}&term=${term}&friend=${friend}`
+        return instance.get<GetUserRequestType>(url).then(res => res.data)
     },
     follow(userId: number) {
         return instance.post<APIResponseType>(`follow/${userId}`).then(res => res.data)
@@ -16,4 +18,11 @@ export const usersAPI = {
     unfollow(userId: number) {
         return instance.delete<APIResponseType>(`follow/${userId}`).then(res => res.data)
     }
+}
+
+export interface IGetUsersRequest {
+    pageNumber: number,
+    pageSize: number,
+    term?: string,
+    friend?: null | true,
 }

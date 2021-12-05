@@ -8,8 +8,8 @@ import defaultAva from '../../../../assets/img/ava/ava.png'
 type UserPropsType = {
     user: UserType
     followUnfollowInProgress: number[]
-    follow: (userId: number) => Function
-    unfollow: (userId: number) => Function
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 export const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
     return (
