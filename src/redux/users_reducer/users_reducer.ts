@@ -97,15 +97,6 @@ type ThunkType = BaseThunkType<UsersActionsType>
 export const getUsers = (pageNumber: number, pageSize: number): ThunkType => async (dispatch, getState) => {
     dispatch(usersActions.setIsFetching(true))
     const {term, showFriends} = getState().usersPage
-    const data = await usersAPI.getUsers({pageNumber, pageSize, term, friend: showFriends})
-    dispatch(usersActions.setUsers(data.items))
-    dispatch(usersActions.setTotalUsersCount(data.totalCount))
-    dispatch(usersActions.setIsFetching(false))
-}
-export const setCurrentPageUsers = (pageNumber: number, pageSize: number): ThunkType => async (dispatch, getState) => {
-    dispatch(usersActions.setIsFetching(true))
-    const {term, showFriends} = getState().usersPage
-    console.log(term, showFriends)
     dispatch(usersActions.setCurrentPage(pageNumber))
     const data = await usersAPI.getUsers({pageNumber, pageSize, term, friend: showFriends})
     dispatch(usersActions.setUsers(data.items))

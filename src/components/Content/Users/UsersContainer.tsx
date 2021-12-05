@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/store';
 import {
     follow,
-    getUsers,
-    setCurrentPageUsers, TSetGetRequest,
+    getUsers, TSetGetRequest,
     unfollow,
     usersActions,
     UserType
@@ -34,7 +33,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, AppStateTy
     }
 
     onPageNumberClick = (pageNumber: number) => {
-        this.props.setCurrentPageUsers(pageNumber, this.props.pageSize)
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -84,10 +83,9 @@ const mapStateToProps = (state: AppStateType): MapStateType => {
 }
 
 type MapDispatchType = {
-    getUsers: (page: number, pageSize: number) => Function
-    setCurrentPageUsers: (page: number, pageSize: number) => Function
-    follow: (userId: number) => Function
-    unfollow: (userId: number) => Function
+    getUsers: (page: number, pageSize: number) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setRequestParams: (payload: TSetGetRequest) => void
 }
 
@@ -97,7 +95,6 @@ export type UsersContainerPropsType = MapStateType & MapDispatchType
 export default connect<MapStateType, MapDispatchType, {}, AppStateType>
 (mapStateToProps, {
     getUsers,
-    setCurrentPageUsers,
     follow,
     unfollow,
     setRequestParams: usersActions.setGetUsersRequestParams,

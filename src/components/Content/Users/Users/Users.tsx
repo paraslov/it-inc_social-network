@@ -15,14 +15,14 @@ type UsersPropsType = {
   showFriends: null | true
   followUnfollowInProgress: number[]
   onPageNumberClick: (pageNumber: number) => void
-  follow: (userId: number) => Function
-  unfollow: (userId: number) => Function
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
   setRequestParams: (payload: TSetGetRequest) => void
 }
 
 const debouncedFunction = debounce((currentPage: any, pageSize: any, value: any, showFriends: any, func: any) => {
     func({
-    pageNumber: currentPage,
+    pageNumber: 1,
     pageSize: pageSize,
     term: value,
     showFriends: showFriends})
@@ -38,7 +38,7 @@ export function Users(props: UsersPropsType) {
 
   const onBtnClick = () => {
     props.setRequestParams({
-      pageNumber: props.currentPage,
+      pageNumber: 1,
       pageSize: props.pageSize,
       term: props.term,
       showFriends: props.showFriends ? null : true})
@@ -56,26 +56,8 @@ export function Users(props: UsersPropsType) {
             {props.showFriends ? 'Show All' : 'Show Friends'}
           </button>
         </div>
-        {/*<Formik*/}
-        {/*  initialValues={{term: '', showFriends: false}}*/}
-        {/*  onSubmit={(values, {setSubmitting}) => {*/}
-        {/*    props.setRequestParams({pageNumber: props.currentPage, pageSize: props.pageSize, ...values})*/}
-        {/*    setSubmitting(false)*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  {({isSubmitting}) => (*/}
-        {/*    <Form>*/}
-        {/*      <span>Search: </span>*/}
-        {/*      <Field name="term" type={'text'}/>*/}
-        {/*      <Field type="checkbox" name="showFriends"/>*/}
-        {/*      <button type="submit" disabled={isSubmitting}>*/}
-        {/*        Submit*/}
-        {/*      </button>*/}
-        {/*    </Form>*/}
-        {/*  )}*/}
-        {/*</Formik>*/}
-
       </div>
+
       <div>
         {props.users.map((u) => <User key={u.id}
                                       user={u}
