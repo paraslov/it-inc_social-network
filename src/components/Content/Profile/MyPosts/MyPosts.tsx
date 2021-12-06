@@ -9,11 +9,14 @@ import {joiResolver} from "@hookform/resolvers/joi";
 
 const schema = Joi.object({
   newPostText: Joi.string()
-    .min(10)
+    .trim()
+    .min(3)
     .max(200)
+    .required()
     .messages({
-      'string.min': 'Post must have at least 10 symbols',
-      'string.max': 'Post must be less than 200 symbols'
+      'string.min': 'Post must have at least 3 symbols',
+      'string.max': 'Post must be less than 200 symbols',
+      'string.empty': 'Type your post than submit',
     })
 })
 
@@ -54,14 +57,10 @@ const AddPostForm: React.FC<TAddPostFormProps> = (({addPost}) => {
 
   return (
     <form className={s.newPost} onSubmit={handleSubmit(onSubmit)}>
-      <input className={s.inpText}
-             type="text"
-             placeholder={'type your thoughts'}
-             autoComplete={'off'}
-             {...register('newPostText')} />
-      {<p>{errors.newPostText?.message}</p>}
+      <textarea placeholder={'new post'} autoComplete={'off'} {...register('newPostText')} />
+      {errors.newPostText && <p className={s.errors}>{errors.newPostText?.message}</p>}
       <div>
-        <button>Add Post</button>
+        <button type={'submit'}>Add Post</button>
       </div>
     </form>
   )
