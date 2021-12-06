@@ -12,6 +12,7 @@ import {
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {withAuthRedirect} from '../../../hoc/withAuthRedirect'
+import {TEditProfileFormFields} from "./ProfileInfo/EditProfileForm/EditProfileForm";
 
 type PathParamsType = {
     userId: string
@@ -56,7 +57,7 @@ type MapDispatchType = {
     getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
     saveAvatar: (file: File) => void
-    updateProfile: (formData: ProfileType) => void
+    updateProfile: (formData: TEditProfileFormFields) => void
 }
 type MapStateType = {
     profile: ProfileType | null

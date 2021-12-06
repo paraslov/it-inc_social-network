@@ -78,3 +78,4 @@
 60. Lesson 98: captcha implemented in login.
 61. Lesson 112: thunk test.
 62. Lesson 113: formik lib.
+63. Add react hook form. Add Joi validation to the project.
