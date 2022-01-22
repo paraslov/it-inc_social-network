@@ -1,68 +1,74 @@
 import React from 'react'
-import {reduxForm} from 'redux-form'
-import {Input, myCreateField} from '../Common/FormControls/FormControls'
-import {inputMaxLengthValidate, required} from '../../utils/validators/validators'
 import {LoginPropsType} from './LoginContainer'
 import {Redirect} from 'react-router-dom'
-import formControlStyles from '../Common/FormControls/FormControls.module.css'
 import s from './Login.module.css'
+import {useForm} from "react-hook-form";
 
 
 export const Login = (props: LoginPropsType) => {
-    const handleSubmit = (formData: TLoginFormData) => {
-        props.loginUser(formData.email, formData.password, formData.rememberMe, formData.captcha)
-    }
-    if (props.isAuth) return <Redirect to={'/profile'}/>
-    return (
-        <div className={s.loginContainer}>
-            <div className={s.instructions}>
+
+  if (props.isAuth) return <Redirect to={'/profile'}/>
+
+  return (
+    <div className={s.loginContainer}>
+      <div className={s.instructions}>
                 <span>To log in get registered
                     <a href={'https://social-network.samuraijs.com/'}
                        target={'_blank'}> here
                     </a>
                 </span>
-                <span>or use common test account credentials:</span>
-                <span>Email: free@samuraijs.com</span>
-                <span>Password: free</span>
-            </div>
+        <span>or use common test account credentials:</span>
+        <span>Email: free@samuraijs.com</span>
+        <span>Password: free</span>
+      </div>
 
-            <h2>Login:</h2>
-            <LoginForm onSubmit={handleSubmit} captchaUrl={props.captchaUrl}/>
-        </div>
-    )
+      <h2>Login:</h2>
+      <LoginForm loginUser={props.loginUser} captchaUrl={props.captchaUrl}/>
+    </div>
+  )
 }
 
 //* Login form component ============================================================================================>>
 export type TLoginFormData = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: string | null
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha: string | null
 }
 type TLoginFormProps = {
-    captchaUrl: string | null
+  captchaUrl: string | null
+  loginUser: (email: string, password: string, rememberMe: boolean, captcha: (string | null)) => void
 }
-type TFormKeysType = keyof TLoginFormData
 
-const LoginForm = reduxForm<TLoginFormData, TLoginFormProps>({form: 'loginForm'})
-((props) => {
-    return (
-        <form onSubmit={props.handleSubmit} className={s.form}>
-            {myCreateField<TFormKeysType>('email', 'email', Input, [required, inputMaxLengthValidate], {}, s.formInput)}
-            {myCreateField<TFormKeysType>('password', 'password', Input,
-                [required, inputMaxLengthValidate], {type: 'password'}, s.formInput)}
-            <div className={s.checkboxContainer}>
-                <label htmlFor="rememberMeId">remember me</label>
-                {myCreateField<TFormKeysType>('rememberMe', undefined, Input, [], {type: 'checkbox'},'', '', 'rememberMeId')}
-            </div>
-            {props.captchaUrl && <img src={props.captchaUrl} alt="captcha"/>}
-            {props.captchaUrl && myCreateField<TFormKeysType>('captcha', 'enter symbols from image', Input, [required])}
-            {props.error && <div className={formControlStyles.serverError}>
-                {props.error}
-            </div>}
-            <div>
-                <button className={s.btn} type={'submit'}>Sign in</button>
-            </div>
-        </form>
-    )
+const LoginForm: React.FC<TLoginFormProps> = (({captchaUrl, loginUser}) => {
+
+  const {register, handleSubmit, formState: {errors}, reset} = useForm<TLoginFormData>()
+
+  const onSubmit = ({email, password, rememberMe, captcha}: TLoginFormData) => {
+    loginUser(email, password, rememberMe, captcha)
+    reset()
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
+      <div>
+        <input className={s.formInput} type="email" placeholder={'email'} {...register('email')} />
+      </div>
+      <div>
+        <input className={s.formInput} type="password" placeholder={'password'} {...register('password')} />
+      </div>
+      <div className={s.checkboxContainer}>
+        <label htmlFor="rememberMeId">remember me</label>
+        <input className={s.formInput} type="checkbox" {...register('rememberMe')} id={'rememberMeId'} />
+      </div>
+      {captchaUrl && <img src={captchaUrl} alt="captcha"/>}
+      {captchaUrl && <input type="text" placeholder={'enter symbols from image'} {...register('captcha')} />}
+      {errors.email && <div>
+        {errors?.email}
+      </div>}
+      <div>
+        <button className={s.btn} type={'submit'}>Sign in</button>
+      </div>
+    </form>
+  )
 })
