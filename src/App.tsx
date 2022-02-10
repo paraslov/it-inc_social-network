@@ -7,7 +7,7 @@ import {HashRouter, Redirect, Route, Switch} from 'react-router-dom'
 import Music from './components/Content/Music/Music'
 import Settings from './components/Content/Settings/Settings'
 import {SidebarContainer} from './components/Sidebar/SidebarContainer'
-import UsersContainer from './components/Content/Users/UsersContainer'
+import {UsersPage} from './components/Content/Users/UsersPage'
 import ProfileContainer from './components/Content/Profile/ProfileContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import {compose} from 'redux'
@@ -37,7 +37,7 @@ class App extends React.Component<AppPropsType> {
                  style={{background: `black url(${backgroundImage})`, backgroundSize: '100%',}}>
                 <img className={'samuraiImg'} src={samuraiImg} alt="decor element"/>
                 <HeaderContainer/>
-                {this.props.isAuth && <NavBar/>}
+                {this.props.isAuth && <NavBar />}
 
 
                 <div className="main-content">
@@ -45,13 +45,13 @@ class App extends React.Component<AppPropsType> {
                     <Suspense fallback={<Preloader left={'40%'} top={'40%'} size={'200px'}/>}>
                         <Switch>
                             <Route exact path={'/'} render={() => <Redirect to={'/welcome'}/>}/>
-                            <Route path={'/welcome'} render={() => <WelcomePage/>}/>
-                            <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                            <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                            <Route path={'/users'} render={() => <UsersContainer/>}/>
-                            <Route path={'/music'} render={() => <Music/>}/>
-                            <Route path={'/settings'} render={() => <Settings/>}/>
-                            <Route path={'/login'} render={() => <LoginContainer/>}/>
+                            <Route path={'/welcome'} render={() => <WelcomePage />}/>
+                            <Route path={'/dialogs'} render={() => <DialogsContainer />}/>
+                            <Route path={'/profile/:userId?'} render={() => <ProfileContainer />}/>
+                            <Route path={'/users'} render={() => <UsersPage />}/>
+                            <Route path={'/music'} render={() => <Music />}/>
+                            <Route path={'/settings'} render={() => <Settings />}/>
+                            <Route path={'/login'} render={() => <LoginContainer />}/>
                         </Switch>
                     </Suspense>
 
