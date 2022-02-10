@@ -5,7 +5,8 @@ import {Preloader} from '../../../Common/Preloader/Preloader'
 import samuraiPic from '../../../../assets/img/ava/ava.png'
 import {ProfileStatusWithHooks} from './ProfileStatus/ProfileStatusWithHooks'
 import {ProfileData} from './ProfileData/ProfileData'
-import {EditProfileForm} from './EditProfileForm/EditProfileForm'
+import {EditProfileForm, TEditProfileFormFields} from './EditProfileForm/EditProfileForm'
+import {SubmitHandler} from "react-hook-form";
 
 
 type PropsType = {
@@ -14,7 +15,7 @@ type PropsType = {
     isOwner: boolean
     updateUserStatus: (status: string) => void
     saveAvatar: (file: File) => void
-    updateProfile: (formData: ProfileType) => void
+    updateProfile: (formData: TEditProfileFormFields) => void
 }
 
 function ProfileInfo(props: PropsType) {
@@ -24,7 +25,7 @@ function ProfileInfo(props: PropsType) {
         return <Preloader left={'40%'} top={'40%'} size={'200px'}/>
     }
 
-    const onProfileFormSubmit = (formData: ProfileType) => {
+    const onProfileFormSubmit: SubmitHandler<TEditProfileFormFields> = (formData) => {
         props.updateProfile(formData)
         setEditProfile(false)
     }

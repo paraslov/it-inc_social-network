@@ -1,7 +1,7 @@
 import {BaseThunkType, InferActionsTypes} from './store'
 import {profileAPI} from '../api/profileAPI'
 import {ResultCodesEnum} from '../api/api'
-import {stopSubmit} from 'redux-form'
+import {TEditProfileFormFields} from "../components/Content/Profile/ProfileInfo/EditProfileForm/EditProfileForm";
 
 //* ================== Profile reducer types ===============================================================>
 export type PostMessageType = {
@@ -118,14 +118,12 @@ export const saveAvatar = (file: File): ThunkType => dispatch => {
             }
         })
 }
-export const updateProfile = (formData: ProfileType): ThunkType => (dispatch, getState) => {
+export const updateProfile = (formData: TEditProfileFormFields): ThunkType => (dispatch, getState) => {
     const userId = getState().auth.userId
     profileAPI.updateProfile(formData)
         .then(data => {
             if(data.resultCode === ResultCodesEnum.Success) {
                 if(userId) dispatch(setUserProfileOnPage(userId))
-            } else {
-                stopSubmit('editProfile', {_error: 'some error occurred'})
             }
         })
 }

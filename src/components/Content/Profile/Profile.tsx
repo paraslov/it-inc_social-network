@@ -3,6 +3,7 @@ import s from './Profile.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import {MyPostsContainer} from './MyPosts/MyPostsContainer';
 import {ProfileType} from '../../../redux/profile_reducer';
+import {TEditProfileFormFields} from "./ProfileInfo/EditProfileForm/EditProfileForm";
 
 
 type PropsType = {
@@ -11,7 +12,7 @@ type PropsType = {
     isOwner: boolean
     updateUserStatus: (status: string) => void
     saveAvatar: (file: File) => void
-    updateProfile: (formData: ProfileType) => void
+    updateProfile: (formData: TEditProfileFormFields) => void
 }
 
 function Profile(props: PropsType) {

@@ -1,5 +1,6 @@
 import {ProfileType} from '../redux/profile_reducer'
 import {APIResponseType, instance} from './api'
+import {TEditProfileFormFields} from "../components/Content/Profile/ProfileInfo/EditProfileForm/EditProfileForm";
 
 export const profileAPI = {
     getUserProfile(userId: number) {
@@ -20,7 +21,7 @@ export const profileAPI = {
             }
         }).then(res => res.data)
     },
-    updateProfile(formData: ProfileType) {
+    updateProfile(formData: TEditProfileFormFields) {
         return instance.put<APIResponseType>('profile/', formData).then(res => res.data)
     }
 }
