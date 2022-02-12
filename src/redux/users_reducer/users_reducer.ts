@@ -1,6 +1,6 @@
 import {BaseThunkType, InferActionsTypes} from '../store'
 import {PhotosType} from '../profile_reducer'
-import {IGetUsersRequest, usersAPI} from '../../api/usersAPI'
+import {usersAPI} from '../../api/usersAPI'
 
 //* ================== Users reducer types ===============================================================>
 export type UserType = {
@@ -11,7 +11,12 @@ export type UserType = {
     followed: boolean
 }
 
-export type TSetGetRequest = IGetUsersRequest | {showFriends: null | true}
+export type TSetGetRequest = {
+    currentPage: number,
+    pageSize: number,
+    term?: string,
+    showFriends?: null | true,
+}
 
 //* ================== Initial State ====================================================================>
 

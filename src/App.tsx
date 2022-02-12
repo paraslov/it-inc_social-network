@@ -1,5 +1,6 @@
 import React, {Suspense} from 'react'
 import './App.css'
+import { QueryParamProvider } from 'use-query-params';
 import backgroundImage from './assets/img/background/bckgrimg3.jpg'
 import samuraiImg from './assets/img/decor/samurai.png'
 import NavBar from './components/NavBar/NavBar'
@@ -48,7 +49,7 @@ class App extends React.Component<AppPropsType> {
                             <Route path={'/welcome'} render={() => <WelcomePage />}/>
                             <Route path={'/dialogs'} render={() => <DialogsContainer />}/>
                             <Route path={'/profile/:userId?'} render={() => <ProfileContainer />}/>
-                            <Route path={'/users'} render={() => <UsersPage />}/>
+                            <Route path={'/users/'} render={() => <UsersPage />}/>
                             <Route path={'/music'} render={() => <Music />}/>
                             <Route path={'/settings'} render={() => <Settings />}/>
                             <Route path={'/login'} render={() => <LoginContainer />}/>
@@ -82,9 +83,11 @@ const AppWithConnect = compose(
 export const SamuraiApp = () => {
     return (
         <HashRouter>
-            <Provider store={store}>
-                <AppWithConnect />
-            </Provider>
+            <QueryParamProvider ReactRouterRoute={Route}>
+                <Provider store={store}>
+                    <AppWithConnect />
+                </Provider>
+            </QueryParamProvider>
         </HashRouter>
     )
 }
