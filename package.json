@@ -19,6 +19,8 @@
     "@types/reselect": "^2.2.0",
     "@types/uuid": "^8.3.1",
     "axios": "^0.21.1",
+    "cross-env": "^7.0.3",
+    "husky": "^7.0.4",
     "joi": "^17.5.0",
     "lodash": "^4.17.21",
     "query-string": "^7.1.1",
@@ -39,12 +41,20 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cross-env CI=true react-scripts test --env=jsdom",
+    "lint": "eslint src",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "test:all": "set CI=true && react-scripts test && npm run lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:all",
+      "pre-push": "npm run test:all"
+    }
   },
   "eslintConfig": {
     "extends": [
