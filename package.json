@@ -40,14 +40,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env CI=true react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "lint": "eslint src",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "test:all": "set CI=true && react-scripts test && npm run lint",
+    "test:pre-push": "cross-env CI=true react-scripts test --env=jsdom",
     "postinstall": "husky install"
   },
   "eslintConfig": {

@@ -12,6 +12,8 @@ beforeEach(() => {
         pageSize: 7,
         currentPage: 1,
         totalUsersCount: 0,
+        showFriends: null as null | true,
+        term: '',
         isFetching: false,
         followUnfollowInProgress: [] as number[],
     }
