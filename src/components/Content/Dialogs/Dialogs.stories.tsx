@@ -1,9 +1,8 @@
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Dialogs} from './Dialogs'
+import Dialogs from './Dialogs'
 import {MemoryRouter} from 'react-router-dom';
 import {action} from '@storybook/addon-actions';
-import {DialogsPropsType} from './DialogsContainer';
 
 
 export default {
@@ -14,7 +13,7 @@ export default {
 
 const sendMessageCallback = action('Trying to send message in state.')
 
-const Template: Story<DialogsPropsType> = (args) => <Dialogs {...args}/>
+const Template: Story = (args) => <Dialogs {...args}/>
 
 export const DialogsTest = Template.bind({})
 DialogsTest.args = {

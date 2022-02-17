@@ -1,35 +1,39 @@
 import React from 'react'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
-import {DialogMessageType, DialogUserType} from '../../../redux/dialogs_reducer';
-import {DialogsPropsType} from './DialogsContainer';
+import {DialogMessageType, dialogsActions, DialogUserType} from '../../../redux/dialogs_reducer';
 import {SubmitHandler, useForm} from "react-hook-form";
 import Joi from "@hapi/joi";
 import {joiResolver} from "@hookform/resolvers/joi";
 import s from './Dialogs.module.css'
+import {selectDialogsUsersData, selectMessagesData} from '../../../utils/selectors/dialogs_selectors'
+import {useDispatch, useSelector} from 'react-redux'
 
 const schema = Joi.object({
   newMessageText: Joi.string()
-    .trim()
-    .min(3)
     .max(200)
-    .required()
     .messages({
-      'string.min': 'Message must have at least 3 symbols',
       'string.max': 'Message must be less than 200 symbols',
-      'string.empty': 'Type your post than submit',
     })
 })
 
-export function Dialogs(props: DialogsPropsType) {
+function Dialogs() {
+  const dispatch = useDispatch()
+
+  const dialogsUsersData = useSelector(selectDialogsUsersData)
+  const messagesData = useSelector(selectMessagesData)
+
+  const sendMessage = (newMessageText: string) => {
+    dispatch(dialogsActions.sendMessage(newMessageText))
+  }
 
 //* Dialogs and messages mapping ====================================================================================>>
-  const dialogsElements = props.dialogsUsersData
+  const dialogsElements = dialogsUsersData
     .map((user: DialogUserType) => <Dialog key={user.id}
                                            id={user.id}
                                            name={user.name}
                                            avatar={user.avatar}/>)
-  const messagesElements = props.messagesData
+  const messagesElements = messagesData
     .map((messageEl: DialogMessageType) => <UserMessage key={messageEl.id}
                                                         message={messageEl.message}
                                                         myMessage={messageEl.myMessage}/>)
@@ -44,7 +48,7 @@ export function Dialogs(props: DialogsPropsType) {
           {messagesElements}
         </div>
         <div className={s.inputArea}>
-          <SendMessageForm sendMessage={props.sendMessage}/>
+          <SendMessageForm sendMessage={sendMessage}/>
         </div>
       </div>
     </div>
@@ -66,6 +70,7 @@ const SendMessageForm: React.FC<TSendMessageFormProps> = (({sendMessage}) => {
   })
 
   const onSubmit: SubmitHandler<TFormDataType> = (formData) => {
+    if (!formData.newMessageText) return
     sendMessage(formData.newMessageText)
     resetField('newMessageText')
   }
@@ -80,3 +85,5 @@ const SendMessageForm: React.FC<TSendMessageFormProps> = (({sendMessage}) => {
     </form>
   )
 })
+
+export default Dialogs

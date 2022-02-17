@@ -80,3 +80,4 @@
 62. Lesson 113: formik lib.
 63. Add react hook form. Add Joi validation to the project.
 64. Lessons 114-116: added react hooks to the project.
+65. Lesson 117: web sockets.

@@ -22,7 +22,7 @@ import WelcomePage from './components/Content/WelcomePage/WelcomePage';
 // import LoginContainer from './components/Login/LoginContainer';
 
 const LoginContainer = React.lazy(() => import('./components/Login/LoginContainer'))
-const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/DialogsContainer'))
+const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/Dialogs'))
 
 
 class App extends React.Component<AppPropsType> {
