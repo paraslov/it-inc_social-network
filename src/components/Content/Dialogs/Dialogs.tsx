@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
-import {DialogMessageType, dialogsActions, DialogUserType} from '../../../redux/dialogs_reducer';
+import {DialogUserType} from '../../../redux/dialogs_reducer';
 import {SubmitHandler, useForm} from "react-hook-form";
 import Joi from "@hapi/joi";
 import {joiResolver} from "@hookform/resolvers/joi";
 import s from './Dialogs.module.css'
-import {selectDialogsUsersData, selectMessagesData} from '../../../utils/selectors/dialogs_selectors'
-import {useDispatch, useSelector} from 'react-redux'
+import {selectDialogsUsersData} from '../../../utils/selectors/dialogs_selectors'
+import {useSelector} from 'react-redux'
+import {selectUserId} from '../../../utils/selectors/auth_selectors'
+
+const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 const schema = Joi.object({
   newMessageText: Joi.string()
@@ -17,15 +20,39 @@ const schema = Joi.object({
     })
 })
 
+export type TDialogMessage = {
+  message: string
+  photo: string
+  userId: number
+  userName: string
+}
+
 function Dialogs() {
-  const dispatch = useDispatch()
-
   const dialogsUsersData = useSelector(selectDialogsUsersData)
-  const messagesData = useSelector(selectMessagesData)
+  const userId = useSelector(selectUserId)
 
-  const sendMessage = (newMessageText: string) => {
-    dispatch(dialogsActions.sendMessage(newMessageText))
+  const [messages, setMessages] = useState<TDialogMessage[]>([])
+
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    // @ts-ignore
+    messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
   }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages]);
+
+  useEffect(() => {
+    const wsHandler = (e: MessageEvent<any>) => {
+      setMessages((messages) => [...messages, ...JSON.parse(e.data)])
+    }
+    ws.addEventListener('message', wsHandler)
+    return () => {
+      ws.removeEventListener('message', wsHandler)
+    }
+  }, [])
 
 //* Dialogs and messages mapping ====================================================================================>>
   const dialogsElements = dialogsUsersData
@@ -33,10 +60,13 @@ function Dialogs() {
                                            id={user.id}
                                            name={user.name}
                                            avatar={user.avatar}/>)
-  const messagesElements = messagesData
-    .map((messageEl: DialogMessageType) => <UserMessage key={messageEl.id}
+  const messagesElements = messages
+    .map((messageEl: TDialogMessage, i) => <UserMessage key={i}
                                                         message={messageEl.message}
-                                                        myMessage={messageEl.myMessage}/>)
+                                                        myMessage={messageEl.userId === userId}
+                                                        userName={messageEl.userName}
+                                                        userPhoto={messageEl.photo}
+    />)
 
   return (
     <div className={s.contentWrapper}>
@@ -46,9 +76,10 @@ function Dialogs() {
       <div className={s.messages}>
         <div className={s.userMessages}>
           {messagesElements}
+          <div ref={messagesEndRef}/>
         </div>
         <div className={s.inputArea}>
-          <SendMessageForm sendMessage={sendMessage}/>
+          <SendMessageForm/>
         </div>
       </div>
     </div>
@@ -60,24 +91,22 @@ type TFormDataType = {
   newMessageText: string
 }
 
-type TSendMessageFormProps = {
-  sendMessage: (newMessageText: string) => void
-}
+type TSendMessageFormProps = {}
 
-const SendMessageForm: React.FC<TSendMessageFormProps> = (({sendMessage}) => {
+const SendMessageForm: React.FC<TSendMessageFormProps> = (() => {
   const {register, handleSubmit, resetField, formState: {errors}} = useForm<TFormDataType>({
     resolver: joiResolver<any>(schema)
   })
 
   const onSubmit: SubmitHandler<TFormDataType> = (formData) => {
     if (!formData.newMessageText) return
-    sendMessage(formData.newMessageText)
+    ws.send(formData.newMessageText)
     resetField('newMessageText')
   }
 
   return (
     <form className={s.inputAreaContent} onSubmit={handleSubmit(onSubmit)}>
-      <textarea {...register('newMessageText')} placeholder={'new message'} />
+      <textarea {...register('newMessageText')} placeholder={'new message'}/>
       {errors.newMessageText && <p className={s.errors}>{errors.newMessageText?.message}</p>}
       <div>
         <button type={'submit'}>Send</button>

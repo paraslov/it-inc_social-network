@@ -35,7 +35,6 @@ export const Users = () => {
     term: StringParam,
     showFriends: BooleanParam,
   });
-  console.log(query)
 
   const pageSize = useSelector(selectPageSize)
   const users = useSelector(selectSavedUsers)

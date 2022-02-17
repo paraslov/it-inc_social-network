@@ -3,15 +3,20 @@ import React from 'react';
 
 export type UserMessagePropsType = {
     message: string
+    userName: string
+    userPhoto: string
     myMessage: boolean
 }
 
-export function UserMessage(props: UserMessagePropsType) {
+export const UserMessage: React.FC<UserMessagePropsType> = ({message, userName, userPhoto, myMessage}) => {
     return (
-        <div className={`${s.messageItem} ${!props.myMessage && s.collocutorMessage}`}>
-            {props.myMessage && <div className={s.messageCircle}/>}
-            <div className={s.messageText}>{props.message}</div>
-            {!props.myMessage && <div className={s.messageCircle}/>}
+        <div className={`${s.messageItem} ${myMessage && s.collocutorMessage}`}>
+            <div className={s.messageTextContainer}>
+                {!myMessage && <img alt='avatar' src={userPhoto} className={s.messageCircle}/>}
+                <span className={s.userName}>{userName}</span>
+                {myMessage && <img alt='avatar' src={userPhoto} className={s.messageCircle}/>}
+            </div>
+            <div className={s.messageText}>{message}</div>
         </div>
 
     )
