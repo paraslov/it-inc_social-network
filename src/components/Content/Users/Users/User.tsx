@@ -8,8 +8,8 @@ import defaultAva from '../../../../assets/img/ava/ava.png'
 type UserPropsType = {
     user: UserType
     followUnfollowInProgress: number[]
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+    followUser: (userId: number) => void
+    unFollowUser: (userId: number) => void
 }
 export const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
     return (
@@ -26,9 +26,9 @@ export const User: React.FC<UserPropsType> = ({user, ...restProps}) => {
                 <div className={s.btn}>
                     {user.followed
                         ? <button disabled={restProps.followUnfollowInProgress.some(id => id === user.id)}
-                                  onClick={() => restProps.unfollow(user.id)}>unfollow</button>
+                                  onClick={() => restProps.unFollowUser(user.id)}>unfollow</button>
                         : <button disabled={restProps.followUnfollowInProgress.some(id => id === user.id)}
-                                  onClick={() => restProps.follow(user.id)}>follow</button>}
+                                  onClick={() => restProps.followUser(user.id)}>follow</button>}
                 </div>
             </div>
             <div className={s.userInfo}>

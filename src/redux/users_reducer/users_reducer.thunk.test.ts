@@ -1,4 +1,4 @@
-import {follow, getUsers, setCurrentPageUsers, unfollow, usersActions} from './users_reducer'
+import {follow, getUsers, unfollow, usersActions} from './users_reducer'
 import {GetUserRequestType, usersAPI} from '../../api/usersAPI'
 import {APIResponseType, ResultCodesEnum} from '../../api/api'
 
@@ -50,24 +50,13 @@ test('unfollow success thunk test', async () => {
     expect(dispatchMock).toHaveBeenNthCalledWith(3, usersActions.setFollowUnfollowInProgress(false, 1))
 })
 
-test('getUsers success thunk test', async () => {
-    const thunk = getUsers(1, 10)
-
-    await thunk(dispatchMock, getStateMock, {})
-    expect(dispatchMock).toBeCalledTimes(4)
-    expect(dispatchMock).toHaveBeenNthCalledWith(1, usersActions.setIsFetching(true))
-    expect(dispatchMock).toHaveBeenNthCalledWith(2, usersActions.setUsers(getUsersResult.items))
-    expect(dispatchMock).toHaveBeenNthCalledWith(3, usersActions.setTotalUsersCount(getUsersResult.totalCount))
-    expect(dispatchMock).toHaveBeenNthCalledWith(4, usersActions.setIsFetching(false))
-})
-
-test('setCurrentPageUsers success thunk test', async () => {
-    const thunk = setCurrentPageUsers(1, 10)
-
-    await thunk(dispatchMock, getStateMock, {})
-    expect(dispatchMock).toBeCalledTimes(4)
-    expect(dispatchMock).toHaveBeenNthCalledWith(1, usersActions.setIsFetching(true))
-    expect(dispatchMock).toHaveBeenNthCalledWith(2, usersActions.setCurrentPage(1))
-    expect(dispatchMock).toHaveBeenNthCalledWith(3, usersActions.setUsers(getUsersResult.items))
-    expect(dispatchMock).toHaveBeenNthCalledWith(4, usersActions.setIsFetching(false))
-})
+// test('getUsers success thunk test', async () => {
+//     const thunk = getUsers(1, 10)
+//
+//     await thunk(dispatchMock, getStateMock, {})
+//     expect(dispatchMock).toBeCalledTimes(4)
+//     expect(dispatchMock).toHaveBeenNthCalledWith(1, usersActions.setIsFetching(true))
+//     expect(dispatchMock).toHaveBeenNthCalledWith(2, usersActions.setUsers(getUsersResult.items))
+//     expect(dispatchMock).toHaveBeenNthCalledWith(3, usersActions.setTotalUsersCount(getUsersResult.totalCount))
+//     expect(dispatchMock).toHaveBeenNthCalledWith(4, usersActions.setIsFetching(false))
+// })

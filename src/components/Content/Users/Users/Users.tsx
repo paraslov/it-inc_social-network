@@ -1,69 +1,113 @@
 import React, {useEffect, useState} from 'react'
-import {TSetGetRequest, UserType} from '../../../../redux/users_reducer/users_reducer'
+import {follow, getUsers, unfollow, usersActions,} from '../../../../redux/users_reducer/users_reducer'
 import {User} from './User'
 import {Paginator} from '../../../Common/Paginator/Paginator'
 import {debounce} from "lodash";
 import s from '../Users.module.css'
+import {useDispatch, useSelector} from "react-redux";
+import {
+  selectCurrentPage,
+  selectFollowUnfollowInProgress,
+  selectPageSize,
+  selectSavedUsers,
+  selectShowFriends,
+  selectTerm,
+  selectTotalUsersCount
+} from "../../../../utils/selectors/users_selectors";
+import {Dispatch} from "redux";
+import {BooleanParam, NumberParam, StringParam, useQueryParams} from 'use-query-params'
 
 //* Users functional component =======================================================================================>>
-type UsersPropsType = {
-  users: UserType[]
-  totalUsersCount: number
-  pageSize: number
-  currentPage: number
-  term: string
-  showFriends: null | true
-  followUnfollowInProgress: number[]
-  onPageNumberClick: (pageNumber: number) => void
-  follow: (userId: number) => void
-  unfollow: (userId: number) => void
-  setRequestParams: (payload: TSetGetRequest) => void
-}
 
-const debouncedFunction = debounce((currentPage: any, pageSize: any, value: any, showFriends: any, func: any) => {
-    func({
-    pageNumber: 1,
+const debouncedFunction = debounce((currentPage: number, pageSize: number, value: string, showFriends: true | null, dispatch: Dispatch) => {
+  dispatch(usersActions.setGetUsersRequestParams({
+    currentPage: currentPage,
     pageSize: pageSize,
     term: value,
-    showFriends: showFriends})
+    showFriends: showFriends
+  }))
 }, 500)
 
-export function Users(props: UsersPropsType) {
-  const [query, setQuery] = useState(props.term)
+export const Users = () => {
+  const dispatch = useDispatch()
+  const [query, setQuery] = useQueryParams({
+    page: NumberParam,
+    term: StringParam,
+    showFriends: BooleanParam,
+  });
+  console.log(query)
+
+  const pageSize = useSelector(selectPageSize)
+  const users = useSelector(selectSavedUsers)
+  const currentPage = useSelector(selectCurrentPage)
+  const totalUsersCount = useSelector(selectTotalUsersCount)
+  const term = useSelector(selectTerm)
+  const showFriends = useSelector(selectShowFriends)
+  const followUnfollowInProgress = useSelector(selectFollowUnfollowInProgress)
+
+  const [filter, setFilter] = useState(term || query.term || '')
 
   useEffect(() => {
-      debouncedFunction(props.currentPage, props.pageSize, query, props.showFriends, props.setRequestParams)
+    dispatch(usersActions.setGetUsersRequestParams({
+      currentPage: query.page || 1,
+      pageSize: pageSize,
+      term: query.term || undefined,
+      showFriends: query.showFriends || showFriends || undefined,
+    }))
+  }, [])
+
+  useEffect(() => {
+    const actualPage = currentPage === 1 ? query.page === 1 ? undefined : query.page : currentPage
+      setQuery({
+        page: actualPage,
+        term: filter || undefined,
+        showFriends: showFriends || undefined
+      })
+      debouncedFunction(actualPage || 1, pageSize, filter, showFriends, dispatch)
     }
-  , [props.currentPage, props.pageSize, query, props.showFriends, props.setRequestParams])
+    , [currentPage, pageSize, filter, showFriends, dispatch])
+
+  const onPageNumberClick = (pageNumber: number) => {
+    dispatch(getUsers(pageNumber, pageSize))
+  }
+
+  const followUser = (userId: number) => {
+    dispatch(follow(userId))
+  }
+
+  const unFollowUser = (userId: number) => {
+    dispatch(unfollow(userId))
+  }
 
   const onBtnClick = () => {
-    props.setRequestParams({
-      pageNumber: 1,
-      pageSize: props.pageSize,
-      term: props.term,
-      showFriends: props.showFriends ? null : true})
+    dispatch(usersActions.setGetUsersRequestParams({
+      currentPage: 1,
+      pageSize: pageSize,
+      term: term,
+      showFriends: showFriends ? null : true
+    }))
   }
 
   return (
     <div>
       <div className={s.controls}>
-        <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
-                   currentPage={props.currentPage} onPageNumberClick={props.onPageNumberClick}/>
+        <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize}
+                   currentPage={currentPage} onPageNumberClick={onPageNumberClick}/>
         <div>
           <span>Search: </span>
-          <input type="text" value={query} onChange={(e) => setQuery(e.currentTarget.value)} />
+          <input type="text" value={filter} onChange={(e) => setFilter(e.currentTarget.value)}/>
           <button onClick={onBtnClick} className={s.friendsBtn}>
-            {props.showFriends ? 'Show All' : 'Show Friends'}
+            {showFriends ? 'Show All' : 'Show Friends'}
           </button>
         </div>
       </div>
 
       <div>
-        {props.users.map((u) => <User key={u.id}
-                                      user={u}
-                                      followUnfollowInProgress={props.followUnfollowInProgress}
-                                      follow={props.follow}
-                                      unfollow={props.unfollow}/>)}
+        {users.map((u) => <User key={u.id}
+                                user={u}
+                                followUnfollowInProgress={followUnfollowInProgress}
+                                followUser={followUser}
+                                unFollowUser={unFollowUser}/>)}
       </div>
     </div>
   )

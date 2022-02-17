@@ -40,7 +40,7 @@
     Now axios get request sending at constructor call.
 28. Lesson 54: Class components life cycle. componentDidMount() now used to setUsers.
 29. Lesson 55: Pagination. Get parameters/query string. Work with pageSize, currentPage, totalUsersCount.
-30. Lesson 56: Creating UsersContainer.tsx with API queries and HOC connect. And functional component Users.tsx as
+30. Lesson 56: Creating UsersPage.tsx with API queries and HOC connect. And functional component Users.tsx as
     presentational component.
 31. Lesson 57: Preloader component created. Preloader showing when fetching data.
 32. Lesson 58: UsersContainer connect HOC now use object instead of mapDispatchToProps.
@@ -79,3 +79,4 @@
 61. Lesson 112: thunk test.
 62. Lesson 113: formik lib.
 63. Add react hook form. Add Joi validation to the project.
+64. Lessons 114-116: added react hooks to the project.
