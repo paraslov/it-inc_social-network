@@ -2,23 +2,11 @@ import React, {useEffect, useRef, useState} from 'react'
 import {Dialog} from './Dialog/Dialog';
 import {UserMessage} from './Message/UserMessage';
 import {DialogUserType} from '../../../redux/dialogs_reducer';
-import {SubmitHandler, useForm} from "react-hook-form";
-import Joi from "@hapi/joi";
-import {joiResolver} from "@hookform/resolvers/joi";
 import s from './Dialogs.module.css'
 import {selectDialogsUsersData} from '../../../utils/selectors/dialogs_selectors'
 import {useSelector} from 'react-redux'
 import {selectUserId} from '../../../utils/selectors/auth_selectors'
-
-const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-
-const schema = Joi.object({
-  newMessageText: Joi.string()
-    .max(200)
-    .messages({
-      'string.max': 'Message must be less than 200 symbols',
-    })
-})
+import {SendMessageForm} from './SendMessageForm/SendMessageForm'
 
 export type TDialogMessage = {
   message: string
@@ -32,12 +20,13 @@ function Dialogs() {
   const userId = useSelector(selectUserId)
 
   const [messages, setMessages] = useState<TDialogMessage[]>([])
+  const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
 
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
     // @ts-ignore
-    messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
+    messagesEndRef.current?.scrollIntoView()
   }
 
   useEffect(() => {
@@ -45,14 +34,37 @@ function Dialogs() {
   }, [messages]);
 
   useEffect(() => {
+    let ws: WebSocket
+    const onWsCloseHandler = () => {
+      console.log('CLOSE!!!')
+      setWsChannel(null)
+      setTimeout(createWebSocket, 3000)
+    }
+
+    function createWebSocket() {
+      ws?.removeEventListener('close', onWsCloseHandler)
+      ws?.close()
+      ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+      ws.addEventListener('close', onWsCloseHandler)
+      setWsChannel(ws)
+    }
+    createWebSocket();
+
+    return () => {
+      ws.removeEventListener('close', onWsCloseHandler)
+      ws.close()
+    }
+  }, [])
+
+  useEffect(() => {
     const wsHandler = (e: MessageEvent<any>) => {
       setMessages((messages) => [...messages, ...JSON.parse(e.data)])
     }
-    ws.addEventListener('message', wsHandler)
+    wsChannel?.addEventListener('message', wsHandler)
     return () => {
-      ws.removeEventListener('message', wsHandler)
+      wsChannel?.removeEventListener('message', wsHandler)
     }
-  }, [])
+  }, [wsChannel])
 
 //* Dialogs and messages mapping ====================================================================================>>
   const dialogsElements = dialogsUsersData
@@ -79,40 +91,11 @@ function Dialogs() {
           <div ref={messagesEndRef}/>
         </div>
         <div className={s.inputArea}>
-          <SendMessageForm/>
+          <SendMessageForm wsChannel={wsChannel}/>
         </div>
       </div>
     </div>
   )
 }
-
-//* SendMessageForm component ========================================================================================>>
-type TFormDataType = {
-  newMessageText: string
-}
-
-type TSendMessageFormProps = {}
-
-const SendMessageForm: React.FC<TSendMessageFormProps> = (() => {
-  const {register, handleSubmit, resetField, formState: {errors}} = useForm<TFormDataType>({
-    resolver: joiResolver<any>(schema)
-  })
-
-  const onSubmit: SubmitHandler<TFormDataType> = (formData) => {
-    if (!formData.newMessageText) return
-    ws.send(formData.newMessageText)
-    resetField('newMessageText')
-  }
-
-  return (
-    <form className={s.inputAreaContent} onSubmit={handleSubmit(onSubmit)}>
-      <textarea {...register('newMessageText')} placeholder={'new message'}/>
-      {errors.newMessageText && <p className={s.errors}>{errors.newMessageText?.message}</p>}
-      <div>
-        <button type={'submit'}>Send</button>
-      </div>
-    </form>
-  )
-})
 
 export default Dialogs

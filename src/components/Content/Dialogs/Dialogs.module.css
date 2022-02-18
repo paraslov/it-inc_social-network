@@ -22,13 +22,15 @@
 }
 
 .userMessages {
-    width: 100%;
+    width: 70%;
     overflow-y: auto;
-    height: 30vh;
+    height: 35vh;
+    border: 1px red solid;
+    border-radius: 10px;
 }
 
 .inputArea {
-    margin-left: 20%;
+    margin-left: 17%;
 }
 
 .dialogItem {
@@ -67,7 +69,7 @@
 
 .messageItem.collocutorMessage {
     align-items: end;
-    margin-right: 40%;
+    margin-right: 5%;
 }
 
 .messageCircle {
