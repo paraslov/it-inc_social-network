@@ -5,6 +5,7 @@ import {usersReducer} from './users_reducer/users_reducer';
 import {authReducer} from './auth_reducer';
 import ThunkMiddleware, {ThunkAction} from 'redux-thunk';
 import {appReducer} from './app_reducer';
+import {chatReducer} from './chat_reducer'
 
 
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     app: appReducer,
+    chat: chatReducer,
 })
 
 //* creating state type ===============================================================================================>
